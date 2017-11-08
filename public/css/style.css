@@ -43,30 +43,6 @@ a, area {
     blr: expression(this.onFocus=this.blur())
 }
 
-float-right {
-    float: right;
-}
-
-.text-align-left {
-    text-align: left;
-}
-
-.text-align-right {
-    text-align: right;
-}
-
-.margin-left-10 {
-    margin-left: 10px;
-}
-
-.margin-right-10 {
-    margin-right: 10px;
-}
-
-.margin-right-16 {
-    margin-right: 16px;
-}
-
 .header {
     line-height: 64px;
     padding: 0 24px 0 24px;
@@ -115,12 +91,22 @@ float-right {
     box-sizing: border-box;
 }
 
-.page-header-title {
+.page-header-body {
+    margin: 10px 0px;
+}
+
+.page-header-body-title {
     font-size: 20px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.85);
-    height: 50px;
-    line-height: 50px;
+}
+
+.page-header-body-button {
+    text-align: right;
+}
+
+.page-header-body-button-left {
+    margin-right: 8px;
 }
 
 .page-header-description {
@@ -128,7 +114,7 @@ float-right {
 }
 
 .page-content {
-    margin: 24px 24px 0;
+    margin: 24px;
     padding: 24px 24px 3px 24px;
     box-sizing: border-box;
     background-color: #ffffff;

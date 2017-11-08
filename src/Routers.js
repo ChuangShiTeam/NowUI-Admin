@@ -8,7 +8,8 @@ import dashboard from './store/dashboard';
 
 import Index from './view/Index';
 import DashboardIndex from './view/dashboard/Index';
-import DashboardDetail from './view/dashboard/Detail';
+import ProductIndex from './view/product/Index';
+import ProductDetail from './view/product/Detail';
 
 const store = createStore(
     combineReducers({
@@ -25,10 +26,11 @@ const Routers = () =>
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" onEnter={handleEnter}>
-                <IndexRedirect to="/dashboard/index"/>
+                <IndexRedirect to="/product/index"/>
                 <Route path="/index" component={Index}>
                     <Route path="/dashboard/index" component={DashboardIndex}/>
-                    <Route path="/dashboard/detail" component={DashboardDetail}/>
+                    <Route path="/product/index" component={ProductIndex}/>
+                    <Route path="/product/detail" component={ProductDetail}/>
                 </Route>
             </Route>
         </Router>

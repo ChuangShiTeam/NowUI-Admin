@@ -7,7 +7,12 @@ class Index extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            is_load: false,
+            collapsed: false,
+            openKeys: [],
+            selectedKeys: [],
+        }
     }
 
     componentDidMount() {
@@ -32,7 +37,7 @@ class Index extends Component {
                     <Sider
                         trigger={null}
                         collapsible
-                        collapsed={false}
+                        collapsed={this.state.collapsed}
                         breakpoint="md"
                         onCollapse={null}
                         width={256}

@@ -1,4 +1,4 @@
-let events = {};
+var events = {};
 
 function on(name, self, callback) {
     let tuple = [self, callback];
