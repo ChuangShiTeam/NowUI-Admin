@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {Row, Col, Breadcrumb, Form, Select, Input, Button} from 'antd';
 
+import InputText from '../../component/InputText';
+
 class Detail extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +29,18 @@ class Detail extends Component {
     }
 
     handleSubmit() {
-        this.props.history.goBack();
+        this.props.form.validateFieldsAndScroll((errors, values) => {
+            if (!!errors) {
+                return;
+            }
+
+            console.log(values);
+        });
+
+        // this.props.form.setFieldsValue({
+        //     user_account: '123',
+        //     user_password: '456',
+        // });
     }
 
     render() {
@@ -57,36 +70,11 @@ class Detail extends Component {
                 </div>
                 <div className="page-content">
                     <Form onSubmit={this.handleSubmit}>
+                        <InputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
+                        <InputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
                         <FormItem
-                            label="Note"
-                            labelCol={{ span: 4 }}
-                            wrapperCol={{ span: 8 }}
-                        >
-                            {getFieldDecorator('note', {
-                                rules: [{ required: true, message: 'Please input your note!' }],
-                            })(
-                                <Input />
-                            )}
-                        </FormItem>
-                        <FormItem
-                            label="Gender"
-                            labelCol={{ span: 4 }}
-                            wrapperCol={{ span: 8 }}
-                        >
-                            {getFieldDecorator('gender', {
-                                rules: [{ required: true, message: 'Please select your gender!' }],
-                            })(
-                                <Select
-                                    placeholder="Select a option and change input text above"
-                                    onChange={this.handleSelectChange}
-                                >
-                                    <Option value="male">male</Option>
-                                    <Option value="female">female</Option>
-                                </Select>
-                            )}
-                        </FormItem>
-                        <FormItem
-                            wrapperCol={{ span: 8, offset: 4 }}
+                            wrapperCol={{span: 8, offset: 4}}
+                            className="form-item"
                         >
                             <Button type="primary" onClick={this.handleSubmit.bind(this)}>
                                 提交

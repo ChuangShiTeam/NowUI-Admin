@@ -115,7 +115,11 @@ a, area {
 
 .page-content {
     margin: 24px;
-    padding: 24px 24px 3px 24px;
+    padding: 25px 24px 1px 24px;
     box-sizing: border-box;
     background-color: #ffffff;
+}
+
+.form-item {
+    margin-bottom: 20px !important;
 }
