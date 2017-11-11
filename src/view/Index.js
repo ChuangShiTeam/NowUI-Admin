@@ -15,6 +15,7 @@ class Index extends Component {
         }
     }
 
+
     componentDidMount() {
 
     }
@@ -26,6 +27,11 @@ class Index extends Component {
     componentWillUnmount() {
 
     }
+    toggleCollapsed = () => {
+        this.setState({
+            collapsed: !this.state.collapsed,
+        });
+    }
 
     render() {
         const {Header, Footer, Sider, Content} = Layout;
@@ -33,13 +39,12 @@ class Index extends Component {
 
         return (
             <Layout>
-                <Sider width={256}>
-                    <Sider
+                <Sider
                         trigger={null}
                         collapsible
                         collapsed={this.state.collapsed}
                         breakpoint="md"
-                        onCollapse={null}
+                        onCollapse={this.toggleCollapsed}
                         width={256}
                     >
                         <div className="logo">
@@ -50,6 +55,7 @@ class Index extends Component {
                         <Menu
                             theme="dark"
                             mode="inline"
+                            inlineCollapsed={this.state.collapsed}
                             defaultSelectedKeys={['1']}
                             style={{height: document.documentElement.clientHeight - 18}}
                         >
@@ -78,12 +84,12 @@ class Index extends Component {
                             </SubMenu>
                         </Menu>
                     </Sider>
-                </Sider>
                 <Layout>
                     <Header className="header">
                         <Icon
                             className="trigger text-align-left"
-                            type={"menu-fold"}
+                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                            onClick={this.toggleCollapsed}
                         />
                         <div className="header-right">
                             <Icon type="poweroff" className="logout"/>
