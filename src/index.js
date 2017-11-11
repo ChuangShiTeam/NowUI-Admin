@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routers from './Routers';
 
-import 'antd/dist/antd.min.css';
-import '../public/css/style.css'
+import './css/antd.min.css';
+import './css/style.css'
 
 document.getElementById("loading").remove();
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Button, Table, Icon} from 'antd';
+import {Row, Col, Breadcrumb, Button, Table} from 'antd';
 
 class Index extends Component {
     constructor(props) {
@@ -33,8 +33,7 @@ class Index extends Component {
         const columns = [{
             title: 'Name',
             dataIndex: 'name',
-            key: 'name',
-            render: text => <a href="#">{text}</a>,
+            key: 'name'
         }, {
             title: 'Age',
             dataIndex: 'age',
@@ -45,18 +44,7 @@ class Index extends Component {
             key: 'address',
         }, {
             title: 'Action',
-            key: 'action',
-            render: (text, record) => (
-                <span>
-                  <a href="#">Action 一 {record.name}</a>
-                  <span className="ant-divider"/>
-                  <a href="#">Delete</a>
-                  <span className="ant-divider"/>
-                  <a href="#" className="ant-dropdown-link">
-                    More actions <Icon type="down"/>
-                  </a>
-                </span>
-            ),
+            key: 'action'
         }];
 
         const data = [{

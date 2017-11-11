@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Form, Select, Input, Button} from 'antd';
+import {Row, Col, Breadcrumb, Form, Button} from 'antd';
 
-import InputText from '../../component/InputText';
+import FormItemInputText from '../../component/FormItemInputText';
 
 class Detail extends Component {
     constructor(props) {
@@ -46,7 +46,6 @@ class Detail extends Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         const FormItem = Form.Item;
-        const Option = Select.Option;
 
         return (
             <div>
@@ -70,8 +69,8 @@ class Detail extends Component {
                 </div>
                 <div className="page-content">
                     <Form onSubmit={this.handleSubmit}>
-                        <InputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
-                        <InputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
+                        <FormItemInputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
+                        <FormItemInputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
                         <FormItem
                             wrapperCol={{span: 8, offset: 4}}
                             className="form-item"

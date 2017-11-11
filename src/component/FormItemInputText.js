@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Form, Input} from 'antd';
 
-class InputText extends Component {
+class FormItemInputText extends Component {
     constructor(props) {
         super(props);
 
@@ -26,8 +27,8 @@ class InputText extends Component {
         return (
             <FormItem
                 label={this.props.label}
-                labelCol={{sm: {span: 6}, md: {span: 5}, md: {span: 4}, lg: {span: 4}, xl: {span: 4}}}
-                wrapperCol={{sm: {span: 18}, md: {span: 18}, md: {span: 12}, lg: {span: 12}, xl: {span: 12}}}
+                labelCol={{xs: {span: 24}, sm: {span: 6}, md: {span: 6}, lg: {span: 4}, xl: {span: 4}}}
+                wrapperCol={{xs: {span: 24}, sm: {span: 14}, md: {span: 14}, lg: {span: 12}, xl: {span: 12}}}
                 className="form-item"
             >
                 {this.props.getFieldDecorator(this.props.id, {
@@ -40,20 +41,20 @@ class InputText extends Component {
     }
 }
 
-InputText.propTypes = {
-    getFieldDecorator: React.PropTypes.func.isRequired,
-    id: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
-    placeholder: React.PropTypes.string,
-    required: React.PropTypes.bool,
-    message: React.PropTypes.string,
-    onPressEnter: React.PropTypes.func
+FormItemInputText.propTypes = {
+    getFieldDecorator: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    required: PropTypes.bool,
+    message: PropTypes.string,
+    onPressEnter: PropTypes.func
 };
 
-InputText.defaultProps = {
+FormItemInputText.defaultProps = {
     placeholder: '',
     required: false,
     message: ''
 };
 
-export default InputText
+export default FormItemInputText
