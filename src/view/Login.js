@@ -87,7 +87,7 @@ class Login extends Component {
                                     }],
                                     initialValue: 'admin'
                                 })(
-                                    <Input type="password" placeholder={'密码'} onPressEnter={this.handleSubmit.bind(this)}/>
+                                    <Input type="password" placeholder={'用户密码'} onPressEnter={this.handleSubmit.bind(this)}/>
                                 )
                             }
                         </FormItem>
