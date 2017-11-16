@@ -59,10 +59,10 @@ class Index extends Component {
                             defaultSelectedKeys={['1']}
                             style={{height: document.documentElement.clientHeight - 18}}
                         >
-                            <SubMenu key="sub1" title={<span><Icon type="user" />商品管理</span>}>
-                                <Menu.Item key="1">商品信息</Menu.Item>
-                                <Menu.Item key="2">品牌信息</Menu.Item>
-                                <Menu.Item key="3">商品分类信息</Menu.Item>
+                            <SubMenu key="sub1" title={<span><Icon type="user" />应用管理</span>}>
+                                <Menu.Item key="1"><Link to={'/app/index'}>应用信息</Link></Menu.Item>
+                                <Menu.Item key="2"><Link to={'/app/config/category/index'}>应用配置分类信息</Link></Menu.Item>
+                                <Menu.Item key="3"><Link to={'/app/config/index'}>应用配置信息</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub2" title={<span><Icon type="laptop" />订单管理</span>}>
                                 <Menu.Item key="5">option5</Menu.Item>

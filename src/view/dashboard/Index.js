@@ -94,6 +94,6 @@ class Index extends Component {
 
 export default connect((state) => {
     return {
-        index: state.index
+        dashboard: state.dashboard
     }
 })(Index);
