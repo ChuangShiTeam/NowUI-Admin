@@ -1,17 +1,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Button, Table} from 'antd';
+import {Row, Col, Breadcrumb, Button, Table, Popconfirm} from 'antd';
+
+import http from '../../common/http';
 
 class Index extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {}
+		this.state = {
+			is_load: false,
+			page_index: 0,
+			page_size: 5,
+			total: 0,
+			list: [],
+
+		}
 	}
 
 	componentDidMount() {
-
+		this.handleLoad();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -22,48 +31,96 @@ class Index extends Component {
 
 	}
 
+	handleLoad() {
+		this.setState({
+			is_load: true
+		});
+        http.request({
+            url: '/admin/app/config/category/list',
+            data: {
+				page_index: this.state.page_index,
+				page_size: this.state.page_size,
+				config_category_name: '',
+				config_category_code: ''
+			},
+            success: function (data) {
+                this.setState({
+					total: data.total,
+					list: data.list
+				})
+            }.bind(this),
+            complete: function () {
+				this.setState({
+					is_load: false
+				})
+            }.bind(this)
+        });
+	}
+
 	handleAdd() {
 		this.props.history.push({
-			pathname: '/app_config/detail',
+			pathname: '/app/config/category/detail',
 			query: {}
 		});
 	}
 
+    handleDelete = (config_category_id) => {
+
+	};
+
+    handleEdit = (config_category_id) => {
+
+	};
+
+    handleChangeIndex(page, pageSize) {
+    	this.setState({
+			page_index: page
+		}, function() {
+    		this.handload();
+		}.bind(this))
+	}
+
 	render() {
-		console.log(this.props.app_config_category.test);
+
 		const columns = [{
-			title: 'Name',
-			dataIndex: 'name',
-			key: 'name'
+			title: '名称',
+			dataIndex: 'config_category_name',
+			key: 'config_category_codeconfig_category_code'
 		}, {
-			title: 'Age',
-			dataIndex: 'age',
-			key: 'age',
+			title: '编码',
+			dataIndex: 'config_category_code',
+			key: 'config_category_code',
+            render: (text, record) => {
+				return (
+					<span style={{color: 'red', fontSize: '30px'}}>{record.config_category_code + record.config_category_code}</span>
+				)
+            }
 		}, {
-			title: 'Address',
-			dataIndex: 'address',
-			key: 'address',
-		}, {
-			title: 'Action',
-			key: 'action'
+			title: '操作',
+			key: 'action',
+			render: (text, record) => {
+                return (
+					<span>
+						<a onClick={this.handleEdit(record.config_category_id)}>修改</a>
+						<span className="divider"/>
+						<Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.config_category_id)}>
+							<a>删除</a>
+						</Popconfirm>
+					</span>
+                );
+            },
 		}];
 
-		const data = [{
-			key: '1',
-			name: 'John Brown',
-			age: 32,
-			address: 'New York No. 1 Lake Park',
-		}, {
-			key: '2',
-			name: 'Jim Green',
-			age: 42,
-			address: 'London No. 1 Lake Park',
-		}, {
-			key: '3',
-			name: 'Joe Black',
-			age: 32,
-			address: 'Sidney No. 1 Lake Park',
-		}];
+        const pagination = {
+            size: 'defalut',
+            total: this.state.total,
+            showTotal: function (total, range) {
+                return '总共' + total + '条数据';
+            },
+            current: this.state.page_index,
+            pageSize: this.state.page_size,
+            onChange: this.handleChangeIndex.bind(this)
+        };
 
 		return (
 			<div>
@@ -72,10 +129,11 @@ class Index extends Component {
 						<Col span={18}>
 							<Breadcrumb>
 								<Breadcrumb.Item><Link to="">首页</Link></Breadcrumb.Item>
-								<Breadcrumb.Item><Link to="">商品管理</Link></Breadcrumb.Item>
+								<Breadcrumb.Item><Link to="">应用管理</Link></Breadcrumb.Item>
+								<Breadcrumb.Item><Link to="">应用配置分类</Link></Breadcrumb.Item>
 							</Breadcrumb>
 							<div className="page-header-title">
-								商品信息
+								应用配置分类信息
 							</div>
 							<div className="page-header-description">将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。</div>
 						</Col>
@@ -86,7 +144,7 @@ class Index extends Component {
 					</Row>
 				</div>
 				<div className="page-content">
-					<Table columns={columns} dataSource={data} />
+					<Table loading={this.state.is_load} columns={columns} dataSource={this.state.list} />
 				</div>
 			</div>
 		);
