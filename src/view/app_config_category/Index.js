@@ -59,16 +59,18 @@ class Index extends Component {
 
 	handleAdd() {
 		this.props.history.push({
-			pathname: '/app/config/category/detail',
-			query: {}
+			pathname: '/app/config/category/add',
 		});
-	}
-
-    handleDelete = (config_category_id) => {
-
 	};
 
-    handleEdit = (config_category_id) => {
+    handleEdit(config_category_id) {
+        this.props.history.push({
+            pathname: '/app/config/category/edit/' + config_category_id,
+            query: {}
+        });
+    };
+
+    handleDelete(config_category_id) {
 
 	};
 
@@ -76,7 +78,7 @@ class Index extends Component {
     	this.setState({
 			page_index: page
 		}, function() {
-    		this.handload();
+    		this.handleLoad();
 		}.bind(this))
 	}
 
@@ -89,21 +91,16 @@ class Index extends Component {
 		}, {
 			title: '编码',
 			dataIndex: 'config_category_code',
-			key: 'config_category_code',
-            render: (text, record) => {
-				return (
-					<span style={{color: 'red', fontSize: '30px'}}>{record.config_category_code + record.config_category_code}</span>
-				)
-            }
+			key: 'config_category_code'
 		}, {
 			title: '操作',
 			key: 'action',
 			render: (text, record) => {
                 return (
 					<span>
-						<a onClick={this.handleEdit(record.config_category_id)}>修改</a>
+						<a onClick={this.handleEdit.bind(this, record.config_category_id)}>修改</a>
 						<span className="divider"/>
-						<Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.config_category_id)}>
+						<Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete.bind(this, record.config_category_id)}>
 							<a>删除</a>
 						</Popconfirm>
 					</span>
@@ -135,7 +132,7 @@ class Index extends Component {
 							<div className="page-header-title">
 								应用配置分类信息
 							</div>
-							<div className="page-header-description">将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。</div>
+							<div className="page-header-description"></div>
 						</Col>
 						<Col span={6} className="text-align-right">
 							<Button className="margin-right-10">刷新</Button>
@@ -144,7 +141,7 @@ class Index extends Component {
 					</Row>
 				</div>
 				<div className="page-content">
-					<Table loading={this.state.is_load} columns={columns} dataSource={this.state.list} />
+					<Table loading={this.state.is_load} pagination={pagination} columns={columns} dataSource={this.state.list} />
 				</div>
 			</div>
 		);

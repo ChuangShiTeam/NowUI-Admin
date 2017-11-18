@@ -48,7 +48,8 @@ const Routers = () =>
                     <Route path="/app/config/index" component={AppConfigIndex}/>
                     <Route path="/app/config/detail" component={AppConfigDetail}/>
                     <Route path="/app/config/category/index" component={AppConfigCategoryIndex}/>
-                    <Route path="/app/config/category/detail" component={AppConfigCategoryDetail}/>
+                    <Route path="/app/config/category/edit/:config_category_id" component={AppConfigCategoryDetail}/>
+                    <Route path="/app/config/category/add" component={AppConfigCategoryDetail}/>
                 </Route>
             </Route>
         </Router>
