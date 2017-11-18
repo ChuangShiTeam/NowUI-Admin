@@ -49,7 +49,7 @@ class Index extends Component {
                     >
                         <div className="logo">
                             <Link to="/">
-                                上海星销信息技术
+                                <span>上海星销信息技术</span>
                             </Link>
                         </div>
                         <Menu
@@ -59,28 +59,28 @@ class Index extends Component {
                             defaultSelectedKeys={['1']}
                             style={{height: document.documentElement.clientHeight - 18}}
                         >
-                            <SubMenu key="sub1" title={<span><Icon type="user" />应用管理</span>}>
+                            <SubMenu key="sub1" title={<span><Icon type="user" /><span>应用管理</span></span>}>
                                 <Menu.Item key="1"><Link to={'/app/index'}>应用信息</Link></Menu.Item>
                                 <Menu.Item key="2"><Link to={'/app/config/category/index'}>应用配置分类信息</Link></Menu.Item>
                                 <Menu.Item key="3"><Link to={'/app/config/index'}>应用配置信息</Link></Menu.Item>
                             </SubMenu>
-                            <SubMenu key="sub2" title={<span><Icon type="laptop" />订单管理</span>}>
+                            <SubMenu key="sub2" title={<span><Icon type="laptop" /><span>订单管理</span></span>}>
                                 <Menu.Item key="5">option5</Menu.Item>
                                 <Menu.Item key="6">option6</Menu.Item>
                                 <Menu.Item key="7">option7</Menu.Item>
                                 <Menu.Item key="8">option8</Menu.Item>
                             </SubMenu>
-                            <SubMenu key="sub3" title={<span><Icon type="notification" />快递单管理</span>}>
+                            <SubMenu key="sub3" title={<span><Icon type="notification" /><span>快递单管理</span></span>}>
                                 <Menu.Item key="9">option9</Menu.Item>
                                 <Menu.Item key="10">option10</Menu.Item>
                                 <Menu.Item key="11">option11</Menu.Item>
                                 <Menu.Item key="12">option12</Menu.Item>
                             </SubMenu>
-                            <SubMenu key="sub4" title={<span><Icon type="notification" />仓库管理</span>}>
+                            <SubMenu key="sub4" title={<span><Icon type="notification" /><span>仓库管理</span></span>}>
                             </SubMenu>
-                            <SubMenu key="sub5" title={<span><Icon type="notification" />财务管理</span>}>
+                            <SubMenu key="sub5" title={<span><Icon type="notification" /><span>财务管理</span></span>}>
                             </SubMenu>
-                            <SubMenu key="sub6" title={<span><Icon type="notification" />会员管理</span>}>
+                            <SubMenu key="sub6" title={<span><Icon type="notification" /><span>会员管理</span></span>}>
                             </SubMenu>
                         </Menu>
                     </Sider>
