@@ -43,6 +43,10 @@ a, area {
     blr: expression(this.onFocus=this.blur())
 }
 
+.margin-right-8{
+    margin-right: 8px;
+}
+
 .header {
     line-height: 64px;
     padding: 0 24px 0 24px;

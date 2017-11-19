@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Button, Table, Popconfirm} from 'antd';
+import {Row, Col, Breadcrumb, Button, Table, Popconfirm, message} from 'antd';
 
 import http from '../../common/http';
 
@@ -70,8 +70,28 @@ class Index extends Component {
         });
     };
 
-    handleDelete(config_category_id) {
+    handleDelete(config_category_id, system_version) {
+        this.setState({
+            is_load: true
+        });
 
+        http.request({
+            url: '/admin/app/config/category/delete',
+            data: {
+                config_category_id: config_category_id,
+                system_version: system_version
+            },
+            success: function (data) {
+                message.success('删除成功');
+
+                this.handleLoad();
+            }.bind(this),
+            complete: function () {
+                this.setState({
+                    is_load: false
+                });
+            }.bind(this)
+        });
 	};
 
     handleChangeIndex(page, pageSize) {
@@ -99,8 +119,9 @@ class Index extends Component {
                 return (
 					<span>
 						<a onClick={this.handleEdit.bind(this, record.config_category_id)}>修改</a>
-						<span className="divider"/>
-						<Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete.bind(this, record.config_category_id)}>
+						<span className="divider ant-divider ant-divider-vertical"/>
+						<Popconfirm title="Sure to delete?"
+                                    onConfirm={this.handleDelete.bind(this, record.config_category_id, record.system_version)} >
 							<a>删除</a>
 						</Popconfirm>
 					</span>
@@ -135,7 +156,7 @@ class Index extends Component {
 							<div className="page-header-description"></div>
 						</Col>
 						<Col span={6} className="text-align-right">
-							<Button className="margin-right-10">刷新</Button>
+							<Button className="margin-right-8">刷新</Button>
 							<Button type="primary" onClick={this.handleAdd.bind(this)}>新增</Button>
 						</Col>
 					</Row>
