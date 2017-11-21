@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import {Row, Col, Breadcrumb, Form, Button} from 'antd';
 
 import FormItemInputText from '../../component/FormItemInputText';
+import FormItemButton from '../../component/FormItemButton';
 
 class Detail extends Component {
     constructor(props) {
@@ -71,14 +72,7 @@ class Detail extends Component {
                     <Form onSubmit={this.handleSubmit}>
                         <FormItemInputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
                         <FormItemInputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
-                        <FormItem
-                            wrapperCol={{span: 8, offset: 4}}
-                            className="form-item"
-                        >
-                            <Button type="primary" onClick={this.handleSubmit.bind(this)}>
-                                提交
-                            </Button>
-                        </FormItem>
+                        <FormItemButton onClick={this.handleSubmit.bind(this)}/>
                     </Form>
                 </div>
             </div>

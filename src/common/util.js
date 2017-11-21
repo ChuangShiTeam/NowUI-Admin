@@ -3,6 +3,11 @@ function scrollToTop(number) {
     document.body.scrollTop = number;
 }
 
+function setTitle(title) {
+    document.title = title;
+}
+
 export default {
-    scrollToTop: scrollToTop
+    scrollToTop: scrollToTop,
+    setTitle: setTitle
 };

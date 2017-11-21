@@ -6,7 +6,7 @@ import {routerReducer} from 'react-router-redux';
 
 import dashboard from './store/dashboard';
 
-import Index from './view/Index';
+import Main from './view/Main';
 import DashboardIndex from './view/dashboard/Index';
 import ProductIndex from './view/product/Index';
 import ProductDetail from './view/product/Detail';
@@ -33,7 +33,7 @@ const Routers = () =>
             <Route path="/">
                 <IndexRedirect to="/product/index"/>
                 <Route path="/login" component={Login}/>
-                <Route component={Index} onEnter={handleEnter}>
+                <Route component={Main} onEnter={handleEnter}>
                     <Route path="/dashboard/index" component={DashboardIndex}/>
                     <Route path="/product/index" component={ProductIndex}/>
                     <Route path="/product/detail" component={ProductDetail}/>
