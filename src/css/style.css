@@ -43,6 +43,10 @@ a, area {
     blr: expression(this.onFocus=this.blur())
 }
 
+.margin-right-8{
+    margin-right: 8px;
+}
+
 .header {
     line-height: 64px;
     padding: 0 24px 0 24px;
@@ -124,8 +128,31 @@ a, area {
     margin-bottom: 20px !important;
 }
 
-.aa {
-    -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-    z-index: 10;
+.login {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: url('../image/bg.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.login_form {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    margin: -160px 0 0 -160px;
+    width: 320px;
+    background: #f7f7f7;
+    border: 1px solid #e9e9e9;
+    border-radius: 4px;
+}
+
+.login_form .ant-card-body {
+    padding: 25px 20px 15px 20px !important;
+}
+
+.login_form .ant-form-item {
+    margin-bottom: 15px;
 }
