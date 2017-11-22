@@ -23,33 +23,7 @@ class NHeader extends Component {
     }
 
     handleClick(button) {
-        switch(button.type) {
-            case 'ADD':
-                this.handleAdd(button.url);
-                break;
-            case 'SEARCH':
-                this.handleSearch();
-                break;
-            default:
-                button.handleClick();
-        }
-
-    }
-
-    handleAdd(url) {
-        this.props.history.push({
-            pathname: url,
-            query: {}
-        });
-    }
-
-    handleSearch() {
-        new Promise(function (resolve) {
-
-            resolve();
-        }.bind(this)).then(function () {
-            this.handleLoad();
-        }.bind(this));
+        button.click();
     }
 
     render() {
@@ -60,7 +34,10 @@ class NHeader extends Component {
                     {
                         this.props.breadcrumbList.map(function (breadcrumb, index) {
                             return (
-                                <Breadcrumb.Item key={index}><Link to={breadcrumb.url}>{breadcrumb.name}</Link></Breadcrumb.Item>
+                                breadcrumb.url === '' ?
+                                    <Breadcrumb.Item key={index}><a>{breadcrumb.name}</a></Breadcrumb.Item>
+                                    :
+                                    <Breadcrumb.Item key={index}><Link to={breadcrumb.url}>{breadcrumb.name}</Link></Breadcrumb.Item>
                             )
                         })
                     }
@@ -77,7 +54,7 @@ class NHeader extends Component {
                                         <Button key={index}
                                                 type={index + 1 === this.props.buttonList.length ? "primary" : ""}
                                                 className={index + 1 === this.props.buttonList.length ? "" : "page-header-body-button-left"}
-                                                onClick={this.handleClick.bind(this, button)}
+                                                onClick={button.click}
                                         >
                                             {button.name}
                                         </Button>
@@ -96,7 +73,6 @@ class NHeader extends Component {
 }
 
 NHeader.propTypes = {
-    history: React.PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     breadcrumbList: PropTypes.array.isRequired,
     buttonList: PropTypes.array.isRequired,

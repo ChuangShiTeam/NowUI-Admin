@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Row, Col, Breadcrumb, Button, Form, Table} from 'antd';
+import {Row, Form, Table} from 'antd';
 
-import notification from '../../common/notification';
 import http from '../../common/http';
+import notification from '../../common/notification';
 
 import NHeader from '../../component/NHeader';
 import NCol from '../../component/NCol';
@@ -30,6 +30,22 @@ class Index extends Component {
 
     componentWillUnmount() {
         notification.remove('notification_product_index_load', this);
+    }
+
+    handleAdd() {
+        this.props.history.push({
+            pathname: '/product/detail',
+            query: {}
+        });
+    }
+
+    handleSearch() {
+        new Promise(function (resolve) {
+
+            resolve();
+        }.bind(this)).then(function () {
+            this.handleLoad();
+        }.bind(this));
     }
 
     handleLoad() {
@@ -62,17 +78,23 @@ class Index extends Component {
         });
     }
 
-    handleAdd() {
-        this.props.history.push({
-            pathname: '/product/detail',
-            query: {}
-        });
-    }
-
     render() {
         const {getFieldDecorator} = this.props.form;
 
-        const columns = [{
+        const breadcrumbList = [{
+            name: '商品管理',
+            url: ''
+        }];
+
+        const buttonList = [{
+            name: '新增',
+            click: this.handleAdd.bind(this)
+        }, {
+            name: '搜索',
+            click: this.handleAdd.bind(this)
+        }];
+
+        const columnList = [{
             title: 'Name',
             dataIndex: 'name',
             key: 'name'
@@ -90,7 +112,7 @@ class Index extends Component {
             ),
         }];
 
-        const data = [{
+        const dataList = [{
             key: '1',
             name: 'John Brown',
             age: 32,
@@ -109,7 +131,7 @@ class Index extends Component {
 
         return (
             <div>
-                <NHeader history={this.props.history} name="商品信息" breadcrumbList={[{name: '商品管理', url: ''}]} buttonList={[{name: '新增', type: 'ADD', url: '/product/detail'}, {name: '搜索', type: 'SEARCH'}]}/>
+                <NHeader name="商品信息" breadcrumbList={breadcrumbList} buttonList={buttonList}/>
                 <div className="page-search">
                     <Form>
                         <Row>
@@ -120,7 +142,7 @@ class Index extends Component {
                     </Form>
                 </div>
                 <div className="page-content">
-                    <Table columns={columns} dataSource={data}/>
+                    <Table columns={columnList} dataSource={dataList}/>
                 </div>
             </div>
         );

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {Row, Col, Breadcrumb, Form, Button} from 'antd';
 
+import NHeader from '../../component/NHeader';
 import NCol from '../../component/NCol';
 import NInputText from '../../component/NInputText';
 
@@ -49,24 +50,7 @@ class Detail extends Component {
 
         return (
             <div>
-                <div className="page-header">
-                    <Breadcrumb>
-                        <Breadcrumb.Item><Link to="">首页</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to="">商品管理</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item>商品信息</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div className="page-header-body">
-                        <Row>
-                            <Col xs={{span: 12}} sm={{span: 12}} className="page-header-body-title">
-                                商品表单
-                            </Col>
-                            <Col xs={{span: 12}} sm={{span: 12}} className="page-header-body-button">
-                                <Button type="primary" onClick={this.handleBack.bind(this)}>返回</Button>
-                            </Col>
-                        </Row>
-                    </div>
-                    <div className="page-header-description">将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。</div>
-                </div>
+                <NHeader name="商品表单" breadcrumbList={[{name: '商品管理', url: '/product/index'}, {name: '商品信息', url: ''}]} buttonList={[{name: '返回', click: this.handleBack.bind(this)}]}/>
                 <div className="page-content">
                     <Form>
                         <Row>
