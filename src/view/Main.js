@@ -14,7 +14,7 @@ class Index extends Component {
             is_load: false,
             is_collapse: false,
             openKeys: [],
-            selectedKeys: [],
+            selectedKeys: []
         }
     }
 
@@ -31,14 +31,14 @@ class Index extends Component {
 
     }
 
-    handleCollapse = () => {
+    handleCollapse() {
         this.setState({
             is_collapse: !this.state.is_collapse,
         });
     }
 
     render() {
-        const {Header, Footer, Sider, Content} = Layout;
+        const {Header, Sider, Content} = Layout;
         const {SubMenu} = Menu;
 
         return (
@@ -50,7 +50,7 @@ class Index extends Component {
                     breakpoint="md"
                     onCollapse={this.handleCollapse.bind(this)}
                     width={256}
-                    className="aa"
+                    className="sider"
                 >
                     <div className="logo">
                         <Link to="/">
@@ -67,30 +67,12 @@ class Index extends Component {
                         mode="inline"
                         inlineCollapsed={this.state.is_collapse}
                         defaultSelectedKeys={['1']}
-                        style={{height: document.documentElement.clientHeight - 18}}
+                        style={{height: document.documentElement.clientHeight - 64}}
                     >
-                        <SubMenu key="sub1" title={<span><Icon type="user"/>商品管理</span>}>
-                            <Menu.Item key="1">商品信息</Menu.Item>
-                            <Menu.Item key="2">品牌信息</Menu.Item>
-                            <Menu.Item key="3">商品分类信息</Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="sub2" title={<span><Icon type="laptop"/>订单管理</span>}>
-                            <Menu.Item key="5">option5</Menu.Item>
-                            <Menu.Item key="6">option6</Menu.Item>
-                            <Menu.Item key="7">option7</Menu.Item>
-                            <Menu.Item key="8">option8</Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="sub3" title={<span><Icon type="notification"/>快递单管理</span>}>
-                            <Menu.Item key="9">option9</Menu.Item>
-                            <Menu.Item key="10">option10</Menu.Item>
-                            <Menu.Item key="11">option11</Menu.Item>
-                            <Menu.Item key="12">option12</Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="sub4" title={<span><Icon type="notification"/>仓库管理</span>}>
-                        </SubMenu>
-                        <SubMenu key="sub5" title={<span><Icon type="notification"/>财务管理</span>}>
-                        </SubMenu>
-                        <SubMenu key="sub6" title={<span><Icon type="notification"/>会员管理</span>}>
+                        <SubMenu key="sub0" title={<span><Icon type="user" /><span>商品管理</span></span>}>
+                            <Menu.Item key="1"><Link to={'/product/index'}>商品信息</Link></Menu.Item>
+                            <Menu.Item key="2"><Link to={'/app/config/category/index'}>应用配置分类信息</Link></Menu.Item>
+                            <Menu.Item key="3"><Link to={'/app/config/index'}>应用配置信息</Link></Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>
@@ -99,7 +81,7 @@ class Index extends Component {
                         <Icon
                             className="trigger header-left"
                             type={this.state.is_collapse ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.toggleCollapsed}
+                            onClick={this.handleCollapse.bind(this)}
                         />
                         <div className="header-right">
                             <Icon type="poweroff" className="logout"/>
@@ -108,7 +90,6 @@ class Index extends Component {
                     <Content>
                         {this.props.children}
                     </Content>
-                    <Footer>Footer</Footer>
                 </Layout>
             </Layout>
         );

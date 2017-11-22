@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {Row, Col, Breadcrumb, Form, Button} from 'antd';
 
-import FormItemInputText from '../../component/FormItemInputText';
+import InputText from '../../component/InputText';
 import FormItemButton from '../../component/FormItemButton';
 
 class Detail extends Component {
@@ -46,7 +46,6 @@ class Detail extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const FormItem = Form.Item;
 
         return (
             <div>
@@ -70,8 +69,14 @@ class Detail extends Component {
                 </div>
                 <div className="page-content">
                     <Form onSubmit={this.handleSubmit}>
-                        <FormItemInputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
-                        <FormItemInputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
+                        <Row>
+                            <Col span={16} offset={4}>
+                                <InputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
+                            </Col>
+                            <Col span={10} offset={4}>
+                                <InputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
+                            </Col>
+                        </Row>
                         <FormItemButton onClick={this.handleSubmit.bind(this)}/>
                     </Form>
                 </div>

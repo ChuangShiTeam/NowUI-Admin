@@ -30,7 +30,6 @@ class Detail extends Component {
 	}
 
     handleLoad() {
-		console.log('this.props', this.props);
 		this.setState({
 			is_load: true
 		});

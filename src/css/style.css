@@ -43,7 +43,7 @@ a, area {
     blr: expression(this.onFocus=this.blur())
 }
 
-.margin-right-8{
+.margin-right-8 {
     margin-right: 8px;
 }
 
@@ -117,6 +117,13 @@ a, area {
 
 }
 
+.page-search {
+    margin: 24px;
+    padding: 25px 24px 1px 24px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
 .page-content {
     margin: 24px;
     padding: 25px 24px 1px 24px;
@@ -155,4 +162,10 @@ a, area {
 
 .login_form .ant-form-item {
     margin-bottom: 15px;
+}
+
+.sider {
+    -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    z-index: 10;
 }

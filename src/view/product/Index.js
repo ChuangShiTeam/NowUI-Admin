@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Button, Table, Icon} from 'antd';
+import {Row, Col, Breadcrumb, Button, Form, Table, Icon} from 'antd';
+
+import notification from '../../common/notification';
+import http from '../../common/http';
+
+import InputText from '../../component/InputText';
 
 class Index extends Component {
     constructor(props) {
@@ -11,7 +16,11 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        notification.on('notification_product_index_load', this, function () {
+            this.handleLoad();
+        });
 
+        this.handleLoad();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -19,7 +28,46 @@ class Index extends Component {
     }
 
     componentWillUnmount() {
+        notification.remove('notification_product_index_load', this);
+    }
 
+    handleSearch() {
+        new Promise(function (resolve) {
+
+            resolve();
+        }.bind(this)).then(function () {
+            this.handleLoad();
+        }.bind(this));
+    }
+
+    handleLoad() {
+        this.setState({
+            is_load: true
+        });
+
+        http.request({
+            url: '/admin/product/list',
+            data: {
+                app_id: this.props.product.app_id,
+                product_name: this.props.product.product_name,
+                page_index: this.props.product.page_index,
+                page_size: this.props.product.page_size
+            },
+            success: function (data) {
+                this.props.dispatch({
+                    type: 'product/fetch',
+                    data: {
+                        total: data.total,
+                        list: data.list
+                    }
+                });
+            }.bind(this),
+            complete: function () {
+                this.setState({
+                    is_load: false
+                })
+            }.bind(this)
+        });
     }
 
     handleAdd() {
@@ -30,6 +78,8 @@ class Index extends Component {
     }
 
     render() {
+        const {getFieldDecorator} = this.props.form;
+
         const columns = [{
             title: 'Name',
             dataIndex: 'name',
@@ -84,12 +134,27 @@ class Index extends Component {
                                 商品信息
                             </Col>
                             <Col xs={{span: 24}} sm={{span: 12}} className="page-header-body-button">
-                                <Button className="page-header-body-button-left">刷新</Button>
-                                <Button type="primary" onClick={this.handleAdd.bind(this)}>新增</Button>
+                                <Button className="page-header-body-button-left"
+                                        onClick={this.handleAdd.bind(this)}>新增</Button>
+                                <Button type="primary">搜索</Button>
                             </Col>
                         </Row>
                     </div>
-                    <div className="page-header-description">将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。</div>
+                    <div className="page-header-description">
+
+                    </div>
+                </div>
+                <div className="page-search">
+                    <Form>
+                        <Row>
+                            <Col xs={24} sm={24} md={12} lg={12} xl={8}>
+                                <InputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
+                            </Col>
+                            <Col xs={24} sm={24} md={12} lg={12} xl={8}>
+                                <InputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
+                            </Col>
+                        </Row>
+                    </Form>
                 </div>
                 <div className="page-content">
                     <Table columns={columns} dataSource={data}/>
@@ -99,8 +164,10 @@ class Index extends Component {
     }
 }
 
+Index = Form.create()(Index);
+
 export default connect((state) => {
     return {
-        index: state.index
+        product: state.product
     }
 })(Index);

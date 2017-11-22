@@ -7,6 +7,7 @@ import {routerReducer} from 'react-router-redux';
 import dashboard from './store/dashboard';
 import app_config from './store/app_config';
 import app_config_category from './store/app_config_category';
+import product from './store/product';
 
 import Main from './view/Main';
 import DashboardIndex from './view/dashboard/Index';
@@ -25,6 +26,7 @@ const store = createStore(
         dashboard,
         app_config,
         app_config_category,
+        product,
         routing: routerReducer
     })
 );

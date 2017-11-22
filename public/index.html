@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
@@ -16,64 +16,68 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <!--[if gte IE 8]>
-      <script src="/polyfill/html5shiv.min.js"></script>
-      <script src="/polyfill/respond.min.js"></script>
+    <script src="/polyfill/html5shiv.min.js"></script>
+    <script src="/polyfill/respond.min.js"></script>
 
-      <script src="/polyfill/es5-shim.min.js"></script>
-      <script src="/polyfill/es5-sham.min.js"></script>
-      <script src="/polyfill/console-polyfill.min.js"></script>
+    <script src="/polyfill/es5-shim.min.js"></script>
+    <script src="/polyfill/es5-sham.min.js"></script>
+    <script src="/polyfill/console-polyfill.min.js"></script>
 
-      <script src="/polyfill/dom.min.js"></script>
-      <script src="/polyfill/ie8-offsets.min.js"></script>
+    <script src="/polyfill/dom.min.js"></script>
+    <script src="/polyfill/ie8-offsets.min.js"></script>
     <![endif]-->
     <meta name="keywords" content="总控后台"/>
-    <meta name="description"
-          content="总控后台"/>
+    <meta name="description" content="总控后台"/>
     <title>总控后台</title>
     <style>
-      #loading {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
-        z-index: 99999;
-        text-align: center;
-        background: #ffffff;
-      }
-      .loading-icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -25px;
-        margin-left: -25px;
-        width: 50px;
-        height: 50px;
-        animation: App-logo-spin infinite 20s linear;
-      }
+        #loading {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            z-index: 99999;
+            text-align: center;
+            background: #ffffff;
+        }
 
-      @keyframes App-logo-spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
+        .loading-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -25px;
+            margin-left: -25px;
+            width: 50px;
+            height: 50px;
+            animation: App-logo-spin infinite 20s linear;
+        }
+
+        @keyframes App-logo-spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <div id="loading">
-      <img width="50px" height="50px" src='icon.png' class="loading-icon" />
-    </div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+</head>
+<body>
+<div id="root"></div>
+<div id="loading">
+    <img width="50px" height="50px" src='/icon.png' class="loading-icon"/>
+</div>
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start`.
-      To create a production bundle, use `npm run build`.
-    -->
-  </body>
+  To begin the development, run `npm start`.
+  To create a production bundle, use `npm run build`.
+-->
+</body>
 </html>
