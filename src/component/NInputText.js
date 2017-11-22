@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Form, Input} from 'antd';
 
-class InputText extends Component {
+class NInputText extends Component {
     constructor(props) {
         super(props);
 
@@ -27,10 +27,8 @@ class InputText extends Component {
         return (
             <FormItem
                 label={this.props.label}
-                labelCol={{xs: {span: 24}, sm: {span: 6}, md: {span: 6}, lg: {span: 4}, xl: {span: 4}}}
-                wrapperCol={{xs: {span: 24}, sm: {span: 14}, md: {span: 14}, lg: {span: 12}, xl: {span: 12}}}
-                // labelCol={{span: 7}}
-                // wrapperCol={{span: 17}}
+                labelCol={{span: 7}}
+                wrapperCol={{span: 17}}
                 className="form-item"
             >
                 {this.props.getFieldDecorator(this.props.id, {
@@ -45,7 +43,7 @@ class InputText extends Component {
     }
 }
 
-InputText.propTypes = {
+NInputText.propTypes = {
     getFieldDecorator: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -55,10 +53,10 @@ InputText.propTypes = {
     onPressEnter: PropTypes.func
 };
 
-InputText.defaultProps = {
+NInputText.defaultProps = {
     placeholder: '',
     required: false,
     message: ''
 };
 
-export default InputText
+export default NInputText

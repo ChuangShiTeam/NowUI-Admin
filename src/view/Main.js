@@ -53,7 +53,7 @@ class Index extends Component {
                     className="sider"
                 >
                     <div className="logo">
-                        <Link to="/">
+                        <Link to="/dashboard/index">
                             {
                                 this.state.is_collapse ?
                                     constant.short_name

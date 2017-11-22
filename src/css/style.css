@@ -126,7 +126,7 @@ a, area {
 
 .page-content {
     margin: 24px;
-    padding: 25px 24px 1px 24px;
+    padding: 25px 24px 24px 24px;
     box-sizing: border-box;
     background-color: #ffffff;
 }
@@ -162,6 +162,10 @@ a, area {
 
 .login_form .ant-form-item {
     margin-bottom: 15px;
+}
+
+.ant-table-pagination {
+    margin: 16px 0px 0px 0px !important;
 }
 
 .sider {

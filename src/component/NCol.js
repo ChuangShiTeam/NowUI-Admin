@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
+import {Col} from 'antd';
 
-class Table extends Component {
+class NCol extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     componentDidMount() {
@@ -23,18 +22,19 @@ class Table extends Component {
 
     render() {
         return (
-            <div>
-            </div>
+            <Col xs={24} sm={24} md={12} lg={12} xl={8}>
+                {this.props.children}
+            </Col>
         );
     }
 }
 
-Table.propTypes = {
+NCol.propTypes = {
 
 };
 
-Table.defaultProps = {
+NCol.defaultProps = {
 
 };
 
-export default Table
+export default NCol

@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Button, Form, Table, Icon} from 'antd';
+import {Row, Col, Breadcrumb, Button, Form, Table} from 'antd';
 
 import notification from '../../common/notification';
 import http from '../../common/http';
 
-import InputText from '../../component/InputText';
+import NHeader from '../../component/NHeader';
+import NCol from '../../component/NCol';
+import NInputText from '../../component/NInputText';
 
 class Index extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class Index extends Component {
             this.handleLoad();
         });
 
-        this.handleLoad();
+        // this.handleLoad();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -29,15 +30,6 @@ class Index extends Component {
 
     componentWillUnmount() {
         notification.remove('notification_product_index_load', this);
-    }
-
-    handleSearch() {
-        new Promise(function (resolve) {
-
-            resolve();
-        }.bind(this)).then(function () {
-            this.handleLoad();
-        }.bind(this));
     }
 
     handleLoad() {
@@ -93,13 +85,7 @@ class Index extends Component {
             key: 'action',
             render: (text, record) => (
                 <span>
-                  <a>Action 一 {record.name}</a>
-                  <span className="ant-divider"/>
-                  <a>Delete</a>
-                  <span className="ant-divider"/>
-                  <a className="ant-dropdown-link">
-                    More actions <Icon type="down"/>
-                  </a>
+                  <a>查看</a>
                 </span>
             ),
         }];
@@ -123,36 +109,13 @@ class Index extends Component {
 
         return (
             <div>
-                <div className="page-header">
-                    <Breadcrumb>
-                        <Breadcrumb.Item><Link to="">首页</Link></Breadcrumb.Item>
-                        <Breadcrumb.Item><Link to="">商品管理</Link></Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div className="page-header-body">
-                        <Row>
-                            <Col xs={{span: 24}} sm={{span: 12}} className="page-header-body-title">
-                                商品信息
-                            </Col>
-                            <Col xs={{span: 24}} sm={{span: 12}} className="page-header-body-button">
-                                <Button className="page-header-body-button-left"
-                                        onClick={this.handleAdd.bind(this)}>新增</Button>
-                                <Button type="primary">搜索</Button>
-                            </Col>
-                        </Row>
-                    </div>
-                    <div className="page-header-description">
-
-                    </div>
-                </div>
+                <NHeader history={this.props.history} name="商品信息" breadcrumbList={[{name: '商品管理', url: ''}]} buttonList={[{name: '新增', type: 'ADD', url: '/product/detail'}, {name: '搜索', type: 'SEARCH'}]}/>
                 <div className="page-search">
                     <Form>
                         <Row>
-                            <Col xs={24} sm={24} md={12} lg={12} xl={8}>
-                                <InputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
-                            </Col>
-                            <Col xs={24} sm={24} md={12} lg={12} xl={8}>
-                                <InputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
-                            </Col>
+                            <NCol>
+                                <NInputText getFieldDecorator={getFieldDecorator} id="product_name" label="商品名称"/>
+                            </NCol>
                         </Row>
                     </Form>
                 </div>

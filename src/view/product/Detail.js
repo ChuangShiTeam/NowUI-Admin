@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {Row, Col, Breadcrumb, Form, Button} from 'antd';
 
-import InputText from '../../component/InputText';
-import FormItemButton from '../../component/FormItemButton';
+import NCol from '../../component/NCol';
+import NInputText from '../../component/NInputText';
 
 class Detail extends Component {
     constructor(props) {
@@ -68,16 +68,26 @@ class Detail extends Component {
                     <div className="page-header-description">将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。</div>
                 </div>
                 <div className="page-content">
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form>
                         <Row>
-                            <Col span={16} offset={4}>
-                                <InputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
-                            </Col>
-                            <Col span={10} offset={4}>
-                                <InputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
-                            </Col>
+                            <NCol>
+                                <NInputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
+                            </NCol>
                         </Row>
-                        <FormItemButton onClick={this.handleSubmit.bind(this)}/>
+                        <Row>
+                            <NCol>
+                                <NInputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
+                            </NCol>
+                        </Row>
+                        <Row>
+                            <NCol>
+                                <Col span={17} offset={7}>
+                                    <Button type="primary" onClick={this.handleSubmit.bind(this)}>
+                                        提交
+                                    </Button>
+                                </Col>
+                            </NCol>
+                        </Row>
                     </Form>
                 </div>
             </div>
