@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Row, Form, Table} from 'antd';
 
-import http from '../../common/http';
-import notification from '../../common/notification';
-
 import NHeader from '../../component/NHeader';
 import NCol from '../../component/NCol';
 import NInputText from '../../component/NInputText';
+
+import http from '../../common/http';
+import notification from '../../common/notification';
 
 class Index extends Component {
     constructor(props) {
