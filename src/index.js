@@ -11,7 +11,6 @@ import Main from './view/Main';
 import constant from './common/constant';
 import util from './common/util';
 
-import './css/antd.min.css';
 import './css/style.css'
 
 document.getElementById("loading").remove();
