@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Form, Button} from 'antd';
+import {Row, Col, Form, Button} from 'antd';
 
 import NHeader from '../../component/NHeader';
 import NCol from '../../component/NCol';
@@ -11,7 +10,9 @@ class Detail extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            is_load: false
+        }
     }
 
     componentDidMount() {
@@ -48,26 +49,50 @@ class Detail extends Component {
     render() {
         const {getFieldDecorator} = this.props.form;
 
+        const buttonList = [{
+            name: '返回',
+            icon: 'left-circle',
+            click: this.handleBack.bind(this)
+        }];
+
         return (
             <div>
-                <NHeader name="商品表单" breadcrumbList={[{name: '商品管理', url: '/product/index'}, {name: '商品信息', url: ''}]} buttonList={[{name: '返回', click: this.handleBack.bind(this)}]}/>
+                <NHeader name="商品表单" breadcrumbList={[{name: '商品管理', url: '/product/index'}, {name: '商品信息', url: ''}]}
+                         buttonList={buttonList}/>
                 <div className="page-content">
-                    <Form>
+                    <Form onSubmit={this.handleSubmit.bind(this)}>
                         <Row>
                             <NCol>
-                                <NInputText getFieldDecorator={getFieldDecorator} id="user_account" label="账号"/>
+                                <NInputText id="user_account"
+                                            label="账号"
+                                            required={true}
+                                            getFieldDecorator={getFieldDecorator}
+                                />
                             </NCol>
                         </Row>
                         <Row>
                             <NCol>
-                                <NInputText getFieldDecorator={getFieldDecorator} id="user_password" label="密码"/>
+                                <NInputText id="user_password"
+                                            label="密码"
+                                            required={true}
+                                            getFieldDecorator={getFieldDecorator}/>
                             </NCol>
                         </Row>
                         <Row>
                             <NCol>
                                 <Col span={17} offset={7}>
-                                    <Button type="primary" onClick={this.handleSubmit.bind(this)}>
+                                    <Button type="primary"
+                                            icon="check-circle"
+                                            htmlType="submit"
+                                            loading={this.state.is_load}
+                                            className="page-button-left"
+                                    >
                                         提交
+                                    </Button>
+                                    <Button icon="reload"
+                                            loading={this.state.is_load}
+                                    >
+                                        重置
                                     </Button>
                                 </Col>
                             </NCol>

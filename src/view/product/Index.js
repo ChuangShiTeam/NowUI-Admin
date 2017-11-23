@@ -88,9 +88,11 @@ class Index extends Component {
 
         const buttonList = [{
             name: '新增',
+            icon: 'plus-circle',
             click: this.handleAdd.bind(this)
         }, {
             name: '搜索',
+            icon: 'search',
             click: this.handleAdd.bind(this)
         }];
 

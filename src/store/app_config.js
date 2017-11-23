@@ -2,7 +2,7 @@ const initialState = {
 	app_config_category_list: []
 };
 
-function product(state = initialState, action) {
+function app_config(state = initialState, action) {
 	switch (action.type) {
 		case 'app_config':
 			return Object.assign({}, state, action.data);
@@ -12,4 +12,4 @@ function product(state = initialState, action) {
 	}
 }
 
-export default product;
+export default app_config;

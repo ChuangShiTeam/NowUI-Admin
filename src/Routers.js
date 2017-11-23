@@ -4,36 +4,44 @@ import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {routerReducer} from 'react-router-redux';
 
-import dashboard from './store/dashboard';
-import app_config from './store/app_config';
-import app_config_category from './store/app_config_category';
-import product from './store/product';
+// import dashboard from './store/dashboard';
+// import app_config from './store/app_config';
+// import app_config_category from './store/app_config_category';
+// import product from './store/product';
 
-import Main from './view/Main';
-import DashboardIndex from './view/dashboard/Index';
-import ProductIndex from './view/product/Index';
-import ProductDetail from './view/product/Detail';
-import AppConfigIndex from './view/app_config/Index';
-import AppConfigDetail from './view/app_config/Detail';
-import AppConfigCategoryIndex from './view/app_config_category/Index';
-import AppConfigCategoryDetail from './view/app_config_category/Detail';
-import Login from './view/Login';
-
-import storage from './common/storage';
+const reducers = {};
+const context = require.context('./store', false, /\.js$/);
+const keys = context.keys().filter(item => item !== './index.js');
+for (let i = 0; i < keys.length; i += 1) {
+    reducers[context(keys[i]).default.name] = context(keys[i]).default;
+}
 
 const store = createStore(
-    combineReducers({
-        dashboard,
-        app_config,
-        app_config_category,
-        product,
+    combineReducers(Object.assign(reducers, {
         routing: routerReducer
-    })
+    }))
 );
 
-const handleEnter = function (nextState, replace) {
-    if ((storage.getToken() === '' || storage.getToken() === null) && nextState.location.pathname !== '/login') {
-        replace({ pathname: '/login' });
+// const store = createStore(
+//     combineReducers({
+//         dashboard,
+//         app_config,
+//         app_config_category,
+//         product,
+//         routing: routerReducer
+//     })
+// );
+
+const handleEnter = function (next, replace, callback) {
+    callback();
+};
+
+function handleLazyLoad(path, name) {
+    return function (location, cb) {
+        require.ensure([], (require) => {
+            console.log(path);
+            cb(null, require('' + path).default)
+        }, 'm');
     }
 };
 
@@ -42,16 +50,27 @@ const Routers = () =>
         <Router history={browserHistory}>
             <Route path="/">
                 <IndexRedirect to="/product/index"/>
-                <Route path="/login" component={Login}/>
-                <Route component={Main} onEnter={handleEnter}>
-                    <Route path="/dashboard/index" component={DashboardIndex}/>
-                    <Route path="/product/index" component={ProductIndex}/>
-                    <Route path="/product/detail" component={ProductDetail}/>
-                    <Route path="/app/config/index" component={AppConfigIndex}/>
-                    <Route path="/app/config/detail" component={AppConfigDetail}/>
-                    <Route path="/app/config/category/index" component={AppConfigCategoryIndex}/>
-                    <Route path="/app/config/category/edit/:config_category_id" component={AppConfigCategoryDetail}/>
-                    <Route path="/app/config/category/add" component={AppConfigCategoryDetail}/>
+                <Route path="/login" getComponent={function (location, cb) {
+                    require.ensure([], (require) => {
+                        cb(null, require('./view/Login').default)
+                    }, 'login');
+                }}/>
+                <Route getComponent={handleLazyLoad('./view/Main', '')} onEnter={handleEnter}>
+                    <Route path="/dashboard/index" getComponent={function (location, cb) {
+                        require.ensure([], (require) => {
+                            cb(null, require('./view/dashboard/Index').default)
+                        }, 'dashboard.index');
+                    }}/>
+                    <Route path="/product/index" getComponent={function (location, cb) {
+                        require.ensure([], (require) => {
+                            cb(null, require('./view/product/Index').default)
+                        }, 'product.index');
+                    }}/>
+                    <Route path="/product/detail" getComponent={function (location, cb) {
+                        require.ensure([], (require) => {
+                            cb(null, require('./view/product/Detail').default)
+                        }, 'product.detail');
+                    }}/>
                 </Route>
             </Route>
         </Router>

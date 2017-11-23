@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {Layout, Menu, Icon} from 'antd';
+import {Layout, Menu, Icon, Spin} from 'antd';
 
 import constant from '../common/constant';
-import util from '../common/util';
 
 class Index extends Component {
     constructor(props) {
@@ -20,7 +19,7 @@ class Index extends Component {
 
 
     componentDidMount() {
-        util.setTitle(constant.name + '总控后台');
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -34,6 +33,13 @@ class Index extends Component {
     handleCollapse() {
         this.setState({
             is_collapse: !this.state.is_collapse,
+        });
+    }
+
+    handleLogout() {
+        this.props.history.push({
+            pathname: '/login',
+            query: {}
         });
     }
 
@@ -69,7 +75,7 @@ class Index extends Component {
                         defaultSelectedKeys={['1']}
                         style={{height: document.documentElement.clientHeight - 64}}
                     >
-                        <SubMenu key="sub0" title={<span><Icon type="user" /><span>商品管理</span></span>}>
+                        <SubMenu key="sub0" title={<span><Icon type="user"/><span>商品管理</span></span>}>
                             <Menu.Item key="1"><Link to={'/product/index'}>商品信息</Link></Menu.Item>
                             <Menu.Item key="2"><Link to={'/app/config/category/index'}>应用配置分类信息</Link></Menu.Item>
                             <Menu.Item key="3"><Link to={'/app/config/index'}>应用配置信息</Link></Menu.Item>
@@ -84,11 +90,13 @@ class Index extends Component {
                             onClick={this.handleCollapse.bind(this)}
                         />
                         <div className="header-right">
-                            <Icon type="poweroff" className="logout"/>
+                            <div onClick={this.handleLogout.bind(this)}>
+                                <Icon type="poweroff" className="logout"/>
+                            </div>
                         </div>
                     </Header>
                     <Content>
-                        {this.props.children}
+                            {this.props.children}
                     </Content>
                 </Layout>
             </Layout>

@@ -22,10 +22,6 @@ class NHeader extends Component {
 
     }
 
-    handleClick(button) {
-        button.click();
-    }
-
     render() {
         return (
             <div className="page-header">
@@ -52,8 +48,9 @@ class NHeader extends Component {
                                 this.props.buttonList.map(function (button, index) {
                                     return (
                                         <Button key={index}
+                                                icon={button.icon}
                                                 type={index + 1 === this.props.buttonList.length ? "primary" : ""}
-                                                className={index + 1 === this.props.buttonList.length ? "" : "page-header-body-button-left"}
+                                                className={index + 1 === this.props.buttonList.length ? "" : "page-button-left"}
                                                 onClick={button.click}
                                         >
                                             {button.name}

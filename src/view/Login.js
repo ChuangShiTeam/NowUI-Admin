@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import {Card, Spin, Form, Input, Button, message} from 'antd';
 import {connect} from 'react-redux';
+import {Row, Icon, Form, Button, message} from 'antd';
 
 import constant from '../common/constant';
 import storage from '../common/storage';
 import http from '../common/http';
+
+import NCheckbox from '../component/NCheckbox';
+import NInputText from '../component/NInputText';
 
 class Login extends Component {
     constructor(props) {
@@ -58,48 +61,55 @@ class Login extends Component {
     }
 
     render() {
-        const FormItem = Form.Item;
         const {getFieldDecorator} = this.props.form;
 
         return (
             <div className="login">
-                <Card className="login_form">
-                    <Spin spinning={this.state.is_load}>
-                        <FormItem hasFeedback className="">
-                            {
-                                getFieldDecorator('user_account', {
-                                    rules: [{
-                                        required: true,
-                                        message: constant.required
-                                    }],
-                                    initialValue: 'admin'
-                                })(
-                                    <Input type="text" placeholder={'用户名'} onPressEnter={this.handleSubmit.bind(this)}/>
-                                )
-                            }
-                        </FormItem>
-                        <FormItem hasFeedback className="">
-                            {
-                                getFieldDecorator('user_password', {
-                                    rules: [{
-                                        required: true,
-                                        message: constant.required
-                                    }],
-                                    initialValue: 'admin'
-                                })(
-                                    <Input type="password" placeholder={'用户密码'} onPressEnter={this.handleSubmit.bind(this)}/>
-                                )
-                            }
-                        </FormItem>
-                        <FormItem style={{
-                            marginBottom: '0px'
-                        }}>
-                            <Button type="primary" htmlType="submit" className="" size="default" style={{width: '100%'}}
+                <div className="login-body">
+                    <Form className="login-body-form" onSubmit={this.handleSubmit.bind(this)}>
+                        <Row>
+                            <div className="login-body-form-title">{constant.name}总控后台</div>
+                        </Row>
+                        <Row>
+                            <NInputText id="user_account"
+                                        size="large"
+                                        required={true}
+                                        prefix={<Icon type="user" style={{fontSize: 13}}/>}
+                                        getFieldDecorator={getFieldDecorator} placeholder="请输入账号"
+                                        labelColSpan={0}
+                                        wrapperColSpan={24}
+                            />
+                        </Row>
+                        <Row>
+                            <NInputText id="user_password"
+                                        size="large"
+                                        required={true}
+                                        prefix={<Icon type="lock" style={{fontSize: 13}}/>}
+                                        getFieldDecorator={getFieldDecorator} placeholder="请输入密码"
+                                        labelColSpan={0}
+                                        wrapperColSpan={24}
+                            />
+                        </Row>
+                        <Row>
+                            <NCheckbox id="is_remember"
+                                       label="自动登录"
+                                       getFieldDecorator={getFieldDecorator}
+                                       labelColSpan={0}
+                                       wrapperColSpan={24}
+                            />
+                        </Row>
+                        <Row>
+                            <Button type="primary"
+                                    size="large"
+                                    htmlType="submit"
+                                    style={{width: '100%'}}
                                     loading={this.state.is_load}
-                                    onClick={this.handleSubmit.bind(this)}>{constant.name}</Button>
-                        </FormItem>
-                    </Spin>
-                </Card>
+                            >
+                                登录
+                            </Button>
+                        </Row>
+                    </Form>
+                </div>
             </div>
         );
     }
