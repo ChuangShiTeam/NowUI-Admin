@@ -4,6 +4,8 @@ import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {routerReducer} from 'react-router-redux';
 
+import Main from './view/Main';
+
 const reducers = {};
 const context = require.context('./store', false, /\.js$/);
 const keys = context.keys().filter(item => item !== './index.js');
@@ -28,27 +30,23 @@ const Routers = () =>
                 <IndexRedirect to="/product/index"/>
                 <Route path="/login" getComponent={function (location, cb) {
                     require.ensure([], (require) => {
-                        cb(null, require('./view/Login').default)
+                        cb(null, require('./view/Login').default);
                     }, 'login');
                 }}/>
-                <Route getComponent={function (location, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('./view/Main').default)
-                    }, 'm');
-                }} onEnter={handleEnter}>
+                <Route component={Main} onEnter={handleEnter}>
                     <Route path="/dashboard/index" getComponent={function (location, cb) {
                         require.ensure([], (require) => {
-                            cb(null, require('./view/dashboard/Index').default)
+                            cb(null, require('./view/dashboard/Index').default);
                         }, 'dashboard.index');
                     }}/>
                     <Route path="/product/index" getComponent={function (location, cb) {
                         require.ensure([], (require) => {
-                            cb(null, require('./view/product/Index').default)
+                            cb(null, require('./view/product/Index').default);
                         }, 'product.index');
                     }}/>
                     <Route path="/product/detail" getComponent={function (location, cb) {
                         require.ensure([], (require) => {
-                            cb(null, require('./view/product/Detail').default)
+                            cb(null, require('./view/product/Detail').default);
                         }, 'product.detail');
                     }}/>
                 </Route>
