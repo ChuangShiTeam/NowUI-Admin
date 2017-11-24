@@ -46,6 +46,10 @@ class Detail extends Component {
         // });
     }
 
+    handleReset() {
+        this.props.form.resetFields();
+    }
+
     render() {
         const {getFieldDecorator} = this.props.form;
 
@@ -94,6 +98,7 @@ class Detail extends Component {
                                     </Button>
                                     <Button icon="reload"
                                             loading={this.state.is_load}
+                                            onClick={this.handleReset.bind(this)}
                                     >
                                         重置
                                     </Button>
@@ -109,8 +114,8 @@ class Detail extends Component {
 
 Detail = Form.create()(Detail);
 
-export default connect((state) => {
+export default connect(function (state) {
     return {
-        index: state.index
+        product: state.product
     }
 })(Detail);
