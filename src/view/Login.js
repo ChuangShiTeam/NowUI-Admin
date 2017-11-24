@@ -66,7 +66,7 @@ class Login extends Component {
         return (
             <div className="login">
                 <div className="login-body">
-                    <Form className="login-body-form" onSubmit={this.handleSubmit.bind(this)}>
+                    <Form className="login-body-form">
                         <Row>
                             <div className="login-body-form-title">{constant.name}总控后台</div>
                         </Row>
@@ -78,6 +78,7 @@ class Login extends Component {
                                         getFieldDecorator={getFieldDecorator} placeholder="请输入账号"
                                         labelColSpan={0}
                                         wrapperColSpan={24}
+                                        onPressEnter={this.handleSubmit.bind(this)}
                             />
                         </Row>
                         <Row>
@@ -88,6 +89,7 @@ class Login extends Component {
                                         getFieldDecorator={getFieldDecorator} placeholder="请输入密码"
                                         labelColSpan={0}
                                         wrapperColSpan={24}
+                                        onPressEnter={this.handleSubmit.bind(this)}
                             />
                         </Row>
                         <Row>
@@ -101,9 +103,9 @@ class Login extends Component {
                         <Row>
                             <Button type="primary"
                                     size="large"
-                                    htmlType="submit"
                                     style={{width: '100%'}}
                                     loading={this.state.is_load}
+                                    onClick={this.handleSubmit.bind(this)}
                             >
                                 登录
                             </Button>

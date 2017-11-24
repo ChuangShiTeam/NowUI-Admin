@@ -13,7 +13,9 @@ class Index extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            is_load: false
+        }
     }
 
     componentDidMount() {
@@ -21,7 +23,11 @@ class Index extends Component {
             this.handleLoad();
         });
 
-        // this.handleLoad();
+        this.handleLoad();
+
+        this.props.form.setFieldsValue({
+            product_name: this.props.product.product_name
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,15 +38,14 @@ class Index extends Component {
         notification.remove('notification_product_index_load', this);
     }
 
-    handleAdd() {
-        this.props.history.push({
-            pathname: '/product/detail',
-            query: {}
-        });
-    }
-
     handleSearch() {
         new Promise(function (resolve) {
+            this.props.dispatch({
+                type: 'product',
+                data: {
+                    product_name: this.props.form.getFieldValue('product_name')
+                }
+            });
 
             resolve();
         }.bind(this)).then(function () {
@@ -63,7 +68,7 @@ class Index extends Component {
             },
             success: function (data) {
                 this.props.dispatch({
-                    type: 'product/fetch',
+                    type: 'product',
                     data: {
                         total: data.total,
                         list: data.list
@@ -75,6 +80,51 @@ class Index extends Component {
                     is_load: false
                 })
             }.bind(this)
+        });
+    }
+
+    handleChangeIndex(page_index) {
+        new Promise(function (resolve) {
+            this.props.dispatch({
+                type: 'product',
+                data: {
+                    page_index: page_index
+                }
+            });
+
+            resolve();
+        }.bind(this)).then(function () {
+            this.handleLoad();
+        }.bind(this));
+    }
+
+    handleChangeSize(page_index, page_size) {
+        new Promise(function (resolve) {
+            this.props.dispatch({
+                type: 'product',
+                data: {
+                    page_index: page_index,
+                    page_size: page_size
+                }
+            });
+
+            resolve();
+        }.bind(this)).then(function () {
+            this.handleLoad();
+        }.bind(this));
+    }
+
+    handleAdd() {
+        this.props.history.push({
+            pathname: '/product/add',
+            query: {}
+        });
+    }
+
+    handleEdit(product_id) {
+        this.props.history.push({
+            pathname: '/product/edit/' + product_id,
+            query: {}
         });
     }
 
@@ -93,43 +143,33 @@ class Index extends Component {
         }, {
             name: '搜索',
             icon: 'search',
-            click: this.handleAdd.bind(this)
+            loading: this.state.is_load,
+            click: this.handleSearch.bind(this)
         }];
 
         const columnList = [{
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name'
-        }, {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-        }, {
-            title: 'Action',
-            key: 'action',
+            title: '商品名称',
+            key: 'product_name',
+            dataIndex: 'product_name',
             render: (text, record) => (
                 <span>
-                  <a>查看</a>
+                  <a onClick={this.handleEdit.bind(this, record.product_id)}>{text}</a>
                 </span>
-            ),
+            )
         }];
 
-        const dataList = [{
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-        }, {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-        }, {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-        }];
+        const pagination = {
+            size: 'defalut',
+            total: this.props.product.total,
+            showTotal: function (total) {
+                return '总共' + total + '条数据';
+            },
+            current: this.props.product.page_index,
+            pageSize: this.props.product.page_size,
+            showSizeChanger: true,
+            onShowSizeChange: this.handleChangeSize.bind(this),
+            onChange: this.handleChangeIndex.bind(this)
+        };
 
         return (
             <div>
@@ -138,13 +178,22 @@ class Index extends Component {
                     <Form>
                         <Row>
                             <NCol>
-                                <NInputText getFieldDecorator={getFieldDecorator} id="product_name" label="商品名称"/>
+                                <NInputText id="product_name"
+                                            label="商品名称"
+                                            getFieldDecorator={getFieldDecorator}
+                                            onPressEnter={this.handleSearch.bind(this)}
+                                />
                             </NCol>
                         </Row>
                     </Form>
                 </div>
                 <div className="page-content">
-                    <Table columns={columnList} dataSource={dataList}/>
+                    <Table rowKey="product_id"
+                           loading={this.state.is_load}
+                           columns={columnList}
+                           dataSource={this.props.product.list}
+                           pagination={pagination}
+                    />
                 </div>
             </div>
         );

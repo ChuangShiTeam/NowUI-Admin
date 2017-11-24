@@ -96,7 +96,9 @@ class Index extends Component {
                         </div>
                     </Header>
                     <Content>
+                        <Spin spinning={this.state.is_load}>
                             {this.props.children}
+                        </Spin>
                     </Content>
                 </Layout>
             </Layout>

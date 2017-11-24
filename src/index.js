@@ -11,7 +11,7 @@ import Main from './view/Main';
 import constant from './common/constant';
 import util from './common/util';
 
-import './css/style.css'
+import './css/style.css';
 
 document.getElementById("loading").remove();
 
@@ -20,14 +20,14 @@ util.setTitle(constant.name + '总控后台');
 const reducers = {};
 const storeContext = require.context('./store', false, /\.js$/);
 const storeKeys = storeContext.keys().filter(item => item !== './index.js');
-for (let i = 0; i < storeKeys.length; i += 1) {
+for (let i = 0; i < storeKeys.length; i++) {
     reducers[storeContext(storeKeys[i]).default.name] = storeContext(storeKeys[i]).default;
 }
 
 const childRoutes = [];
 const routerContext = require.context('./router', false, /\.js$/);
 const routerKeys = routerContext.keys().filter(item => item !== './index.js');
-for (let i = 0; i < routerKeys.length; i += 1) {
+for (let i = 0; i < routerKeys.length; i++) {
     childRoutes.push(routerContext(routerKeys[i]).default);
 }
 
@@ -39,6 +39,12 @@ const stores = createStore(
 
 const routes = {
     path: '/',
+    indexRoute: {
+        onEnter: function (next, replace, callback) {
+            replace(null, constant.index);
+            callback();
+        }
+    },
     childRoutes: [{
         component: Main,
         childRoutes: childRoutes

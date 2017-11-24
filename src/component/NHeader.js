@@ -51,6 +51,7 @@ class NHeader extends Component {
                                                 icon={button.icon}
                                                 type={index + 1 === this.props.buttonList.length ? "primary" : ""}
                                                 className={index + 1 === this.props.buttonList.length ? "" : "page-button-left"}
+                                                loading={button.loading}
                                                 onClick={button.click}
                                         >
                                             {button.name}

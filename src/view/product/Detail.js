@@ -60,13 +60,14 @@ class Detail extends Component {
                 <NHeader name="商品表单" breadcrumbList={[{name: '商品管理', url: '/product/index'}, {name: '商品信息', url: ''}]}
                          buttonList={buttonList}/>
                 <div className="page-content">
-                    <Form onSubmit={this.handleSubmit.bind(this)}>
+                    <Form>
                         <Row>
                             <NCol>
                                 <NInputText id="user_account"
                                             label="账号"
                                             required={true}
                                             getFieldDecorator={getFieldDecorator}
+                                            onPressEnter={this.handleSubmit.bind(this)}
                                 />
                             </NCol>
                         </Row>
@@ -75,7 +76,9 @@ class Detail extends Component {
                                 <NInputText id="user_password"
                                             label="密码"
                                             required={true}
-                                            getFieldDecorator={getFieldDecorator}/>
+                                            getFieldDecorator={getFieldDecorator}
+                                            onPressEnter={this.handleSubmit.bind(this)}
+                                />
                             </NCol>
                         </Row>
                         <Row>
@@ -83,9 +86,9 @@ class Detail extends Component {
                                 <Col span={17} offset={7}>
                                     <Button type="primary"
                                             icon="check-circle"
-                                            htmlType="submit"
                                             loading={this.state.is_load}
                                             className="page-button-left"
+                                            onClick={this.handleSubmit.bind(this)}
                                     >
                                         提交
                                     </Button>

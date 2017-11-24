@@ -7,7 +7,13 @@ function setTitle(title) {
     document.title = title;
 }
 
+function handleEnter(next, replace, callback) {
+
+    callback();
+}
+
 export default {
     scrollToTop: scrollToTop,
-    setTitle: setTitle
+    setTitle: setTitle,
+    handleEnter: handleEnter
 };
