@@ -125,16 +125,27 @@ class NBaseIndex extends Component {
             url: ''
         }];
 
-        const buttonList = [{
-            name: '新增',
-            icon: 'plus-circle',
-            click: this.handleAdd.bind(this)
-        }, {
-            name: '搜索',
-            icon: 'search',
-            loading: this.state.is_load,
-            click: this.handleSearch.bind(this)
-        }];
+        var buttonList = [];
+        for (var i = 0; i < this.props.buttonList.length; i++) {
+            var button = {
+                name: this.props.buttonList[i].name,
+                icon: this.props.buttonList[i].icon
+            };
+
+            switch (this.props.buttonList[i].type) {
+                case 'ADD':
+                    button.click = this.handleAdd.bind(this);
+                    break;
+                case 'SEARCH':
+                    button.click = this.handleSearch.bind(this);
+                    break;
+                default:
+                    button.click = this.props.buttonList[i].click;
+                    break;
+            }
+
+            buttonList.push(button);
+        }
 
         const columnList = [{
             title: '商品名称',
@@ -194,6 +205,7 @@ class NBaseIndex extends Component {
 NBaseIndex.propTypes = {
     name: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
+    buttonList: PropTypes.array.isRequired,
     searchList: PropTypes.array.isRequired
 };
 

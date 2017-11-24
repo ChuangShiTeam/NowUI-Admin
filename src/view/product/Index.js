@@ -6,6 +6,16 @@ export default connect(function (state) {
     return {
         name: 'product',
         store: state.product,
+        buttonList: [{
+            name: '新增',
+            icon: 'plus-circle',
+            type: 'ADD'
+        }, {
+            name: '搜索',
+            icon: 'search',
+            type: 'SEARCH',
+            is_load: true
+        }],
         searchList: [{
             id: 'product_name',
             name: '商品名称',
