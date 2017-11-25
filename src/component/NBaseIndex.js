@@ -129,7 +129,8 @@ class NBaseIndex extends Component {
         for (var i = 0; i < this.props.buttonList.length; i++) {
             var button = {
                 name: this.props.buttonList[i].name,
-                icon: this.props.buttonList[i].icon
+                icon: this.props.buttonList[i].icon,
+                is_primary: this.props.buttonList[i].is_primary
             };
 
             switch (this.props.buttonList[i].type) {

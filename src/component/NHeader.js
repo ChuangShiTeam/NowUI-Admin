@@ -49,7 +49,7 @@ class NHeader extends Component {
                                     return (
                                         <Button key={index}
                                                 icon={button.icon}
-                                                type={index + 1 === this.props.buttonList.length ? "primary" : ""}
+                                                type={button.is_primary ? "primary" : ""}
                                                 className={index + 1 === this.props.buttonList.length ? "" : "page-button-left"}
                                                 loading={button.loading}
                                                 onClick={button.click}

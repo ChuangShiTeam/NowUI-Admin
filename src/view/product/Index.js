@@ -14,7 +14,8 @@ export default connect(function (state) {
             name: '搜索',
             icon: 'search',
             type: 'SEARCH',
-            is_load: true
+            is_load: true,
+            is_primary: true
         }],
         searchList: [{
             id: 'product_name',

@@ -81,6 +81,11 @@ a, area {
     font-size: 20px;
 }
 
+.ant-layout-sider-collapsed .logo {
+    padding-left: 0px;
+    text-align: center;
+}
+
 .logo a {
     color: #ffffff;
 }
@@ -182,3 +187,9 @@ a, area {
     box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
     z-index: 10;
 }
+
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+    color: rgba(255, 255, 255, 0.67);
+    background: #001529;
+}
+
