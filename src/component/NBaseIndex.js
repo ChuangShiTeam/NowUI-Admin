@@ -213,4 +213,4 @@ NBaseIndex.defaultProps = {};
 
 NBaseIndex = Form.create()(NBaseIndex);
 
-export default NBaseIndex
+export default NBaseIndex;
