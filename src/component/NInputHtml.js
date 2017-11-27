@@ -27,18 +27,22 @@ class NInputHtml extends Component {
         const FormItem = Form.Item;
 
         const modules = {
-            toolbar: [
-                [{ 'font': [] }],
-                [{size: []}],
-                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                [{ 'align': [] }],
-                [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-                ['link', 'image', 'video'],
-                [{
-                    id: '111',
-                    value: '123'
-                }]
-            ]
+            toolbar: {
+                container: [
+                    [{ 'font': [] }],
+                    [{size: []}],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                    [{ 'align': [] }],
+                    [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                    ['link', 'video', 'image']
+                ],
+                handlers: {
+                    "image": function () {
+                        console.log(123456);
+                    }
+                }
+            }
         };
 
         return (
@@ -53,6 +57,17 @@ class NInputHtml extends Component {
                             modules={modules}
                             onChange={this.handleChange}
                 />
+                {/*<ReactQuill value={"123456"}*/}
+                            {/*modules={{*/}
+                                {/*toolbar: {*/}
+                                    {/*container: "#toolbar",*/}
+                                    {/*handlers: {*/}
+                                        {/*"insertStar": this.handleStart.bind(this),*/}
+                                    {/*}*/}
+                                {/*}*/}
+                            {/*}}*/}
+                            {/*onChange={this.handleChange}*/}
+                {/*/>*/}
             </FormItem>
         );
     }
