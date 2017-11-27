@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Col} from 'antd';
 
 class NCol extends Component {
@@ -22,7 +23,7 @@ class NCol extends Component {
 
     render() {
         return (
-            <Col xs={24} sm={24} md={12} lg={12} xl={8}>
+            <Col xs={24} sm={24} md={this.props.multiLine ? 12 : 24} lg={this.props.multiLine ? 8 : 24} xl={this.props.multiLine ? 8 : 24}>
                 {this.props.children}
             </Col>
         );
@@ -30,11 +31,11 @@ class NCol extends Component {
 }
 
 NCol.propTypes = {
-
+    multiLine: PropTypes.bool
 };
 
 NCol.defaultProps = {
-
+    multiLine: false
 };
 
 export default NCol

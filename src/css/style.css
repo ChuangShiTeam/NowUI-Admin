@@ -190,6 +190,28 @@ a, area {
 
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub {
     color: rgba(255, 255, 255, 0.67);
-    background: #001529;
+    background: #041528 !important;
+}
+
+.ant-layout {
+    background: #F0F2F5 !important;
+}
+
+.ql-toolbar.ql-snow {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 1px solid #d9d9d9 !important;
+}
+
+.ql-container.ql-snow {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom: 1px solid #d9d9d9 !important;
+    border-left: 1px solid #d9d9d9 !important;
+    border-right: 1px solid #d9d9d9 !important;
+}
+
+.ql-snow .ql-picker {
+    line-height: 24px;
 }
 

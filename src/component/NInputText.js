@@ -28,12 +28,15 @@ class NInputText extends Component {
             <FormItem
                 hasFeedback={true}
                 label={this.props.label}
-                labelCol={{span: this.props.labelColSpan}}
-                wrapperCol={{span: this.props.wrapperColSpan}}
+                labelCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 7 : 4}, md: {span: this.props.multiLine ? 7 : 4}, lg: {span: this.props.multiLine ? 7 : 4}, xl: {span: this.props.multiLine ? 7 : 4}}}
+                wrapperCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 17 : 17}, md: {span: this.props.multiLine ? 17 : 17}, lg: {span: this.props.multiLine ? 17 : 10}, xl: {span: this.props.multiLine ? 17 : 10}}}
                 className="form-item"
             >
                 {this.props.getFieldDecorator(this.props.id, {
-                    rules: [{required: this.props.required, message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : ''}],
+                    rules: [{
+                        required: this.props.required,
+                        message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : ''
+                    }],
                 })(
                     <Input type="text"
                            size={this.props.size}
@@ -57,8 +60,7 @@ NInputText.propTypes = {
     prefix: PropTypes.object,
     size: PropTypes.string,
     onPressEnter: PropTypes.func,
-    labelColSpan: PropTypes.number,
-    wrapperColSpan: PropTypes.number
+    multiLine: PropTypes.bool
 };
 
 NInputText.defaultProps = {
@@ -67,8 +69,7 @@ NInputText.defaultProps = {
     required: false,
     message: '',
     size: 'default',
-    labelColSpan: 7,
-    wrapperColSpan: 17
+    multiLine: false
 };
 
 export default NInputText

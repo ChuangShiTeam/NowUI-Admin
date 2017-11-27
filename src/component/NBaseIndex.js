@@ -180,11 +180,12 @@ class NBaseIndex extends Component {
                 <div className="page-search">
                     <Form>
                         <Row>
-                            <NCol>
+                            <NCol multiLine={true}>
                                 <NInputText id="product_name"
                                             label="商品名称"
                                             getFieldDecorator={getFieldDecorator}
                                             onPressEnter={this.handleSearch.bind(this)}
+                                            multiLine={true}
                                 />
                             </NCol>
                         </Row>

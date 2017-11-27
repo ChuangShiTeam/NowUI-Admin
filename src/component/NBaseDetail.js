@@ -4,6 +4,7 @@ import {Row, Form, Col, Button} from 'antd';
 
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
+import NInputHtml from '../component/NInputHtml';
 import NInputText from '../component/NInputText';
 
 class NBaseDetail extends Component {
@@ -98,8 +99,15 @@ class NBaseDetail extends Component {
                             </NCol>
                         </Row>
                         <Row>
+                            <NInputHtml id="user_content"
+                                        label="内容"
+                                        required={true}
+                                        getFieldDecorator={getFieldDecorator}
+                            />
+                        </Row>
+                        <Row>
                             <NCol>
-                                <Col span={17} offset={7}>
+                                <Col span={17} offset={6}>
                                     <Button type="primary"
                                             icon="check-circle"
                                             loading={this.state.is_load}
