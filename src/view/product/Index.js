@@ -1,10 +1,12 @@
 import {connect} from 'react-redux';
 
-import NBaseIndex from '../../component/NBaseIndex';
+import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
     return {
         name: 'product',
+        primary: 'product_id',
+        type: 'CARD',
         store: state.product,
         buttonList: [{
             name: '新增',
@@ -20,7 +22,11 @@ export default connect(function (state) {
         searchList: [{
             id: 'product_name',
             name: '商品名称',
-            type: ''
+            type: 'VARCHAR'
+        }],
+        columnList: [{
+            id: 'product_name',
+            name: '商品名称'
         }]
     }
-})(NBaseIndex);
+})(NIndex);

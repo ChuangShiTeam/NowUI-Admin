@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 
-import NBaseDetail from '../../component/NBaseDetail';
+import NDetail from '../../layout/NDetail';
 
 export default connect(function (state) {
     return {
@@ -13,4 +13,4 @@ export default connect(function (state) {
             is_primary: true
         }]
     }
-})(NBaseDetail);
+})(NDetail);

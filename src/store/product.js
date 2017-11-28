@@ -1,12 +1,10 @@
-import constant from '../common/constant';
-
 const initialState = {
     app_id: '',
     app_list: [],
     product_name: '',
     total: 0,
     page_index: 1,
-    page_size: constant.page_size,
+    page_size: 12,
     list: [],
     product_brand_list: [],
     product_category_list: [],

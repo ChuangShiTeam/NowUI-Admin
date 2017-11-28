@@ -4,10 +4,10 @@ import {Row, Form, Col, Button} from 'antd';
 
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
-import NInputHtml from '../component/NInputHtml';
 import NInputText from '../component/NInputText';
+import NInputHtml from '../component/NInputHtml';
 
-class NBaseDetail extends Component {
+class NDetail extends Component {
     constructor(props) {
         super(props);
 
@@ -107,7 +107,12 @@ class NBaseDetail extends Component {
                         </Row>
                         <Row>
                             <NCol>
-                                <Col span={17} offset={6}>
+                                <Col xs={{span: 24}}
+                                     sm={{span: 17, offset: 4}}
+                                     md={{span: 17, offset: 4}}
+                                     lg={{span: 17, offset: 4}}
+                                     xl={{span: 17, offset: 4}}
+                                >
                                     <Button type="primary"
                                             icon="check-circle"
                                             loading={this.state.is_load}
@@ -132,14 +137,14 @@ class NBaseDetail extends Component {
     }
 }
 
-NBaseDetail.propTypes = {
+NDetail.propTypes = {
     name: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
     buttonList: PropTypes.array.isRequired
 };
 
-NBaseDetail.defaultProps = {};
+NDetail.defaultProps = {};
 
-NBaseDetail = Form.create()(NBaseDetail);
+NDetail = Form.create()(NDetail);
 
-export default NBaseDetail;
+export default NDetail;

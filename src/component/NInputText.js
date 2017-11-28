@@ -37,6 +37,7 @@ class NInputText extends Component {
                         required: this.props.required,
                         message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : ''
                     }],
+                    initialValue: ''
                 })(
                     <Input type="text"
                            size={this.props.size}

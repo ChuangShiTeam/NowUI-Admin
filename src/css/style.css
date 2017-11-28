@@ -188,6 +188,23 @@ a, area {
     z-index: 10;
 }
 
+.card {
+    padding: 0px;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    padding-top: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ant-layout-sider {
+    background: #041528 !important;
+}
+
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub {
     color: rgba(255, 255, 255, 0.67);
     background: #041528 !important;
