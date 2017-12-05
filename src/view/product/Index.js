@@ -6,7 +6,7 @@ export default connect(function (state) {
     return {
         name: 'product',
         primary: 'product_id',
-        type: 'CARD',
+        type: 'TABLE',
         store: state.product,
         buttonList: [{
             name: '新增',

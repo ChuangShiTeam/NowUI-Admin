@@ -201,15 +201,6 @@ a, area {
     background-position: center;
 }
 
-.ant-layout-sider {
-    background: #041528 !important;
-}
-
-.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
-    color: rgba(255, 255, 255, 0.67);
-    background: #041528 !important;
-}
-
 .ant-layout {
     background: #F0F2F5 !important;
 }

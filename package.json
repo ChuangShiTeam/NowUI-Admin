@@ -1,12 +1,12 @@
 {
-  "name": "NowUI_Admin",
+  "name": "NowUI-Admin",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^2.13.10",
+    "antd": "^3.0.0",
     "history": "^1.17.0",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-quill": "^1.2.0",
     "react-redux": "^4.4.1",
     "react-router": "^1.0.3",

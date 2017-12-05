@@ -19,9 +19,9 @@ class NIndex extends Component {
     componentDidMount() {
         this.handleLoad();
 
-        var value = {};
+        let value = {};
 
-        for (var i = 0; i < this.props.searchList.length; i++) {
+        for (let i = 0; i < this.props.searchList.length; i++) {
             value[this.props.searchList[i].id] = this.props.store[this.props.searchList[i].id];
         }
 
@@ -54,13 +54,13 @@ class NIndex extends Component {
             is_load: true
         });
 
-        var parameter = {
+        let parameter = {
             app_id: this.props.store.app_id,
             page_index: this.props.store.page_index,
             page_size: this.props.store.page_size
         };
 
-        for (var i = 0; i < this.props.searchList.length; i++) {
+        for (let i = 0; i < this.props.searchList.length; i++) {
             parameter[this.props.searchList[i].id] = this.props.store[this.props.searchList[i].id];
         }
 
@@ -137,9 +137,9 @@ class NIndex extends Component {
             url: ''
         }];
 
-        var buttonList = [];
-        for (var i = 0; i < this.props.buttonList.length; i++) {
-            var button = {
+        let buttonList = [];
+        for (let i = 0; i < this.props.buttonList.length; i++) {
+            let button = {
                 name: this.props.buttonList[i].name,
                 icon: this.props.buttonList[i].icon,
                 is_primary: this.props.buttonList[i].is_primary
@@ -160,15 +160,15 @@ class NIndex extends Component {
             buttonList.push(button);
         }
 
-        var columnList = [];
-        for (var i = 0; i < this.props.columnList.length; i++) {
-            var column = {
+        let columnList = [];
+        for (let i = 0; i < this.props.columnList.length; i++) {
+            let column = {
                 title: this.props.columnList[i].name,
                 key: this.props.columnList[i].id,
                 dataIndex: this.props.columnList[i].id
             };
 
-            if (i == 0) {
+            if (i === 0) {
                 column.render = function (text, record) {
                     return (
                         <span>
@@ -217,6 +217,8 @@ class NIndex extends Component {
                                                         )
                                                         break;
                                                     default:
+                                                        return '';
+                                                        break;
                                                 }
                                             }).bind(this)()}
                                         </NCol>
