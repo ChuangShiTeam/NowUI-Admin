@@ -73,12 +73,21 @@ class Index extends Component {
                         mode="inline"
                         inlineCollapsed={this.state.is_collapse}
                         defaultSelectedKeys={['1']}
-                        style={{height: document.documentElement.clientHeight - 64}}
-                    >
-                        <SubMenu key="sub0" title={<span><Icon type="user"/><span>商品管理</span></span>}>
+                        style={{height: document.documentElement.clientHeight - 64}}>
+                        <SubMenu key="sub0" title={<span><Icon type="book"/><span>商品管理</span></span>}>
                             <Menu.Item key="1"><Link to={'/product/index'}>商品信息</Link></Menu.Item>
                             <Menu.Item key="2"><Link to={'/app/config/category/index'}>应用配置分类信息</Link></Menu.Item>
                             <Menu.Item key="3"><Link to={'/app/config/index'}>应用配置信息</Link></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub1" title={<span><Icon type="credit-card" /><span>广告管理</span></span>}>
+                            <Menu.Item key="4"><Link to={'/advertisement/index'}>广告管理</Link></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub2" title={<span><Icon type="cloud" /><span>新闻管理</span></span>}>
+                            <Menu.Item key="5"><Link to={'/category/index'}>分类管理</Link></Menu.Item>
+                            <Menu.Item key="6"><Link to={'/news/index'}>新闻管理</Link></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub3" title={<span><Icon type="user" /><span>用户管理</span></span>}>
+                            <Menu.Item key="7"><Link to={'/category/index'}>用户管理</Link></Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>
