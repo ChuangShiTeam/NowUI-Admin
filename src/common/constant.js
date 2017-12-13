@@ -7,7 +7,7 @@ export default {
     version: '1.0.0',
     pageSize: 10,
     name: '上海星销信息技术',
-    short_name: '星销',
+    shortName: '星销',
     index: '/product/index',
     login: '/admin/admin/login'
 };

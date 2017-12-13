@@ -30,6 +30,41 @@ class Index extends Component {
 
     }
 
+    handleOpenChange(openKeys) {
+        const state = this.state;
+        const latestOpenKey = openKeys.find(key => !(state.openKeys.indexOf(key) > -1));
+        const latestCloseKey = state.openKeys.find(key => !(openKeys.indexOf(key) > -1));
+
+        let nextOpenKeys = [];
+        if (latestOpenKey) {
+            nextOpenKeys = this.getAncestorKeys(latestOpenKey).concat(latestOpenKey);
+        }
+        if (latestCloseKey) {
+            nextOpenKeys = this.getAncestorKeys(latestCloseKey);
+        }
+
+        this.setState({
+            openKeys: nextOpenKeys
+        });
+
+        // this.setState({
+        //     openKeys: openKeys
+        // });
+    }
+
+    getAncestorKeys = (key) => {
+        const map = {
+            sub3: []
+        };
+        return map[key] || [];
+    }
+
+    handleClick(item) {
+        this.setState({
+            selectedKeys: [item.key]
+        });
+    }
+
     handleCollapse() {
         this.setState({
             is_collapse: !this.state.is_collapse,
@@ -62,7 +97,7 @@ class Index extends Component {
                         <Link to="/dashboard/index">
                             {
                                 this.state.is_collapse ?
-                                    constant.short_name
+                                    constant.shortName
                                     :
                                     constant.name
                             }
@@ -72,7 +107,10 @@ class Index extends Component {
                         theme="dark"
                         mode="inline"
                         inlineCollapsed={this.state.is_collapse}
-                        defaultSelectedKeys={['1']}
+                        openKeys={this.state.openKeys}
+                        selectedKeys={this.state.selectedKeys}
+                        onOpenChange={this.handleOpenChange.bind(this)}
+                        onClick={this.handleClick.bind(this)}
                         style={{height: document.documentElement.clientHeight - 64}}>
                         <SubMenu key="sub0" title={<span><Icon type="book"/><span>商品管理</span></span>}>
                             <Menu.Item key="1"><Link to={'/product/index'}>商品信息</Link></Menu.Item>

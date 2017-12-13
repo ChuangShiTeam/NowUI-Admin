@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.0.1",
+    "blueimp-md5": "^2.10.0",
     "history": "^1.17.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
