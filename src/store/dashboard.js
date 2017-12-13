@@ -1,5 +1,5 @@
 const initialState = {
-    article_list: []
+
 }
 
 function dashboard(state = initialState, action) {

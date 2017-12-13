@@ -10,7 +10,7 @@ export default connect(function (state) {
             name: '返回',
             icon: 'left-circle',
             type: 'BACK',
-            is_primary: true
+            isPrimary: true
         }]
     }
 })(NDetail);

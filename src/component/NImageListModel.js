@@ -11,12 +11,12 @@ class NImageListModel extends Component {
         super(props);
 
         this.state = {
-            is_load: false,
+            isLoad: false,
             is_show: false,
             is_preview: false,
             image: '',
-            page_index: 1,
-            page_size: 1,
+            pageIndex: 1,
+            pageSize: 1,
             total: 0,
             list: []
         }
@@ -29,7 +29,7 @@ class NImageListModel extends Component {
 
             this.setState({
                 is_show: true,
-                page_size: width * height
+                pageSize: width * height
             }, function () {
 
             });
@@ -57,13 +57,13 @@ class NImageListModel extends Component {
             }
 
             this.setState({
-                is_load: false
+                isLoad: false
             });
 
             this.handleLoad(1);
         } else if (info.file.status === 'uploading') {
             this.setState({
-                is_load: true
+                isLoad: true
             });
         } else if (info.file.status === 'error') {
             message.error(info.file.name + ' file upload failed');
@@ -129,7 +129,7 @@ class NImageListModel extends Component {
             action: constant.image_host + '/admin/file/upload',
             accept: 'image/jpg,image/jpeg,image/png',
             headers: {
-                'app_id': constant.app_id,
+                'appId': constant.appId,
                 'token': storage.getToken(),
                 'platform': constant.platform,
                 'version': constant.version
@@ -148,14 +148,14 @@ class NImageListModel extends Component {
                        this.props.aspect === 0 ?
                            <div key="normal" style={{float: 'left', marginLeft: 10}}>
                                <Upload {...props}>
-                                   <Button type="ghost" loading={this.state.is_load}>
+                                   <Button type="ghost" loading={this.state.isLoad}>
                                        <Icon type="cloud-upload"/>上传图片
                                    </Button>
                                </Upload>
                            </div>
                            :
                            <div key="crop" style={{float: 'left', marginLeft: 10}}>
-                               <Button type="ghost" loading={this.state.is_load}
+                               <Button type="ghost" loading={this.state.isLoad}
                                        onClick={this.handleImageCrop.bind(this)}>
                                    <Icon type="cloud-upload"/>上传图片
                                </Button>
@@ -164,7 +164,7 @@ class NImageListModel extends Component {
                        <Button key="back" type="ghost" size="default" icon="cross-circle"
                                onClick={this.handleCancel.bind(this)}>关闭</Button>,
                        <Button key="submit" type="primary" size="default" icon="check-circle"
-                               loading={this.state.is_load}
+                               loading={this.state.isLoad}
                                onClick={this.handleSubmit.bind(this)}>确定</Button>
                    ]}
             >

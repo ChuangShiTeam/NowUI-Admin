@@ -10,7 +10,7 @@ class Index extends Component {
         super(props);
 
         this.state = {
-            is_load: false,
+            isLoad: false,
             is_collapse: false,
             openKeys: [],
             selectedKeys: []
@@ -105,7 +105,7 @@ class Index extends Component {
                         </div>
                     </Header>
                     <Content>
-                        <Spin spinning={this.state.is_load}>
+                        <Spin spinning={this.state.isLoad}>
                             {this.props.children}
                         </Spin>
                     </Content>

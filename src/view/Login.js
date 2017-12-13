@@ -14,7 +14,7 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            is_load: false
+            isLoad: false
         }
     }
 
@@ -33,7 +33,7 @@ class Login extends Component {
             }
 
             this.setState({
-                is_load: true
+                isLoad: true
             });
 
             http.request({
@@ -53,7 +53,7 @@ class Login extends Component {
                 }.bind(this),
                 complete: function () {
                     this.setState({
-                        is_load: false
+                        isLoad: false
                     });
                 }.bind(this)
             });
@@ -104,7 +104,7 @@ class Login extends Component {
                             <Button type="primary"
                                     size="large"
                                     style={{width: '100%'}}
-                                    loading={this.state.is_load}
+                                    loading={this.state.isLoad}
                                     onClick={this.handleSubmit.bind(this)}
                             >
                                 登录

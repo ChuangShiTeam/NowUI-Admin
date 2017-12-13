@@ -1,4 +1,5 @@
 import reqwest from 'reqwest';
+import {message} from 'antd';
 
 import constant from './constant';
 import storage from './storage';
@@ -12,7 +13,7 @@ function request(config) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'app_id': constant.app_id,
+            'appId': constant.appId,
             'token': storage.getToken(),
             'platform': constant.platform,
             'version': constant.version
@@ -22,7 +23,7 @@ function request(config) {
             if (response.code === 200) {
                 config.success(response.data);
             } else {
-                config.error(response);
+                message.error(response.message);
             }
         },
         error: function () {

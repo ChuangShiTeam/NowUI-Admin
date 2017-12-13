@@ -58,7 +58,7 @@ class NDetail extends Component {
             var button = {
                 name: this.props.buttonList[i].name,
                 icon: this.props.buttonList[i].icon,
-                is_primary: this.props.buttonList[i].is_primary
+                isPrimary: this.props.buttonList[i].isPrimary
             };
 
             switch (this.props.buttonList[i].type) {
@@ -115,14 +115,14 @@ class NDetail extends Component {
                                 >
                                     <Button type="primary"
                                             icon="check-circle"
-                                            loading={this.state.is_load}
+                                            loading={this.state.isLoad}
                                             className="page-button-left"
                                             onClick={this.handleSubmit.bind(this)}
                                     >
                                         提交
                                     </Button>
                                     <Button icon="reload"
-                                            loading={this.state.is_load}
+                                            loading={this.state.isLoad}
                                             onClick={this.handleReset.bind(this)}
                                     >
                                         重置

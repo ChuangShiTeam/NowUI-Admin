@@ -51,13 +51,13 @@ class NIndex extends Component {
 
     handleLoad() {
         this.setState({
-            is_load: true
+            isLoad: true
         });
 
         let parameter = {
-            app_id: this.props.store.app_id,
-            page_index: this.props.store.page_index,
-            page_size: this.props.store.page_size
+            appId: this.props.store.appId,
+            pageIndex: this.props.store.pageIndex,
+            pageSize: this.props.store.pageSize
         };
 
         for (let i = 0; i < this.props.searchList.length; i++) {
@@ -65,7 +65,7 @@ class NIndex extends Component {
         }
 
         http.request({
-            url: '/admin/product/list',
+            url: this.props.listUrl,
             data: parameter,
             success: function (data) {
                 this.props.dispatch({
@@ -76,20 +76,23 @@ class NIndex extends Component {
                     }
                 });
             }.bind(this),
+            error: function () {
+
+            },
             complete: function () {
                 this.setState({
-                    is_load: false
+                    isLoad: false
                 })
             }.bind(this)
         });
     }
 
-    handleChangeIndex(page_index) {
+    handleChangeIndex(pageIndex) {
         new Promise(function (resolve) {
             this.props.dispatch({
                 type: this.props.name,
                 data: {
-                    page_index: page_index
+                    pageIndex: pageIndex
                 }
             });
 
@@ -99,13 +102,13 @@ class NIndex extends Component {
         }.bind(this));
     }
 
-    handleChangeSize(page_index, page_size) {
+    handleChangeSize(pageIndex, pageSize) {
         new Promise(function (resolve) {
             this.props.dispatch({
                 type: this.props.name,
                 data: {
-                    page_index: page_index,
-                    page_size: page_size
+                    pageIndex: pageIndex,
+                    pageSize: pageSize
                 }
             });
 
@@ -124,7 +127,7 @@ class NIndex extends Component {
 
     handleEdit(record) {
         this.props.history.push({
-            pathname: '/product/edit/' + record[this.props.primary],
+            pathname: '/product/edit/' + record[this.props.primaryKey],
             query: {}
         });
     }
@@ -142,7 +145,7 @@ class NIndex extends Component {
             let button = {
                 name: this.props.buttonList[i].name,
                 icon: this.props.buttonList[i].icon,
-                is_primary: this.props.buttonList[i].is_primary
+                isPrimary: this.props.buttonList[i].isPrimary
             };
 
             switch (this.props.buttonList[i].type) {
@@ -187,8 +190,8 @@ class NIndex extends Component {
             showTotal: function (total) {
                 return '总共' + total + '条数据';
             },
-            current: this.props.store.page_index,
-            pageSize: this.props.store.page_size,
+            current: this.props.store.pageIndex,
+            pageSize: this.props.store.pageSize,
             showSizeChanger: true,
             onShowSizeChange: this.handleChangeSize.bind(this),
             onChange: this.handleChangeIndex.bind(this)
@@ -208,7 +211,7 @@ class NIndex extends Component {
                                                 switch (search.type) {
                                                     case 'VARCHAR':
                                                         return (
-                                                            <NInputText id="product_name"
+                                                            <NInputText id={search.id}
                                                                         label="商品名称"
                                                                         getFieldDecorator={getFieldDecorator}
                                                                         onPressEnter={this.handleSearch.bind(this)}
@@ -234,8 +237,8 @@ class NIndex extends Component {
                         switch (this.props.type) {
                             case 'TABLE':
                                 return (
-                                    <Table rowKey="product_id"
-                                           loading={this.state.is_load}
+                                    <Table rowKey={this.props.primaryKey}
+                                           loading={this.state.isLoad}
                                            columns={columnList}
                                            dataSource={this.props.store.list}
                                            pagination={pagination}
@@ -248,7 +251,7 @@ class NIndex extends Component {
                                         {
                                             this.props.store.list.map(function (item) {
                                                 return (
-                                                    <Col key={item[this.props.primary]} xs={24} sm={6} md={6} lg={4} xl={4} style={{marginBottom: '20px'}} onClick={this.handleEdit.bind(this, item)}>
+                                                    <Col key={item[this.props.primaryKey]} xs={24} sm={6} md={6} lg={4} xl={4} style={{marginBottom: '20px'}} onClick={this.handleEdit.bind(this, item)}>
                                                         <Card bodyStyle={{padding: 0, cursor: 'pointer'}}>
                                                             <div className="background-image" style={{backgroundImage: 'url(' + constant.image_host + item.file_path + ')'}}></div>
                                                             {
@@ -256,7 +259,7 @@ class NIndex extends Component {
                                                                     return (
                                                                         <div key={column.id}>{item[column.id]}</div>
                                                                     )
-                                                                }.bind(this))
+                                                                })
                                                             }
                                                         </Card>
                                                     </Col>
@@ -276,10 +279,11 @@ class NIndex extends Component {
 }
 
 NIndex.propTypes = {
-    name: PropTypes.string.isRequired,
-    primary: PropTypes.string.isRequired,
     type: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    primaryKey: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
+    listUrl: PropTypes.string.isRequired,
     buttonList: PropTypes.array.isRequired,
     searchList: PropTypes.array.isRequired,
     columnList: PropTypes.array.isRequired

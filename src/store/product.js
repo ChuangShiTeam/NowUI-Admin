@@ -1,14 +1,9 @@
 const initialState = {
-    app_id: '',
-    app_list: [],
-    product_name: '',
+    productName: '',
     total: 0,
-    page_index: 1,
-    page_size: 12,
-    list: [],
-    product_brand_list: [],
-    product_category_list: [],
-    member_level_list: []
+    pageIndex: 1,
+    pageSize: 12,
+    list: []
 };
 
 function product(state = initialState, action) {
