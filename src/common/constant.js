@@ -9,5 +9,7 @@ export default {
     name: '上海星销信息技术',
     shortName: '星销',
     index: '/product/index',
-    login: '/admin/admin/login'
+    login: '/admin/admin/login',
+    success: '操作成功',
+    error: '网络有问题'
 };

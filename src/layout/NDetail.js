@@ -1,17 +1,22 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Row, Form, Col, Button} from 'antd';
+import {Row, Form, Col, Button, message} from 'antd';
 
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
 import NInputText from '../component/NInputText';
 import NInputHtml from '../component/NInputHtml';
+import http from "../common/http";
+
+import constant from '../common/constant';
 
 class NDetail extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            isLoad: false
+        }
     }
 
     componentDidMount() {
@@ -35,6 +40,25 @@ class NDetail extends Component {
             if (!!errors) {
                 return;
             }
+
+            this.setState({
+                isLoad: true
+            });
+
+            http.request({
+                url: '/' + this.props.name + '/admin/' + (this.props.route.path.indexOf('/add') > -1 ? 'save' : 'update'),
+                data: values,
+                success: function () {
+                    message.success(constant.success);
+
+                    this.handleCancel();
+                }.bind(this),
+                complete: function () {
+                    this.setState({
+                        is_load: false
+                    });
+                }.bind(this)
+            });
         });
     }
 
@@ -44,14 +68,6 @@ class NDetail extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-
-        const breadcrumbList = [{
-            name: '商品管理',
-            url: '/product/index'
-        }, {
-            name: '商品信息',
-            url: ''
-        }];
 
         var buttonList = [];
         for (var i = 0; i < this.props.buttonList.length; i++) {
@@ -75,36 +91,25 @@ class NDetail extends Component {
 
         return (
             <div>
-                <NHeader name="商品表单" breadcrumbList={breadcrumbList} buttonList={buttonList}/>
+                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList}/>
                 <div className="page-content">
                     <Form>
-                        <Row>
-                            <NCol>
-                                <NInputText id="user_account"
-                                            label="账号"
-                                            required={true}
-                                            getFieldDecorator={getFieldDecorator}
-                                            onPressEnter={this.handleSubmit.bind(this)}
-                                />
-                            </NCol>
-                        </Row>
-                        <Row>
-                            <NCol>
-                                <NInputText id="user_password"
-                                            label="密码"
-                                            required={true}
-                                            getFieldDecorator={getFieldDecorator}
-                                            onPressEnter={this.handleSubmit.bind(this)}
-                                />
-                            </NCol>
-                        </Row>
-                        <Row>
-                            <NInputHtml id="user_content"
-                                        label="内容"
-                                        required={true}
-                                        getFieldDecorator={getFieldDecorator}
-                            />
-                        </Row>
+                        {
+                            this.props.columnList.map(function (column) {
+                                return (
+                                    <Row key={column.id}>
+                                        <NCol>
+                                            <NInputText id={column.id}
+                                                        label={column.name}
+                                                        required={column.required}
+                                                        getFieldDecorator={getFieldDecorator}
+                                                        onPressEnter={this.handleSubmit.bind(this)}
+                                            />
+                                        </NCol>
+                                    </Row>
+                                )
+                            }.bind(this))
+                        }
                         <Row>
                             <NCol>
                                 <Col xs={{span: 24}}
@@ -139,8 +144,11 @@ class NDetail extends Component {
 
 NDetail.propTypes = {
     name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
-    buttonList: PropTypes.array.isRequired
+    breadcrumbList: PropTypes.array.isRequired,
+    buttonList: PropTypes.array.isRequired,
+    columnList: PropTypes.array.isRequired
 };
 
 NDetail.defaultProps = {};

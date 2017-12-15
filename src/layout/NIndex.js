@@ -13,7 +13,9 @@ class NIndex extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            isLoad: false
+        }
     }
 
     componentDidMount() {
@@ -54,19 +56,19 @@ class NIndex extends Component {
             isLoad: true
         });
 
-        let parameter = {
+        let values = {
             appId: this.props.store.appId,
             pageIndex: this.props.store.pageIndex,
             pageSize: this.props.store.pageSize
         };
 
         for (let i = 0; i < this.props.searchList.length; i++) {
-            parameter[this.props.searchList[i].id] = this.props.store[this.props.searchList[i].id];
+            values[this.props.searchList[i].id] = this.props.store[this.props.searchList[i].id];
         }
 
         http.request({
             url: this.props.listUrl,
-            data: parameter,
+            data: values,
             success: function (data) {
                 this.props.dispatch({
                     type: this.props.name,
@@ -135,11 +137,6 @@ class NIndex extends Component {
     render() {
         const {getFieldDecorator} = this.props.form;
 
-        const breadcrumbList = [{
-            name: '商品管理',
-            url: ''
-        }];
-
         let buttonList = [];
         for (let i = 0; i < this.props.buttonList.length; i++) {
             let button = {
@@ -199,7 +196,7 @@ class NIndex extends Component {
 
         return (
             <div>
-                <NHeader name="商品信息" breadcrumbList={breadcrumbList} buttonList={buttonList}/>
+                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList}/>
                 <div className="page-search">
                     <Form>
                         <Row>
@@ -212,7 +209,7 @@ class NIndex extends Component {
                                                     case 'VARCHAR':
                                                         return (
                                                             <NInputText id={search.id}
-                                                                        label="商品名称"
+                                                                        label={search.name}
                                                                         getFieldDecorator={getFieldDecorator}
                                                                         onPressEnter={this.handleSearch.bind(this)}
                                                                         multiLine={true}
@@ -281,9 +278,11 @@ class NIndex extends Component {
 NIndex.propTypes = {
     type: PropTypes.string,
     name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     primaryKey: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
     listUrl: PropTypes.string.isRequired,
+    breadcrumbList: PropTypes.array.isRequired,
     buttonList: PropTypes.array.isRequired,
     searchList: PropTypes.array.isRequired,
     columnList: PropTypes.array.isRequired

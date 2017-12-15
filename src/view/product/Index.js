@@ -6,9 +6,14 @@ export default connect(function (state) {
     return {
         type: 'TABLE',
         name: 'product',
+        title: '商品信息',
         primaryKey: 'productId',
         store: state.product,
         listUrl: '/product/admin/list',
+        breadcrumbList: [{
+            name: '商品管理',
+            url: ''
+        }],
         buttonList: [{
             name: '新增',
             icon: 'plus-circle',
