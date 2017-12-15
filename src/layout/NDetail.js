@@ -51,7 +51,7 @@ class NDetail extends Component {
                 success: function () {
                     message.success(constant.success);
 
-                    this.handleCancel();
+                    this.handleBack();
                 }.bind(this),
                 complete: function () {
                     this.setState({
