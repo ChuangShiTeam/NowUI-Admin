@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Button} from 'antd';
+import {Row, Col, Breadcrumb, Button, Dropdown, Menu, Icon} from 'antd';
 
 class NHeader extends Component {
     constructor(props) {
@@ -23,6 +23,8 @@ class NHeader extends Component {
     }
 
     render() {
+        const ButtonGroup = Button.Group;
+
         return (
             <div className="page-header">
                 <Breadcrumb>
@@ -33,7 +35,8 @@ class NHeader extends Component {
                                 breadcrumb.url === '' ?
                                     <Breadcrumb.Item key={index}><a>{breadcrumb.name}</a></Breadcrumb.Item>
                                     :
-                                    <Breadcrumb.Item key={index}><Link to={breadcrumb.url}>{breadcrumb.name}</Link></Breadcrumb.Item>
+                                    <Breadcrumb.Item key={index}><Link
+                                        to={breadcrumb.url}>{breadcrumb.name}</Link></Breadcrumb.Item>
                             )
                         })
                     }
@@ -44,6 +47,27 @@ class NHeader extends Component {
                             {this.props.name}
                         </Col>
                         <Col xs={{span: 24}} sm={{span: 12}} className="page-header-body-button">
+                            {
+                                this.props.secondButtonList.length > 0 ?
+                                    <ButtonGroup className="page-button-left">
+                                        <Dropdown overlay={(
+                                            <Menu>
+                                                {
+                                                    this.props.secondButtonList.map(function (button, index) {
+                                                        return (
+                                                            <Menu.Item key={index}><Icon type={button.icon}/>{button.name}
+                                                            </Menu.Item>
+                                                        )
+                                                    }.bind(this))
+                                                }
+                                            </Menu>
+                                        )} placement="bottomRight">
+                                            <Button><Icon type="ellipsis"/></Button>
+                                        </Dropdown>
+                                    </ButtonGroup>
+                                    :
+                                    ''
+                            }
                             {
                                 this.props.buttonList.map(function (button, index) {
                                     return (
@@ -74,6 +98,7 @@ NHeader.propTypes = {
     name: PropTypes.string.isRequired,
     breadcrumbList: PropTypes.array.isRequired,
     buttonList: PropTypes.array.isRequired,
+    secondButtonList: PropTypes.array.isRequired
 };
 
 NHeader.defaultProps = {};

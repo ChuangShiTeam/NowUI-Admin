@@ -40,9 +40,10 @@ class NDetail extends Component {
 
         let values = {};
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+        values.systemVersion = 2;
 
         http.request({
-            url: '/' + this.props.name + '/admin/find',
+            url: '/' + this.props.name + '/admin/delete',
             data: values,
             success: function (data) {
                 let values = {};
@@ -95,6 +96,10 @@ class NDetail extends Component {
         });
     }
 
+    handleDelete() {
+        this.props.history.goBack();
+    }
+
     handleReset() {
         this.props.form.resetFields();
     }
@@ -106,7 +111,7 @@ class NDetail extends Component {
     render() {
         const {getFieldDecorator} = this.props.form;
 
-        var buttonList = [];
+        let buttonList = [];
         for (var i = 0; i < this.props.buttonList.length; i++) {
             var button = {
                 name: this.props.buttonList[i].name,
@@ -118,6 +123,9 @@ class NDetail extends Component {
                 case 'BACK':
                     button.click = this.handleBack.bind(this);
                     break;
+                case 'delete':
+                    button.click = this.handleDelete.bind(this);
+                    break;
                 default:
                     button.click = this.props.buttonList[i].click;
                     break;
@@ -128,7 +136,7 @@ class NDetail extends Component {
 
         return (
             <div>
-                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList}/>
+                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList} secondButtonList={this.props.secondButtonList}/>
                 <div className="page-content">
                     <Form>
                         {
@@ -186,6 +194,7 @@ NDetail.propTypes = {
     store: PropTypes.object.isRequired,
     breadcrumbList: PropTypes.array.isRequired,
     buttonList: PropTypes.array.isRequired,
+    secondButtonList: PropTypes.array.isRequired,
     columnList: PropTypes.array.isRequired
 };
 

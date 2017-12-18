@@ -21,6 +21,12 @@ export default connect(function (state) {
             type: 'BACK',
             isPrimary: true
         }],
+        secondButtonList: [{
+            name: '删除',
+            icon: 'delete',
+            type: 'DELETE',
+            isPrimary: true
+        }],
         columnList: [{
             id: 'productName',
             name: '商品名称',
