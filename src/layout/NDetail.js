@@ -15,12 +15,17 @@ class NDetail extends Component {
 
         this.state = {
             isLoad: false,
+            isEdit: false,
             systemVersion: ''
         }
     }
 
     componentDidMount() {
         if (this.props.route.path.indexOf('/edit') > -1) {
+            this.setState({
+                isEdit: true
+            });
+
             this.handleLoad();
         }
     }
@@ -35,15 +40,14 @@ class NDetail extends Component {
 
     handleLoad() {
         this.setState({
-            is_load: true
+            isLoad: true
         });
 
         let values = {};
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
-        values.systemVersion = 2;
 
         http.request({
-            url: '/' + this.props.name + '/admin/delete',
+            url: '/' + this.props.name + '/admin/find',
             data: values,
             success: function (data) {
                 let values = {};
@@ -59,7 +63,7 @@ class NDetail extends Component {
             }.bind(this),
             complete: function () {
                 this.setState({
-                    is_load: false
+                    isLoad: false
                 });
 
             }.bind(this)
@@ -76,20 +80,26 @@ class NDetail extends Component {
                 isLoad: true
             });
 
-            values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+            if (this.state.isEdit) {
+                values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+            }
             values.systemVersion = this.state.systemVersion;
 
             http.request({
-                url: '/' + this.props.name + '/admin/' + (this.props.route.path.indexOf('/edit') > -1 ? 'update' : 'save'),
+                url: '/' + this.props.name + '/admin/' + (this.state.isEdit ? 'update' : 'save'),
                 data: values,
-                success: function () {
-                    message.success(constant.success);
+                success: function (data) {
+                    if (data) {
+                        message.success(constant.success);
 
-                    this.handleBack();
+                        this.handleBack();
+                    } else {
+                        message.error(constant.failure);
+                    }
                 }.bind(this),
                 complete: function () {
                     this.setState({
-                        is_load: false
+                        isLoad: false
                     });
                 }.bind(this)
             });
@@ -97,7 +107,33 @@ class NDetail extends Component {
     }
 
     handleDelete() {
-        this.props.history.goBack();
+        this.setState({
+            isLoad: true
+        });
+
+        let values = {};
+        values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+        values.systemVersion = this.state.systemVersion;
+
+        http.request({
+            url: '/' + this.props.name + '/admin/delete',
+            data: values,
+            success: function (data) {
+                if (data) {
+                    message.success(constant.success);
+
+                    this.handleBack();
+                } else {
+                    message.error(constant.failure);
+                }
+            }.bind(this),
+            complete: function () {
+                this.setState({
+                    isLoad: false
+                });
+
+            }.bind(this)
+        });
     }
 
     handleReset() {
@@ -123,7 +159,7 @@ class NDetail extends Component {
                 case 'BACK':
                     button.click = this.handleBack.bind(this);
                     break;
-                case 'delete':
+                case 'DELETE':
                     button.click = this.handleDelete.bind(this);
                     break;
                 default:
@@ -134,9 +170,31 @@ class NDetail extends Component {
             buttonList.push(button);
         }
 
+        let secondButtonList = [];
+        for (var i = 0; i < this.props.secondButtonList.length; i++) {
+            var button = {
+                name: this.props.secondButtonList[i].name,
+                icon: this.props.secondButtonList[i].icon
+            };
+
+            switch (this.props.secondButtonList[i].type) {
+                case 'BACK':
+                    button.click = this.handleBack.bind(this);
+                    break;
+                case 'DELETE':
+                    button.click = this.handleDelete.bind(this);
+                    break;
+                default:
+                    button.click = this.props.secondButtonList[i].click;
+                    break;
+            }
+
+            secondButtonList.push(button);
+        }
+
         return (
             <div>
-                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList} secondButtonList={this.props.secondButtonList}/>
+                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList} secondButtonList={secondButtonList}/>
                 <div className="page-content">
                     <Form>
                         {

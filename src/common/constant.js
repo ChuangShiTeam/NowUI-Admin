@@ -11,5 +11,6 @@ export default {
     index: '/product/index',
     login: '/admin/admin/login',
     success: '操作成功',
+    failure: '操作失败',
     error: '网络有问题'
 };

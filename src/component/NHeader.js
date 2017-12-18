@@ -22,6 +22,10 @@ class NHeader extends Component {
 
     }
 
+    handleClick(item) {
+        this.props.secondButtonList[item.key].click();
+    }
+
     render() {
         const ButtonGroup = Button.Group;
 
@@ -51,7 +55,7 @@ class NHeader extends Component {
                                 this.props.secondButtonList.length > 0 ?
                                     <ButtonGroup className="page-button-left">
                                         <Dropdown overlay={(
-                                            <Menu>
+                                            <Menu onClick={this.handleClick.bind(this)}>
                                                 {
                                                     this.props.secondButtonList.map(function (button, index) {
                                                         return (
