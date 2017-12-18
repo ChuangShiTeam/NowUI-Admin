@@ -18,7 +18,7 @@ export default {
             }, 'product.detail');
         }
     }, {
-        path: '/product/edit/:product_id',
+        path: '/product/edit/:productId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
             require.ensure([], (require) => {

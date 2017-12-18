@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.0.1",
+    "antd": "^3.0.2",
     "blueimp-md5": "^2.10.0",
     "history": "^1.17.0",
     "react": "^15.6.2",

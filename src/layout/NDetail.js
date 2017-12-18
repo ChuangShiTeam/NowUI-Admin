@@ -5,7 +5,6 @@ import {Row, Form, Col, Button, message} from 'antd';
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
 import NInputText from '../component/NInputText';
-import NInputHtml from '../component/NInputHtml';
 import http from "../common/http";
 
 import constant from '../common/constant';
@@ -15,12 +14,15 @@ class NDetail extends Component {
         super(props);
 
         this.state = {
-            isLoad: false
+            isLoad: false,
+            systemVersion: ''
         }
     }
 
     componentDidMount() {
-
+        if (this.props.route.path.indexOf('/edit') > -1) {
+            this.handleLoad();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -31,8 +33,36 @@ class NDetail extends Component {
 
     }
 
-    handleBack() {
-        this.props.history.goBack();
+    handleLoad() {
+        this.setState({
+            is_load: true
+        });
+
+        let values = {};
+        values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+
+        http.request({
+            url: '/' + this.props.name + '/admin/find',
+            data: values,
+            success: function (data) {
+                let values = {};
+
+                for (let i = 0; i < this.props.columnList.length; i++) {
+                    values[this.props.columnList[i].id] = data[this.props.columnList[i].id];
+                }
+                this.props.form.setFieldsValue(values);
+
+                this.setState({
+                    systemVersion: data.systemVersion
+                });
+            }.bind(this),
+            complete: function () {
+                this.setState({
+                    is_load: false
+                });
+
+            }.bind(this)
+        });
     }
 
     handleSubmit() {
@@ -45,8 +75,11 @@ class NDetail extends Component {
                 isLoad: true
             });
 
+            values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+            values.systemVersion = this.state.systemVersion;
+
             http.request({
-                url: '/' + this.props.name + '/admin/' + (this.props.route.path.indexOf('/add') > -1 ? 'save' : 'update'),
+                url: '/' + this.props.name + '/admin/' + (this.props.route.path.indexOf('/edit') > -1 ? 'update' : 'save'),
                 data: values,
                 success: function () {
                     message.success(constant.success);
@@ -64,6 +97,10 @@ class NDetail extends Component {
 
     handleReset() {
         this.props.form.resetFields();
+    }
+
+    handleBack() {
+        this.props.history.goBack();
     }
 
     render() {
@@ -145,6 +182,7 @@ class NDetail extends Component {
 NDetail.propTypes = {
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    primaryKey: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,
     breadcrumbList: PropTypes.array.isRequired,
     buttonList: PropTypes.array.isRequired,

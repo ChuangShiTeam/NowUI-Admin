@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Button, message, Upload, Icon, Spin, Pagination} from 'antd';
+import {Modal, Button, message, Upload, Icon} from 'antd';
 
 import constant from '../common/constant';
 import storage from '../common/storage';

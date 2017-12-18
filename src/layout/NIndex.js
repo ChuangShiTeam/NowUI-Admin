@@ -215,10 +215,8 @@ class NIndex extends Component {
                                                                         multiLine={true}
                                                             />
                                                         )
-                                                        break;
                                                     default:
                                                         return '';
-                                                        break;
                                                 }
                                             }).bind(this)()}
                                         </NCol>
@@ -241,7 +239,6 @@ class NIndex extends Component {
                                            pagination={pagination}
                                     />
                                 )
-                                break;
                             case 'CARD':
                                 return (
                                     <Row gutter={20}>
@@ -265,7 +262,6 @@ class NIndex extends Component {
                                         }
                                     </Row>
                                 )
-                                break;
                             default:
                         }
                     }).bind(this)()}

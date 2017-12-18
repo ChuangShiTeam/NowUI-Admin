@@ -2,7 +2,7 @@ const initialState = {
     productName: '',
     total: 0,
     pageIndex: 1,
-    pageSize: 12,
+    pageSize: 5,
     list: []
 };
 
