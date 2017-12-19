@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Row, Form, Col, Button, message} from 'antd';
+import {Row, Form, Col, Button, Modal, message} from 'antd';
 
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
@@ -119,32 +119,44 @@ class NDetail extends Component {
             return;
         }
 
-        this.setState({
-            isLoad: true
-        });
-
-        let values = {};
-        values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
-        values.systemVersion = this.state.systemVersion;
-
-        http.request({
-            url: '/' + this.props.name + '/admin/delete',
-            data: values,
-            success: function (data) {
-                if (data) {
-                    message.success(constant.success);
-
-                    this.handleBack();
-                } else {
-                    message.error(constant.failure);
-                }
-            }.bind(this),
-            complete: function () {
+        Modal.confirm({
+            title: '确定要删除该数据吗?',
+            content: '数据删除之后就不能恢复了',
+            okText: '确定',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk: function () {
                 this.setState({
-                    isLoad: false
+                    isLoad: true
                 });
 
-            }.bind(this)
+                let values = {};
+                values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+                values.systemVersion = this.state.systemVersion;
+
+                http.request({
+                    url: '/' + this.props.name + '/admin/delete',
+                    data: values,
+                    success: function (data) {
+                        if (data) {
+                            message.success(constant.success);
+
+                            this.handleBack();
+                        } else {
+                            message.error(constant.failure);
+                        }
+                    }.bind(this),
+                    complete: function () {
+                        this.setState({
+                            isLoad: false
+                        });
+
+                    }.bind(this)
+                });
+            }.bind(this),
+            onCancel() {
+                
+            },
         });
     }
 
@@ -206,7 +218,7 @@ class NDetail extends Component {
 
         return (
             <div>
-                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList} secondButtonList={secondButtonList}/>
+                <NHeader name={this.props.title} isEdit={this.state.isEdit} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList} secondButtonList={secondButtonList}/>
                 <div className="page-content">
                     <Form>
                         {

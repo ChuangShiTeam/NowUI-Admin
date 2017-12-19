@@ -200,7 +200,7 @@ class NIndex extends Component {
 
         return (
             <div>
-                <NHeader name={this.props.title} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList} secondButtonList={[]}/>
+                <NHeader name={this.props.title} isEdit={false} breadcrumbList={this.props.breadcrumbList} buttonList={buttonList} secondButtonList={[]}/>
                 <div className="page-search">
                     <Form>
                         <Row>

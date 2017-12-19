@@ -52,7 +52,7 @@ class NHeader extends Component {
                         </Col>
                         <Col xs={{span: 24}} sm={{span: 12}} className="page-header-body-button">
                             {
-                                this.props.secondButtonList.length > 0 ?
+                                this.props.secondButtonList.length > 0 && this.props.isEdit ?
                                     <ButtonGroup className="page-button-left">
                                         <Dropdown overlay={(
                                             <Menu onClick={this.handleClick.bind(this)}>
@@ -100,6 +100,7 @@ class NHeader extends Component {
 
 NHeader.propTypes = {
     name: PropTypes.string.isRequired,
+    isEdit: PropTypes.bool.isRequired,
     breadcrumbList: PropTypes.array.isRequired,
     buttonList: PropTypes.array.isRequired,
     secondButtonList: PropTypes.array.isRequired
