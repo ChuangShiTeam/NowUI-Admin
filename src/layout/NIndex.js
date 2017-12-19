@@ -52,6 +52,10 @@ class NIndex extends Component {
     }
 
     handleLoad() {
+        if (this.state.isLoad) {
+            return;
+        }
+
         this.setState({
             isLoad: true
         });

@@ -39,6 +39,10 @@ class NDetail extends Component {
     }
 
     handleLoad() {
+        if (this.state.isLoad) {
+            return;
+        }
+
         this.setState({
             isLoad: true
         });
@@ -71,6 +75,10 @@ class NDetail extends Component {
     }
 
     handleSubmit() {
+        if (this.state.isLoad) {
+            return;
+        }
+
         this.props.form.validateFieldsAndScroll((errors, values) => {
             if (!!errors) {
                 return;
@@ -107,6 +115,10 @@ class NDetail extends Component {
     }
 
     handleDelete() {
+        if (this.state.isLoad) {
+            return;
+        }
+
         this.setState({
             isLoad: true
         });
