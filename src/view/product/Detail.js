@@ -19,13 +19,12 @@ export default connect(function (state) {
             name: '返回',
             icon: 'left-circle',
             type: 'BACK',
-            isPrimary: true
+            isPrimary: false
         }],
         secondButtonList: [{
             name: '删除',
             icon: 'delete',
-            type: 'DELETE',
-            isPrimary: true
+            type: 'DELETE'
         }],
         columnList: [{
             id: 'productName',

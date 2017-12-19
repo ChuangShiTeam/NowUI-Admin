@@ -15,15 +15,15 @@ export default connect(function (state) {
             url: ''
         }],
         buttonList: [{
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD'
-        }, {
             name: '搜索',
             icon: 'search',
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
+        }, {
+            name: '新增',
+            icon: 'plus-circle',
+            type: 'ADD'
         }],
         searchList: [{
             id: 'productName',
