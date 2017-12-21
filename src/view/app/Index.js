@@ -5,13 +5,13 @@ import NIndex from '../../layout/NIndex';
 export default connect(function (state) {
     return {
         type: 'TABLE',
-        name: 'product',
-        title: '商品信息',
-        primaryKey: 'productId',
-        store: state.product,
-        listUrl: '/product/admin/list',
+        name: 'app',
+        title: '应用信息',
+        primaryKey: 'appId',
+        store: state.app,
+        listUrl: '/app/admin/list',
         breadcrumbList: [{
-            name: '商品管理',
+            name: '应用管理',
             url: ''
         }],
         buttonList: [{
@@ -24,16 +24,17 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/product/add'
+            pathname: '/app/add'
         }],
         searchList: [{
-            id: 'productName',
-            name: '商品名称',
+            id: 'appName',
+            name: '应用名称',
             type: 'VARCHAR'
         }],
         columnList: [{
-            id: 'productName',
-            name: '商品名称'
+            id: 'appName',
+            name: '应用名称',
+            editUrl: '/app/edit'
         }]
     }
 })(NIndex);

@@ -124,16 +124,16 @@ class NIndex extends Component {
         }.bind(this));
     }
 
-    handleAdd() {
+    handleAdd(pathname) {
         this.props.history.push({
-            pathname: '/product/add',
+            pathname: pathname,
             query: {}
         });
     }
 
-    handleEdit(record) {
+    handleEdit(record, editUrl) {
         this.props.history.push({
-            pathname: '/product/edit/' + record[this.props.primaryKey],
+            pathname: editUrl + '/' + record[this.props.primaryKey],
             query: {}
         });
     }
@@ -151,7 +151,7 @@ class NIndex extends Component {
 
             switch (this.props.buttonList[i].type) {
                 case 'ADD':
-                    button.click = this.handleAdd.bind(this);
+                    button.click = this.handleAdd.bind(this, this.props.buttonList[i].pathname);
                     break;
                 case 'SEARCH':
                     button.click = this.handleSearch.bind(this);
@@ -176,7 +176,7 @@ class NIndex extends Component {
                 column.render = function (text, record) {
                     return (
                         <span>
-                          <a onClick={this.handleEdit.bind(this, record)}>{text}</a>
+                          <a onClick={this.handleEdit.bind(this, record, this.props.columnList[i].editUrl)}>{text}</a>
                         </span>
                     )
                 }.bind(this)
