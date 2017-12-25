@@ -29,7 +29,8 @@ export default connect(function (state) {
         searchList: [{
             id: 'configCategoryId',
             name: '应用配置分类',
-            type: 'VARCHAR'
+            type: 'SELECT',
+
         }, {
             id: 'configKey',
             name: '键',
@@ -37,7 +38,8 @@ export default connect(function (state) {
         }, {
             id: 'configIsDisabled',
             name: '是否禁用',
-            type: 'VARCHAR'
+            type: 'SELECT',
+            
         }],
         columnList: [{
             id: 'configKey',

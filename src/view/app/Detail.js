@@ -29,6 +29,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'appName',
             name: '应用名称',
+            type: 'VARCHAR',
             required: true
         }]
     }

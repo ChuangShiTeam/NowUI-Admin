@@ -29,14 +29,17 @@ export default connect(function (state) {
         columnList: [{
             id: 'configCategoryName',
             name: '应用配置分类名称',
+            type: 'VARCHAR',
             required: true
         }, {
             id: 'configCategoryCode',
             name: '应用配置分类编码',
+            type: 'VARCHAR',
             required: true
         }, {
             id: 'configCategoryDescription',
-            name: '应用配置分类描述'
+            name: '应用配置分类描述',
+            type: 'LONG_VARCHAR'
         }]
     }
 })(NDetail);

@@ -29,6 +29,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'productName',
             name: '商品名称',
+            type: 'VARCHAR',
             required: true
         }]
     }

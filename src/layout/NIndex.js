@@ -131,9 +131,9 @@ class NIndex extends Component {
         });
     }
 
-    handleEdit(record, editUrl) {
+    handleEdit(record, pathname) {
         this.props.history.push({
-            pathname: editUrl + '/' + record[this.props.primaryKey],
+            pathname: pathname + '/' + record[this.props.primaryKey],
             query: {}
         });
     }
@@ -176,7 +176,7 @@ class NIndex extends Component {
                 column.render = function (text, record) {
                     return (
                         <span>
-                          <a onClick={this.handleEdit.bind(this, record, this.props.columnList[i].editUrl)}>{text}</a>
+                          <a onClick={this.handleEdit.bind(this, record, this.props.columnList[i].pathname)}>{text}</a>
                         </span>
                     )
                 }.bind(this)
@@ -211,6 +211,15 @@ class NIndex extends Component {
                                             {(function () {
                                                 switch (search.type) {
                                                     case 'VARCHAR':
+                                                        return (
+                                                            <NInputText id={search.id}
+                                                                        label={search.name}
+                                                                        getFieldDecorator={getFieldDecorator}
+                                                                        onPressEnter={this.handleSearch.bind(this)}
+                                                                        multiLine={true}
+                                                            />
+                                                        );
+                                                    case 'SELECT':
                                                         return (
                                                             <NInputText id={search.id}
                                                                         label={search.name}

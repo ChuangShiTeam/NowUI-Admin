@@ -5,6 +5,7 @@ import {Row, Form, Col, Button, Modal, message} from 'antd';
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
 import NInputText from '../component/NInputText';
+import NInputTextArea from '../component/NInputTextArea';
 import http from "../common/http";
 
 import constant from '../common/constant';
@@ -226,12 +227,26 @@ class NDetail extends Component {
                                 return (
                                     <Row key={column.id}>
                                         <NCol>
-                                            <NInputText id={column.id}
-                                                        label={column.name}
-                                                        required={column.required}
-                                                        getFieldDecorator={getFieldDecorator}
-                                                        onPressEnter={this.handleSubmit.bind(this)}
-                                            />
+                                            {
+                                                column.type === 'VARCHAR' ?
+                                                    <NInputText id={column.id}
+                                                                label={column.name}
+                                                                required={column.required}
+                                                                getFieldDecorator={getFieldDecorator}
+                                                                onPressEnter={this.handleSubmit.bind(this)}
+                                                    />
+                                                    :
+                                                column.type === 'LONG_VARCHAR' ?
+                                                    <NInputTextArea id={column.id}
+                                                                label={column.name}
+                                                                rows={column.rows}
+                                                                required={column.required}
+                                                                getFieldDecorator={getFieldDecorator}
+                                                                onPressEnter={this.handleSubmit.bind(this)}
+                                                    />
+                                                    :
+                                                    null
+                                            }
                                         </NCol>
                                     </Row>
                                 )

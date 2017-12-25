@@ -34,7 +34,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'appName',
             name: '应用名称',
-            editUrl: '/app/edit'
+            pathname: '/app/edit'
         }]
     }
 })(NIndex);

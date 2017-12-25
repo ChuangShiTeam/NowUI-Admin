@@ -38,7 +38,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'configCategoryName',
             name: '名称',
-            editUrl: '/app/config/category/edit'
+            pathname: '/app/config/category/edit'
         }, {
             id: 'configCategoryCode',
             name: '编码'

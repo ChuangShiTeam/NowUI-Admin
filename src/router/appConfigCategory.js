@@ -18,7 +18,7 @@ export default {
             }, 'appConfigCategory.detail');
         }
     }, {
-        path: '/app/config/category/edit/:appConfigCategoryId',
+        path: '/app/config/category/edit/:configCategoryId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
             require.ensure([], (require) => {
