@@ -4,7 +4,8 @@ import NDetail from '../../layout/NDetail';
 
 export default connect(function (state) {
     return {
-        name: 'app',
+        id: 'app',
+        baseUrl: '/app',
         title: '应用表单',
         primaryKey: 'appId',
         store: state.app,

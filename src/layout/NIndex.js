@@ -5,6 +5,7 @@ import {Row, Col, Form, Table, Card} from 'antd';
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
 import NInputText from '../component/NInputText';
+import NSelect from '../component/NSelect';
 
 import constant from '../common/constant';
 import http from '../common/http';
@@ -41,7 +42,7 @@ class NIndex extends Component {
     handleSearch() {
         new Promise(function (resolve) {
             this.props.dispatch({
-                type: this.props.name,
+                type: this.props.id,
                 data: this.props.form.getFieldsValue()
             });
 
@@ -75,7 +76,7 @@ class NIndex extends Component {
             data: values,
             success: function (data) {
                 this.props.dispatch({
-                    type: this.props.name,
+                    type: this.props.id,
                     data: {
                         total: data.total,
                         list: data.list
@@ -96,7 +97,7 @@ class NIndex extends Component {
     handleChangeIndex(pageIndex) {
         new Promise(function (resolve) {
             this.props.dispatch({
-                type: this.props.name,
+                type: this.props.id,
                 data: {
                     pageIndex: pageIndex
                 }
@@ -111,7 +112,7 @@ class NIndex extends Component {
     handleChangeSize(pageIndex, pageSize) {
         new Promise(function (resolve) {
             this.props.dispatch({
-                type: this.props.name,
+                type: this.props.id,
                 data: {
                     pageIndex: pageIndex,
                     pageSize: pageSize
@@ -169,7 +170,8 @@ class NIndex extends Component {
             let column = {
                 title: this.props.columnList[i].name,
                 key: this.props.columnList[i].id,
-                dataIndex: this.props.columnList[i].id
+                dataIndex: this.props.columnList[i].id,
+                render: this.props.columnList[i].render
             };
 
             if (i === 0) {
@@ -221,10 +223,18 @@ class NIndex extends Component {
                                                         );
                                                     case 'SELECT':
                                                         return (
-                                                            <NInputText id={search.id}
+                                                            <NSelect id={search.id}
                                                                         label={search.name}
+                                                                        staticOptionList={search.select.staticOptionList}
+                                                                        remoteOptionConfig={search.select.remoteOptionConfig}
+                                                                        storeKey={search.select.storeKey}
+                                                                        storeName={this.props.id}
+                                                                        store={this.props.store}
+                                                                        dispatch={this.props.dispatch}
+                                                                        allowClear={search.select.allowClear}
+                                                                        showSearch={search.select.showSearch}
+                                                                        initialValue={search.select.initialValue}
                                                                         getFieldDecorator={getFieldDecorator}
-                                                                        onPressEnter={this.handleSearch.bind(this)}
                                                                         multiLine={true}
                                                             />
                                                         )
@@ -286,7 +296,7 @@ class NIndex extends Component {
 
 NIndex.propTypes = {
     type: PropTypes.string,
-    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     primaryKey: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,

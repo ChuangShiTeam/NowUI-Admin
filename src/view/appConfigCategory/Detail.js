@@ -4,7 +4,8 @@ import NDetail from '../../layout/NDetail';
 
 export default connect(function (state) {
     return {
-        name: 'app/config/category',
+        id: 'appConfigCategory',
+        baseUrl: '/app/config/category',
         title: '应用配置分类表单',
         primaryKey: 'configCategoryId',
         store: state.appConfigCategory,

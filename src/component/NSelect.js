@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Form, Input} from 'antd';
+import {Form, Select} from 'antd';
+import http from '../common/http';
 
 class NSelect extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {}
+		this.state = {
+		}
 	}
 
 	componentDidMount() {
+		if (this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length === 0) {
+			let { url, params, key, value} = this.props.remoteOptionConfig;
+			if (url) {
+				this.handleLoadOptionList(url, params, key, value);
+			}
 
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -21,9 +29,37 @@ class NSelect extends Component {
 
 	}
 
+	handleLoadOptionList(url, params, key, value) {
+		http.request({
+			url: url,
+			data: params,
+			success: function (data) {
+				if (data) {
+					let optionList = data.map(function(option) {
+						return {
+							key: option[key],
+							value: option[value]
+						}
+					});
+					let storeData = {};
+					storeData[this.props.storeKey] = optionList;
+					this.props.dispatch({
+						type: this.props.storeName,
+						data: storeData
+					});
+				}
+			}.bind(this),
+			error: function () {
+
+			},
+			complete: function () {
+			}
+		});
+	}
+
 	render() {
 		const FormItem = Form.Item;
-
+		const Option = Select.Option;
 		return (
 			<FormItem
 				hasFeedback={true}
@@ -35,33 +71,62 @@ class NSelect extends Component {
 				{this.props.getFieldDecorator(this.props.id, {
 					rules: [{
 						required: this.props.required,
-						message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : ''
+						message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '选择' + this.props.label) : ''
 					}],
-					initialValue: ''
+					initialValue: this.props.initialValue
 				})(
-					<Input type="text"
-						   size={this.props.size}
-						   prefix={this.props.prefix}
-						   placeholder={this.props.placeholder === '' ? ('请输入' + this.props.label) : this.props.placeholder}
-						   onPressEnter={this.props.onPressEnter}
-					/>
+					<Select allowClear={this.props.allowClear}
+							placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
+							size={this.props.size}
+							mode={this.props.mode}
+							showSearch={this.props.showSearch}
+					>
+						{
+							this.props.staticOptionList && this.props.staticOptionList.length > 0 ?
+								this.props.staticOptionList.map(function (option) {
+									return (
+										<Option key={option.key} value={option.key}>{option.value}</Option>
+									)
+								})
+								:
+								null
+						}
+						{
+							this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length > 0?
+								this.props.store[this.props.storeKey].map(function (option) {
+									return (
+										<Option key={option.key} value={option.key}>{option.value}</Option>
+									)
+								})
+								:
+								null
+						}
+					</Select>
 				)}
 			</FormItem>
 		);
 	}
 }
 
-NInputText.propTypes = {
+NSelect.propTypes = {
 	getFieldDecorator: PropTypes.func.isRequired,
 	id: PropTypes.string.isRequired,
 	label: PropTypes.string,
 	placeholder: PropTypes.string,
 	required: PropTypes.bool,
 	message: PropTypes.string,
-	prefix: PropTypes.object,
 	size: PropTypes.string,
-	onPressEnter: PropTypes.func,
-	multiLine: PropTypes.bool
+	multiLine: PropTypes.bool,
+	staticOptionList: PropTypes.array,
+	remoteOptionConfig: PropTypes.object,
+	storeName: PropTypes.string,
+	storeKey: PropTypes.string,
+	store: PropTypes.object,
+	dispatch: PropTypes.func,
+	allowClear: PropTypes.bool,
+	mode: PropTypes.oneOf(['multiple', 'tags', 'combobox']),
+	showSearch: PropTypes.bool,
+	initialValue: PropTypes.string
 };
 
 NSelect.defaultProps = {
@@ -70,7 +135,14 @@ NSelect.defaultProps = {
 	required: false,
 	message: '',
 	size: 'default',
-	multiLine: false
+	multiLine: false,
+	staticOptionList: [],
+	remoteOptionConfig: {},
+	storeKey: '',
+	allowClear: false,
+	showSearch: false,
+	initialValue: ''
+
 };
 
 export default NSelect

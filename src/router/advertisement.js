@@ -17,11 +17,11 @@ export default {
         onEnter: util.handleEnter,
         getComponent(location, cb) {
             require.ensure([], (require) => {
-                cb(null, require('../view/advertisement/Add').default);
+                cb(null, require('../view/advertisement/Detail').default);
             },'advertisement.detail');
         }
     }, {
-        path: '/advertisement/edit/:advertisement_id',
+        path: '/advertisement/edit/:advertisementId',
         onEnter: util.handleEnter,
         getComponent(location, cb){
             require.ensure([], (require) => {

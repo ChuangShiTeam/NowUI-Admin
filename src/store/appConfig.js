@@ -1,4 +1,5 @@
 const initialState = {
+    configCategoryList: [],
     configCategoryId: '',
     configKey: '',
     configIsDisabled: '',

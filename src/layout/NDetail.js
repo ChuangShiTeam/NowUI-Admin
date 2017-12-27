@@ -6,6 +6,9 @@ import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
 import NInputText from '../component/NInputText';
 import NInputTextArea from '../component/NInputTextArea';
+import NInputNumber from '../component/NInputNumber';
+import NSwitch from '../component/NSwitch';
+import NSelect from '../component/NSelect';
 import http from "../common/http";
 
 import constant from '../common/constant';
@@ -52,7 +55,7 @@ class NDetail extends Component {
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
 
         http.request({
-            url: '/' + this.props.name + '/admin/find',
+            url: this.props.baseUrl + '/admin/find',
             data: values,
             success: function (data) {
                 let values = {};
@@ -95,7 +98,7 @@ class NDetail extends Component {
             values.systemVersion = this.state.systemVersion;
 
             http.request({
-                url: '/' + this.props.name + '/admin/' + (this.state.isEdit ? 'update' : 'save'),
+                url: this.props.baseUrl + '/admin/' + (this.state.isEdit ? 'update' : 'save'),
                 data: values,
                 success: function (data) {
                     if (data) {
@@ -136,7 +139,7 @@ class NDetail extends Component {
                 values.systemVersion = this.state.systemVersion;
 
                 http.request({
-                    url: '/' + this.props.name + '/admin/delete',
+                    url: this.props.baseUrl + '/admin/delete',
                     data: values,
                     success: function (data) {
                         if (data) {
@@ -245,6 +248,42 @@ class NDetail extends Component {
                                                                 onPressEnter={this.handleSubmit.bind(this)}
                                                     />
                                                     :
+                                                column.type === 'NUMBER' ?
+                                                    <NInputNumber id={column.id}
+                                                                label={column.name}
+                                                                min={column.min}
+                                                                max={column.max}
+                                                                step={column.step}
+                                                                formatter={column.formatter}
+                                                                parser={column.parser}
+                                                                required={column.required}
+                                                                getFieldDecorator={getFieldDecorator}
+                                                                onPressEnter={this.handleSubmit.bind(this)}
+                                                    />
+                                                    :
+                                                column.type === 'BOOLEAN' ?
+                                                    <NSwitch id={column.id}
+                                                            label={column.name}
+                                                            checkedChildren={column.checkedChildren}
+                                                            unCheckedChildren={column.unCheckedChildren}
+                                                            getFieldDecorator={getFieldDecorator}
+                                                    />
+                                                    :
+                                                column.type === 'SELECT' ?
+                                                    <NSelect id={column.id}
+                                                             label={column.name}
+                                                             staticOptionList={column.select.staticOptionList}
+                                                             remoteOptionConfig={column.select.remoteOptionConfig}
+                                                             storeKey={column.select.storeKey}
+                                                             storeName={this.props.id}
+                                                             store={this.props.store}
+                                                             dispatch={this.props.dispatch}
+                                                             allowClear={column.select.allowClear}
+                                                             showSearch={column.select.showSearch}
+                                                             initialValue={column.select.initialValue}
+                                                             getFieldDecorator={getFieldDecorator}
+                                                    />
+                                                    :
                                                     null
                                             }
                                         </NCol>
@@ -285,7 +324,8 @@ class NDetail extends Component {
 }
 
 NDetail.propTypes = {
-    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    baseUrl: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     primaryKey: PropTypes.string.isRequired,
     store: PropTypes.object.isRequired,

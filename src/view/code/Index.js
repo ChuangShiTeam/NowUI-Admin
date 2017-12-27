@@ -4,8 +4,8 @@ import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
     return {
+        id: 'code',
         type: 'TABLE',
-        name: 'code',
         title: '数据库表信息',
         primaryKey: 'tableName',
         store: state.code,

@@ -4,8 +4,8 @@ import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
     return {
+        id: 'appConfigCategory',
         type: 'TABLE',
-        name: 'appConfigCategory',
         title: '应用配置分类信息',
         primaryKey: 'configCategoryId',
         store: state.appConfigCategory,

@@ -18,7 +18,7 @@ export default {
             }, 'appConfig.detail');
         }
     }, {
-        path: '/app/config/edit/:appId',
+        path: '/app/config/edit/:configId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
             require.ensure([], (require) => {

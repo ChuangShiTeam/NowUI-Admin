@@ -4,13 +4,14 @@ import NDetail from '../../layout/NDetail';
 
 export default connect(function (state) {
     return {
-        name: 'code',
+        id: 'code',
+        baseUrl: '/app/code',
         title: '表信息',
         primaryKey: 'tableName',
         store: state.code,
         breadcrumbList: [{
             name: '代码生成管理',
-            url: '/product/index'
+            url: '/code/index'
         }, {
             name: '商品信息',
             url: ''
@@ -27,7 +28,7 @@ export default connect(function (state) {
             type: 'DELETE'
         }],
         columnList: [{
-            id: 'productName',
+            id: 'codeName',
             name: '商品名称',
             required: true
         }]

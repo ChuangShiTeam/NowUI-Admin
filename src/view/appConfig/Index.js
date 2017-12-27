@@ -4,8 +4,8 @@ import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
     return {
+        id: 'appConfig',
         type: 'TABLE',
-        name: 'appConfig',
         title: '应用配置信息',
         primaryKey: 'configId',
         store: state.appConfig,
@@ -30,7 +30,17 @@ export default connect(function (state) {
             id: 'configCategoryId',
             name: '应用配置分类',
             type: 'SELECT',
-
+            select: {
+                allowClear: true,
+                showSearch: true,
+                storeKey: 'configCategoryList',
+                remoteOptionConfig: {
+                    key: 'configCategoryId',
+                    value: 'configCategoryName',
+                    url: '/app/config/category/admin/all/list',
+                    params: {}
+                }
+            }
         }, {
             id: 'configKey',
             name: '键',
@@ -39,12 +49,23 @@ export default connect(function (state) {
             id: 'configIsDisabled',
             name: '是否禁用',
             type: 'SELECT',
-            
+            select: {
+                staticOptionList: [{
+                    key: '',
+                    value: '全部'
+                }, {
+                    key: true,
+                    value: '是'
+                }, {
+                    key: false,
+                    value: '否'
+                }]
+            }
         }],
         columnList: [{
             id: 'configKey',
             name: '键',
-            editUrl: '/app/config/edit'
+            pathname: '/app/config/edit'
         }, {
             id: 'configValue',
             name: '值'
@@ -53,7 +74,10 @@ export default connect(function (state) {
             name: '分类'
         }, {
             id: 'configIsDisabled',
-            name: '是否禁用'
+            name: '是否禁用',
+            render: function (text, record, index){
+                return text ? '是' : '否';
+            }
         }]
     }
 })(NIndex);

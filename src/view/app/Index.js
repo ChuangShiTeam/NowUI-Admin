@@ -4,8 +4,8 @@ import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
     return {
+        id: 'app',
         type: 'TABLE',
-        name: 'app',
         title: '应用信息',
         primaryKey: 'appId',
         store: state.app,
