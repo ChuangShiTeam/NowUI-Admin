@@ -9,6 +9,7 @@ import NInputTextArea from '../component/NInputTextArea';
 import NInputNumber from '../component/NInputNumber';
 import NSwitch from '../component/NSwitch';
 import NSelect from '../component/NSelect';
+import NInputHtml from '../component/NInputHtml';
 import http from "../common/http";
 
 import constant from '../common/constant';
@@ -281,6 +282,12 @@ class NDetail extends Component {
                                                              allowClear={column.select.allowClear}
                                                              showSearch={column.select.showSearch}
                                                              initialValue={column.select.initialValue}
+                                                             getFieldDecorator={getFieldDecorator}
+                                                    />
+                                                    :
+                                                column.type === 'HTML' ?
+                                                    <NInputHtml id={column.id}
+                                                             label={column.name}
                                                              getFieldDecorator={getFieldDecorator}
                                                     />
                                                     :

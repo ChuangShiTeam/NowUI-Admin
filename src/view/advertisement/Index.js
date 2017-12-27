@@ -56,7 +56,10 @@ export default connect(function (state) {
             name: '超链接'
         }, {
             id: 'advertisementIsEfficient',
-            name: '是否失效'
+            name: '是否失效',
+            render: function (text, record, index){
+                return text ? '是' : '否';
+            }
         }]
     }
 })(NIndex);

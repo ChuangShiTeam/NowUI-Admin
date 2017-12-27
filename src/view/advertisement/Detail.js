@@ -45,8 +45,7 @@ export default connect(function (state) {
         }, {
             id: 'advertisementImage',
             name: '广告图片',
-            type: 'VARCHAR',
-            required: true
+            type: 'HTML',
         }, {
             id: 'advertisementContent',
             name: '广告内容',
