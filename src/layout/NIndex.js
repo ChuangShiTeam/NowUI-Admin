@@ -31,6 +31,8 @@ class NIndex extends Component {
         this.props.form.setFieldsValue(value);
     }
 
+
+
     componentWillReceiveProps(nextProps) {
 
     }
@@ -132,9 +134,25 @@ class NIndex extends Component {
         });
     }
 
-    handleEdit(record, pathname) {
+    handleEdit(record, editUrl) {
+        let pathname = editUrl;
+        if (editUrl.indexOf('/:') > -1) {
+            let index = editUrl.indexOf('/:');
+            pathname = editUrl.substring(0, index + 1);
+            let name = editUrl.substring(index + 2, editUrl.length);
+
+            if (name.indexOf('/:') > -1) {
+                let index2 = name.indexOf('/:');
+                pathname += record[name.substring(0, index2)] + '/';
+                let name2 = name.substring(index2 + 2, name.length);
+                pathname += record[name2];
+            } else {
+                pathname += record[name];
+            }
+        }
+
         this.props.history.push({
-            pathname: pathname + '/' + record[this.props.primaryKey],
+            pathname: pathname,
             query: {}
         });
     }
@@ -174,11 +192,11 @@ class NIndex extends Component {
                 render: this.props.columnList[i].render
             };
 
-            if (i === 0) {
+            if (this.props.columnList[i].editUrl) {
                 column.render = function (text, record) {
                     return (
                         <span>
-                          <a onClick={this.handleEdit.bind(this, record, this.props.columnList[i].pathname)}>{text}</a>
+                          <a onClick={this.handleEdit.bind(this, record, this.props.columnList[i].editUrl)}>{text}</a>
                         </span>
                     )
                 }.bind(this)

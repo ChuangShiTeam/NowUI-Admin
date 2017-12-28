@@ -10,7 +10,7 @@ export default {
 			}, 'code.index');
 		}
 	}, {
-		path: '/code/view',
+		path: '/code/view/:tableSchema/:tableName',
 		onEnter: util.handleEnter,
 		getComponent(location, cb) {
 			require.ensure([], (require) => {

@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '数据库表信息',
         primaryKey: 'tableName',
         store: state.code,
-        listUrl: '/app/code/admin/table/list',
+        listUrl: '/code/admin/table/list',
         breadcrumbList: [{
             name: '代码生成管理',
             url: ''
@@ -22,28 +22,27 @@ export default connect(function (state) {
             isPrimary: true
         }],
         searchList: [{
+            id: 'tableSchema',
+            name: '数据库',
+            type: 'VARCHAR'
+        }, {
             id: 'tableName',
-            name: '表名称',
+            name: '数据表',
             type: 'VARCHAR'
         }],
         columnList: [{
-            id: 'table_name',
-            name: '表名称'
+            id: 'tableName',
+            name: '表名称',
+            editUrl: '/code/view/:tableSchema/:tableName'
+        }, {
+            id: 'tableComment',
+            name: '说明'
         }, {
             id: 'engine',
             name: '引擎'
         }, {
-            id: 'table_rows',
-            name: '数据'
-        }, {
-            id: 'create_time',
+            id: 'systemCreateTime',
             name: '创建时间'
-        }, {
-            id: 'update_time',
-            name: '更新时间'
-        }, {
-            id: 'table_comment',
-            name: '说明'
         }]
     }
 })(NIndex);

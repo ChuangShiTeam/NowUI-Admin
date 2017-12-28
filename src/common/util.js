@@ -12,8 +12,17 @@ function handleEnter(next, replace, callback) {
     callback();
 }
 
+function isPc() {
+    if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        return false;
+    } else {
+        return true
+    }
+}
+
 export default {
     scrollToTop: scrollToTop,
     setTitle: setTitle,
-    handleEnter: handleEnter
+    handleEnter: handleEnter,
+    isPc: isPc
 };

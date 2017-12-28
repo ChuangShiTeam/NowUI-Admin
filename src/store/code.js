@@ -1,4 +1,5 @@
 const initialState = {
+    tableSchema: '',
 	tableName: '',
 	total: 0,
 	pageIndex: 1,
