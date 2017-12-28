@@ -304,6 +304,15 @@ class Detail extends Component {
                                             required={true}
                                 />
                             </NCol>
+                            <NCol multiLine={true}>
+                                <NInputText id="author"
+                                            label="开发者"
+                                            getFieldDecorator={getFieldDecorator}
+                                            onPressEnter={this.handleSubmit.bind(this)}
+                                            multiLine={true}
+                                            required={true}
+                                />
+                            </NCol>
                         </Row>
                     </Form>
                 </div>
