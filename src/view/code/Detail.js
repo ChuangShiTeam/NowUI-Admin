@@ -57,6 +57,7 @@ class Detail extends Component {
                     data[i].isCanUpdatable = true;
 
                     if (data[i].columnKey === 'PRI') {
+                        data[i].isCanSearch = false;
                         data[i].isList = false;
                         data[i].isCanList = false;
                         data[i].isDetail = false;
@@ -66,6 +67,8 @@ class Detail extends Component {
                     }
 
                     if (data[i].columnName === 'appId') {
+                        data[i].isCanSearch = false;
+                        data[i].isCanList = false;
                         data[i].isDetail = false;
                         data[i].isCanDetail = false;
                         data[i].isUpdatable = false;
@@ -295,6 +298,15 @@ class Detail extends Component {
                 <div className="page-search">
                     <Form>
                         <Row>
+                            <NCol multiLine={true}>
+                                <NInputText id="moduleName"
+                                            label="模块名称"
+                                            getFieldDecorator={getFieldDecorator}
+                                            onPressEnter={this.handleSubmit.bind(this)}
+                                            multiLine={true}
+                                            required={true}
+                                />
+                            </NCol>
                             <NCol multiLine={true}>
                                 <NInputText id="packageName"
                                             label="命名空间"
