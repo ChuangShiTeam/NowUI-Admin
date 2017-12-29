@@ -196,8 +196,8 @@ class NDetail extends Component {
         const {getFieldDecorator} = this.props.form;
 
         let buttonList = [];
-        for (var i = 0; i < this.props.buttonList.length; i++) {
-            var button = {
+        for (let i = 0; i < this.props.buttonList.length; i++) {
+            let button = {
                 name: this.props.buttonList[i].name,
                 icon: this.props.buttonList[i].icon,
                 isPrimary: this.props.buttonList[i].isPrimary
@@ -219,8 +219,8 @@ class NDetail extends Component {
         }
 
         let secondButtonList = [];
-        for (var i = 0; i < this.props.secondButtonList.length; i++) {
-            var button = {
+        for (let i = 0; i < this.props.secondButtonList.length; i++) {
+            let button = {
                 name: this.props.secondButtonList[i].name,
                 icon: this.props.secondButtonList[i].icon
             };

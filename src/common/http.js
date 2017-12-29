@@ -16,8 +16,13 @@ function request(config) {
     var sdic = Object.keys(config.data).sort();
     for (let ki in sdic) {
         sign += sdic[ki];
-        sign += config.data[sdic[ki]];
+        if (typeof (config.data[sdic[ki]]) === 'object') {
+            sign += JSON.stringify(config.data[sdic[ki]]);
+        } else {
+            sign += config.data[sdic[ki]];
+        }
     }
+    console.log(sign);
     config.data.sign = md5(sign);
 
     reqwest({
