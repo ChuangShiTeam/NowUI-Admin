@@ -4,7 +4,7 @@ import {Form} from 'antd';
 
 import ReactQuill from 'react-quill';
 
-import NImageListModel from './NImageListModel';
+import NFileListModel from './NFileListModel';
 
 import notification from '../common/notification';
 
@@ -59,7 +59,7 @@ class NInputHtml extends Component {
                 className="form-item"
             >
                 <ReactQuill value={this.state.text} modules={modules}/>
-                <NImageListModel id={this.props.id} returnLimit={0} aspect={1}/>
+                <NFileListModel id={this.props.id} returnLimit={0} aspect={1}/>
             </FormItem>
         );
     }

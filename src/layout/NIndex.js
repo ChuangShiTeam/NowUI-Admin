@@ -77,11 +77,16 @@ class NIndex extends Component {
             url: this.props.listUrl,
             data: values,
             success: function (data) {
+                let expandedRowKeys = [];
+                if (this.props.type === 'TREE_TABLE') {
+                    expandedRowKeys = this.setExpandedRowKeys(data.list);
+                }
                 this.props.dispatch({
                     type: this.props.id,
                     data: {
                         total: data.total,
-                        list: data.list
+                        list: data.list,
+                        expandedRowKeys: expandedRowKeys
                     }
                 });
             }.bind(this),
@@ -94,6 +99,20 @@ class NIndex extends Component {
                 })
             }.bind(this)
         });
+    }
+
+    setExpandedRowKeys(list) {
+        let expandedRowKeys = [];
+
+        for (let i = 0; i < list.length; i++) {
+            expandedRowKeys.push(list[i][this.props.primaryKey]);
+
+            if (list[i].children) {
+                expandedRowKeys = expandedRowKeys.concat(this.setExpandedRowKeys(list[i].children));
+            }
+        }
+
+        return expandedRowKeys;
     }
 
     handleChangeIndex(pageIndex) {
@@ -127,9 +146,9 @@ class NIndex extends Component {
         }.bind(this));
     }
 
-    handleAdd(pathname) {
+    handleAdd(addUrl) {
         this.props.history.push({
-            pathname: pathname,
+            pathname: addUrl,
             query: {}
         });
     }
@@ -159,7 +178,6 @@ class NIndex extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-
         let buttonList = [];
         for (let i = 0; i < this.props.buttonList.length; i++) {
             let button = {
@@ -170,7 +188,7 @@ class NIndex extends Component {
 
             switch (this.props.buttonList[i].type) {
                 case 'ADD':
-                    button.click = this.handleAdd.bind(this, this.props.buttonList[i].pathname);
+                    button.click = this.handleAdd.bind(this, this.props.buttonList[i].addUrl);
                     break;
                 case 'SEARCH':
                     button.click = this.handleSearch.bind(this);
@@ -188,15 +206,20 @@ class NIndex extends Component {
             let column = {
                 title: this.props.columnList[i].name,
                 key: this.props.columnList[i].id,
-                dataIndex: this.props.columnList[i].id,
-                render: this.props.columnList[i].render
+                dataIndex: this.props.columnList[i].id
             };
+
+            if (this.props.columnList[i].render) {
+                column.render = function (text, record, index) {
+                    return this.props.columnList[i].render(text, record, index, this)
+                }.bind(this);
+            }
 
             if (this.props.columnList[i].editUrl) {
                 column.render = function (text, record) {
                     return (
                         <span>
-                          <a onClick={this.handleEdit.bind(this, record, this.props.columnList[i].editUrl)}>{text}</a>
+                          <a onClick={this.handleEdit.bind(this, record, this.props.columnList[i].editUrl)}>{this.props.columnList[i].alias?this.props.columnList[i].alias:text}</a>
                         </span>
                     )
                 }.bind(this)
@@ -279,7 +302,17 @@ class NIndex extends Component {
                                            dataSource={this.props.store.list}
                                            pagination={pagination}
                                     />
-                                )
+                                );
+                            case 'TREE_TABLE':
+                                return (
+                                    <Table rowKey={this.props.primaryKey}
+                                           loading={this.state.isLoad}
+                                           expandedRowKeys={this.props.store.expandedRowKeys}
+                                           columns={columnList}
+                                           dataSource={this.props.store.list}
+                                           pagination={pagination}
+                                    />
+                                );
                             case 'CARD':
                                 return (
                                     <Row gutter={20}>

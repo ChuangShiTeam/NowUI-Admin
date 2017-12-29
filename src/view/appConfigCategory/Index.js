@@ -24,7 +24,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/app/config/category/add'
+            addUrl: '/app/config/category/add'
         }],
         searchList: [{
             id: 'configCategoryName',
@@ -38,7 +38,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'configCategoryName',
             name: '名称',
-            pathname: '/app/config/category/edit'
+            editUrl: '/app/config/category/edit/:configCategoryId'
         }, {
             id: 'configCategoryCode',
             name: '编码'
