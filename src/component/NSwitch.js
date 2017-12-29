@@ -32,7 +32,8 @@ class NSwitch extends Component {
 				className="form-item"
 			>
 				{this.props.getFieldDecorator(this.props.id, {
-					valuePropName: 'checked'
+					valuePropName: 'checked',
+					initialValue: false
 				})(
 					<Switch size={this.props.size}
 							checkedChildren={this.props.checkedChildren}

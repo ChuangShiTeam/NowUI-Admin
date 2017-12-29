@@ -138,7 +138,7 @@ class NImageListModel extends Component {
         };
 
         return (
-            <Modal title="我的图片"
+            <Modal title="我的上传"
                    maskClosable={false}
                    width={document.documentElement.clientWidth - 200}
                    className="modal"

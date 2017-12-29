@@ -24,7 +24,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/product/add'
+            addUrl: '/product/add'
         }],
         searchList: [{
             id: 'productName',

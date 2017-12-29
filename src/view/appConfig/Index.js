@@ -1,3 +1,4 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
@@ -24,7 +25,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/app/config/add'
+            addUrl: '/app/config/add'
         }],
         searchList: [{
             id: 'configCategoryId',
@@ -65,7 +66,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'configKey',
             name: '键',
-            pathname: '/app/config/edit'
+            editUrl: '/app/config/edit/:configId'
         }, {
             id: 'configValue',
             name: '值'
@@ -75,8 +76,13 @@ export default connect(function (state) {
         }, {
             id: 'configIsDisabled',
             name: '是否禁用',
-            render: function (text, record, index){
-                return text ? '是' : '否';
+            render: function (text, record, index, self){
+                return (
+                    text ?
+                        <span style={{color: '#52C41A'}}>是</span>
+                        :
+                        <span style={{color: '#F5222D'}}>否</span>
+                );
             }
         }]
     }

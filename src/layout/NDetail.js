@@ -22,6 +22,11 @@ class NDetail extends Component {
             isLoad: false,
             isEdit: false,
             systemVersion: ''
+        };
+        if (this.props.submitKey && this.props.submitKey.length) {
+            for (let str of this.props.submitKey) {
+                this.state[str] = ''
+            }
         }
     }
 
@@ -32,6 +37,9 @@ class NDetail extends Component {
             });
 
             this.handleLoad();
+        }
+        if (this.props.params) {
+            this.setState(this.props.params);
         }
     }
 
@@ -66,9 +74,14 @@ class NDetail extends Component {
                 }
                 this.props.form.setFieldsValue(values);
 
-                this.setState({
-                    systemVersion: data.systemVersion
-                });
+                let states = {systemVersion: data.systemVersion};
+
+                if (this.props.submitKey && this.props.submitKey.length) {
+                    for (let str of this.props.submitKey) {
+                        states[str] = data[str];
+                    }
+                }
+                this.setState(states);
             }.bind(this),
             complete: function () {
                 this.setState({
@@ -97,6 +110,12 @@ class NDetail extends Component {
                 values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
             }
             values.systemVersion = this.state.systemVersion;
+
+            if (this.props.submitKey && this.props.submitKey.length) {
+                for (let str of this.props.submitKey) {
+                    values[str] = this.state[str];
+                }
+            }
 
             http.request({
                 url: this.props.baseUrl + '/admin/' + (this.state.isEdit ? 'update' : 'save'),

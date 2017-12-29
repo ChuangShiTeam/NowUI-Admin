@@ -1,3 +1,4 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
@@ -24,7 +25,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/advertisement/add'
+            addUrl: '/advertisement/add'
         }],
         searchList: [{
             id: 'advertisementTitle',
@@ -38,7 +39,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'advertisementTitle',
             name: '广告标题',
-            pathname: '/advertisement/edit'
+            editUrl: '/advertisement/edit/:advertisementId'
         }, {
             id: 'advertisementCategoryCode',
             name: '分类编码'
@@ -57,8 +58,13 @@ export default connect(function (state) {
         }, {
             id: 'advertisementIsEfficient',
             name: '是否失效',
-            render: function (text, record, index){
-                return text ? '是' : '否';
+            render: function (text, record, index, self){
+                return (
+                    record.advertisementIsEfficient ?
+                        <span style={{color: '#52C41A'}}>是</span>
+                        :
+                        <span style={{color: '#F5222D'}}>否</span>
+                );
             }
         }]
     }

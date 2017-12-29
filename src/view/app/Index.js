@@ -24,7 +24,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/app/add'
+            addUrl: '/app/add'
         }],
         searchList: [{
             id: 'appName',
@@ -34,7 +34,7 @@ export default connect(function (state) {
         columnList: [{
             id: 'appName',
             name: '应用名称',
-            pathname: '/app/edit'
+            editUrl: '/app/edit/:appId'
         }]
     }
 })(NIndex);

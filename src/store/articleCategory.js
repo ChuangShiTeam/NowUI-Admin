@@ -1,15 +1,15 @@
 const initialState = {
-	configCategoryName: '',
-	configCategoryCode: '',
+	articleCategoryName: '',
+	expandedRowKeys: [],
 	total: 0,
 	pageIndex: 1,
 	pageSize: 10,
 	list: []
 };
 
-function appConfigCategory(state = initialState, action) {
+function articleCategory(state = initialState, action) {
 	switch (action.type) {
-		case 'appConfigCategory':
+		case 'articleCategory':
 			return Object.assign({}, state, action.data);
 
 		default :
@@ -17,4 +17,4 @@ function appConfigCategory(state = initialState, action) {
 	}
 }
 
-export default appConfigCategory;
+export default articleCategory;
