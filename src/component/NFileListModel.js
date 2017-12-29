@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Button, message, Upload, Icon} from 'antd';
 
+import NImageCrop from './NImageCrop'
 import constant from '../common/constant';
 import storage from '../common/storage';
 import notification from '../common/notification';
 
-class NImageListModel extends Component {
+class NFileListModel extends Component {
     constructor(props) {
         super(props);
 
@@ -23,7 +24,7 @@ class NImageListModel extends Component {
     }
 
     componentDidMount() {
-        notification.on('notification_image_list_model_' + this.props.id + '_show', this, function () {
+        notification.on('notification_file_list_model_' + this.props.id + '_show', this, function () {
             var width = Math.floor((document.documentElement.clientWidth - 200 - 40) / (96 + 16));
             var height = Math.floor((document.documentElement.clientHeight - 200 - 32 - 21 - 49 - 20) / (96 + 16));
 
@@ -41,7 +42,7 @@ class NImageListModel extends Component {
     }
 
     componentWillUnmount() {
-        notification.remove('notification_image_list_model_' + this.props.id + '_show', this);
+        notification.remove('notification_file_list_model_' + this.props.id + '_show', this);
     }
 
     handleImageCrop() {
@@ -96,7 +97,7 @@ class NImageListModel extends Component {
             }
         }
 
-        notification.emit('notification_image_list_model_' + this.props.id + '_load', list);
+        notification.emit('notification_image_file_model_' + this.props.id + '_load', list);
 
         this.handleCancel();
     }
@@ -136,7 +137,7 @@ class NImageListModel extends Component {
             },
             onChange: this.handleChange.bind(this)
         };
-
+        console.log('this.props', this.props);
         return (
             <Modal title="我的上传"
                    maskClosable={false}
@@ -145,21 +146,55 @@ class NImageListModel extends Component {
                    visible={this.state.is_show}
                    onCancel={this.handleCancel.bind(this)}
                    footer={[
-                       this.props.aspect === 0 ?
-                           <div key="normal" style={{float: 'left', marginLeft: 10}}>
-                               <Upload {...props}>
-                                   <Button type="ghost" loading={this.state.isLoad}>
-                                       <Icon type="cloud-upload"/>上传图片
-                                   </Button>
-                               </Upload>
-                           </div>
-                           :
-                           <div key="crop" style={{float: 'left', marginLeft: 10}}>
-                               <Button type="ghost" loading={this.state.isLoad}
-                                       onClick={this.handleImageCrop.bind(this)}>
-                                   <Icon type="cloud-upload"/>上传图片
-                               </Button>
-                           </div>
+                        <div key="upload">
+                            {
+                                this.props.supportUploadTypes.length > 0 ?
+                                    this.props.supportUploadTypes.map((uploadType, index) => {
+                                        if (uploadType === 'image') {
+                                            return (
+                                                <div key={index} style={{float: 'left', marginLeft: 10}}>
+                                                   <Upload {...props}>
+                                                       <Button type="ghost" loading={this.state.isLoad}>
+                                                           <Icon type="cloud-upload"/>上传图片
+                                                       </Button>
+                                                   </Upload>
+                                               </div>
+                                           )
+                                        } else if(uploadType === 'cropImage') {
+                                            return (
+                                                <div key={index} style={{float: 'left', marginLeft: 10}}>
+                                                   <Button type="ghost" loading={this.state.isLoad}
+                                                           onClick={this.handleImageCrop.bind(this)}>
+                                                       <Icon type="cloud-upload"/>裁剪上传图片
+                                                   </Button>
+                                               </div>
+                                           )
+                                        } else if(uploadType === 'video') {
+                                            return (
+                                                <div key={index} style={{float: 'left', marginLeft: 10}}>
+                                                   <Upload {...props}>
+                                                       <Button type="ghost" loading={this.state.isLoad}>
+                                                           <Icon type="cloud-upload"/>上传视频
+                                                       </Button>
+                                                   </Upload>
+                                               </div>
+                                           )
+                                        } else if(uploadType === 'document') {
+                                            return (
+                                                <div key={index} style={{float: 'left', marginLeft: 10}}>
+                                                   <Upload {...props}>
+                                                       <Button type="ghost" loading={this.state.isLoad}>
+                                                           <Icon type="cloud-upload"/>上传文档
+                                                       </Button>
+                                                   </Upload>
+                                               </div>
+                                           )
+                                        }
+                                    })
+                                    :
+                                    null
+                            }
+                        </div>
                        ,
                        <Button key="back" type="ghost" size="default" icon="cross-circle"
                                onClick={this.handleCancel.bind(this)}>关闭</Button>,
@@ -168,20 +203,24 @@ class NImageListModel extends Component {
                                onClick={this.handleSubmit.bind(this)}>确定</Button>
                    ]}
             >
+
+                <NImageCrop id={this.props.id} aspect={this.props.aspect}/>
             </Modal>
         );
     }
 }
 
-NImageListModel.propTypes = {
+NFileListModel.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string,
     returnLimit: PropTypes.number.isRequired,
-    aspect: PropTypes.number.isRequired
+    aspect: PropTypes.number,
+    supportUploadTypes: PropTypes.arrayOf(PropTypes.oneOf(['image', 'cropImage', 'video', 'document']))
+    
 };
 
-NImageListModel.defaultProps = {
+NFileListModel.defaultProps = {
 
 };
 
-export default NImageListModel
+export default NFileListModel

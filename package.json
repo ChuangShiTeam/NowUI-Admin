@@ -7,6 +7,7 @@
     "blueimp-md5": "^2.10.0",
     "history": "^1.17.0",
     "react": "^15.6.2",
+    "react-cropper": "^1.0.1",
     "react-dom": "^15.6.2",
     "react-quill": "^1.2.0",
     "react-redux": "^4.4.1",

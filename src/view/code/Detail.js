@@ -309,7 +309,16 @@ class Detail extends Component {
                             </NCol>
                             <NCol multiLine={true}>
                                 <NInputText id="packageName"
-                                            label="命名空间"
+                                            label="包名"
+                                            getFieldDecorator={getFieldDecorator}
+                                            onPressEnter={this.handleSubmit.bind(this)}
+                                            multiLine={true}
+                                            required={true}
+                                />
+                            </NCol>
+                            <NCol multiLine={true}>
+                                <NInputText id="tableComment"
+                                            label="注释前缀"
                                             getFieldDecorator={getFieldDecorator}
                                             onPressEnter={this.handleSubmit.bind(this)}
                                             multiLine={true}

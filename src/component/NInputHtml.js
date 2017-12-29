@@ -45,7 +45,7 @@ class NInputHtml extends Component {
                 ],
                 handlers: {
                     "image": function () {
-                        notification.emit('notification_image_list_model_' + this.props.id + '_show', {});
+                        notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
                     }.bind(this)
                 }
             }
@@ -59,16 +59,16 @@ class NInputHtml extends Component {
                 className="form-item"
             >
                 <ReactQuill value={this.state.text} modules={modules}/>
-                <NFileListModel id={this.props.id} returnLimit={0} aspect={1}/>
+                <NFileListModel id={this.props.id} supportUploadTypes={['image', 'cropImage']} returnLimit={0} aspect={1}/>
             </FormItem>
         );
     }
 }
 
 NInputHtml.propTypes = {
-    getFieldDecorator: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
-    label: PropTypes.string
+    label: PropTypes.string,
+    getFieldDecorator: PropTypes.func.isRequired
 };
 
 NInputHtml.defaultProps = {
