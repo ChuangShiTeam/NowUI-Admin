@@ -7,6 +7,7 @@ import NInputText from '../../component/NInputText';
 import http from "../../common/http";
 
 import constant from '../../common/constant';
+import NSwitch from "../../component/NSwitch";
 
 class Detail extends Component {
     constructor(props) {
@@ -332,6 +333,13 @@ class Detail extends Component {
                                             onPressEnter={this.handleSubmit.bind(this)}
                                             multiLine={true}
                                             required={true}
+                                />
+                            </NCol>
+                            <NCol multiLine={true}>
+                                <NSwitch id="isMq"
+                                            label="消息队列"
+                                            getFieldDecorator={getFieldDecorator}
+                                            multiLine={true}
                                 />
                             </NCol>
                         </Row>
