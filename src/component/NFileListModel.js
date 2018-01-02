@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Button, message, Upload, Icon} from 'antd';
+import {Modal, Button, message, Upload, Icon, Spin, Pagination} from 'antd';
 
 import NImageCrop from './NImageCrop'
 import constant from '../common/constant';
 import storage from '../common/storage';
 import notification from '../common/notification';
+import http from '../common/http';
 
 class NFileListModel extends Component {
     constructor(props) {
@@ -13,8 +14,8 @@ class NFileListModel extends Component {
 
         this.state = {
             isLoad: false,
-            is_show: false,
-            is_preview: false,
+            isShow: false,
+            isPreview: false,
             image: '',
             pageIndex: 1,
             pageSize: 1,
@@ -29,10 +30,10 @@ class NFileListModel extends Component {
             var height = Math.floor((document.documentElement.clientHeight - 200 - 32 - 21 - 49 - 20) / (96 + 16));
 
             this.setState({
-                is_show: true,
+                isShow: true,
                 pageSize: width * height
             }, function () {
-
+                this.handleLoad(1);
             });
         });
     }
@@ -49,10 +50,149 @@ class NFileListModel extends Component {
         notification.emit('notification_image_crop_model_' + this.props.id + '_show', {});
     }
 
+    handleLoad(pageIndex) {
+        this.setState({
+            is_load: true
+        });
+
+        http.request({
+            url: '/file/admin/list',
+            data: {
+                fileName: '',
+                fileType: 'IMAGE',
+                pageIndex: pageIndex,
+                pageSize: this.state.pageSize
+            },
+            success: function (data) {
+                var list = [];
+
+                for (var i = 0; i < data.list.length; i++) {
+                    list.push({
+                        fileId: data.list[i].fileId,
+                        filePath: data.list[i].filePath,
+                        status: false,
+                        select: false
+                    });
+                }
+
+                this.setState({
+                    list: list,
+                    pageIndex: pageIndex,
+                    total: data.total
+                });
+            }.bind(this),
+            complete: function () {
+                this.setState({
+                    is_load: false
+                });
+            }.bind(this)
+        });
+    }
+
+    handleCancel() {
+        var list = [];
+
+        for (var i = 0; i < this.state.list.length; i++) {
+            var item = this.state.list[i];
+
+            list.push({
+                fileId: item.fileId,
+                filePath: item.filePath,
+                status: false,
+                select: false
+            });
+        }
+
+        this.setState({
+            isShow: false,
+            list: list
+        });
+    }
+
+    handleCancelPreview() {
+        this.setState({
+            isPreview: false
+        });
+    }
+
+    handlePreview(fileId) {
+        var filePath = '';
+        for (var i = 0; i < this.state.list.length; i++) {
+            if (this.state.list[i].fileId === fileId) {
+                filePath = this.state.list[i].filePath;
+            }
+        }
+
+        this.setState({
+            image: constant.imageHost + filePath,
+            isPreview: true
+        });
+    }
+
+    handleClick(fileId) {
+        var list = [];
+
+        for (var i = 0; i < this.state.list.length; i++) {
+            var item = this.state.list[i];
+
+            if (item.fileId === fileId) {
+                item.select = !item.select;
+            }
+
+            list.push({
+                fileId: item.fileId,
+                filePath: item.filePath,
+                status: item.status,
+                select: item.select
+            });
+        }
+        this.setState({
+            list: list
+        });
+    }
+
+    handleMouseOver(fileId) {
+        var list = [];
+
+        for (var i = 0; i < this.state.list.length; i++) {
+            var item = this.state.list[i];
+
+            list.push({
+                fileId: item.fileId,
+                filePath: item.filePath,
+                status: item.fileId === fileId,
+                select: item.select
+            });
+        }
+
+        this.setState({
+            list: list
+        });
+    }
+
+    handleMouseOut(fileId) {
+        var list = [];
+
+        for (var i = 0; i < this.state.list.length; i++) {
+            var item = this.state.list[i];
+
+            list.push({
+                fileId: item.fileId,
+                filePath: item.filePath,
+                status: false,
+                select: item.select
+            });
+        }
+
+        this.setState({
+            list: list
+        });
+    }
+
     handleChange(info) {
         if (info.file.status === 'done') {
             if (info.file.response.code === 200) {
-                message.success(constant.success);
+                message.success('上传成功');
             } else {
                 message.error(info.file.response.message);
             }
@@ -60,8 +200,8 @@ class NFileListModel extends Component {
             this.setState({
                 isLoad: false
             });
-
             this.handleLoad(1);
+
         } else if (info.file.status === 'uploading') {
             this.setState({
                 isLoad: true
@@ -80,24 +220,23 @@ class NFileListModel extends Component {
             var item = this.state.list[i];
 
             if (item.select) {
-                if (index < this.props.limit || this.props.limit === 0) {
+                if (index < this.props.returnLimit || this.props.returnLimit === 0) {
                     index++;
 
                     if (this.props.type !== '') {
-                        item.file_path = item.file_path.substring(0, item.file_path.lastIndexOf("/")) + "/" + this.props.type + "/" + item.file_path.substring(item.file_path.lastIndexOf("/") + 1);
+                        item.filePath = item.filePath.substring(0, item.filePath.lastIndexOf("/")) + "/" + this.props.type + "/" + item.filePath.substring(item.filePath.lastIndexOf("/") + 1);
                     }
 
                     list.push({
-                        file_id: item.file_id,
-                        file_path: item.file_path,
+                        fileId: item.fileId,
+                        filePath: item.filePath,
                         status: false,
                         select: item.select
                     });
                 }
             }
         }
-
-        notification.emit('notification_image_file_model_' + this.props.id + '_load', list);
+        notification.emit('notification_media_file_' + this.props.id + '_submit', list);
 
         this.handleCancel();
     }
@@ -109,17 +248,21 @@ class NFileListModel extends Component {
             var item = this.state.list[i];
 
             list.push({
-                file_id: item.file_id,
-                file_path: item.file_path,
+                fileId: item.fileId,
+                filePath: item.filePath,
                 status: false,
                 select: false
             });
         }
 
         this.setState({
-            is_show: false,
+            isShow: false,
             list: list
         });
+    }
+
+    handlePaginationChange(page, pageSize) {
+        this.handleLoad(page);
     }
 
     render() {
@@ -127,9 +270,9 @@ class NFileListModel extends Component {
             name: 'file',
             multiple: true,
             showUploadList: false,
-            action: constant.image_host + '/admin/file/upload',
+            action: 'http://localhost:8080/file/admin/image/upload',
             accept: 'image/jpg,image/jpeg,image/png',
-            headers: {
+            data: {
                 'appId': constant.appId,
                 'token': storage.getToken(),
                 'platform': constant.platform,
@@ -137,13 +280,12 @@ class NFileListModel extends Component {
             },
             onChange: this.handleChange.bind(this)
         };
-        console.log('this.props', this.props);
         return (
             <Modal title="我的上传"
                    maskClosable={false}
                    width={document.documentElement.clientWidth - 200}
                    className="modal"
-                   visible={this.state.is_show}
+                   visible={this.state.isShow}
                    onCancel={this.handleCancel.bind(this)}
                    footer={[
                         <div key="upload">
@@ -203,7 +345,45 @@ class NFileListModel extends Component {
                                onClick={this.handleSubmit.bind(this)}>确定</Button>
                    ]}
             >
+                <Spin spinning={this.state.isLoad}>
+                    {
+                        this.state.list.map(function (item) {
+                            const mask = item.status || item.select ? "item-mask item-mask-active" : "item-mask";
+                            return (
+                                <div key={item.fileId} className="item">
+                                    <div className="item-image"
+                                         style={{backgroundImage: 'url(' + constant.imageHost + item.filePath + ')'}}></div>
+                                    <div onMouseOver={this.handleMouseOver.bind(this, item.fileId)}
+                                         onMouseOut={this.handleMouseOut.bind(this, item.fileId)}>
+                                        <div className={mask} onClick={this.handleClick.bind(this, item.fileId)}></div>
+                                        <i className="anticon anticon-eye-o item-preview-icon"
+                                           style={{display: item.status && !item.select ? 'inline' : 'none'}}
+                                           onClick={this.handlePreview.bind(this, item.fileId)}/>
+                                        <i className="anticon anticon-delete item-remove-icon"
+                                           style={{display: item.status && !item.select ? 'inline' : 'none'}}/>
+                                        <i className="anticon anticon-check-circle-o item-check-icon"
+                                           style={{display: item.select ? 'inline' : 'none'}}
+                                           onClick={this.handlePreview.bind(this)}/>
+                                    </div>
+                                </div>
+                            )
+                        }.bind(this))
+                    }
+                    {
+                        this.state.list.length > 0 ?
+                            <div style={{float: 'left', width: '100%', textAlign: 'right'}}>
+                                <Pagination current={this.state.pageIndex} pageSize={this.state.pageSize}
+                                            total={this.state.total}
+                                            onChange={this.handlePaginationChange.bind(this)}/>
+                            </div>
+                            :
+                            null
+                    }
 
+                </Spin>
+                <Modal visible={this.state.isPreview} footer={null} onCancel={this.handleCancelPreview.bind(this)}>
+                    <div className="item-image" style={{backgroundImage: 'url(' + this.state.image + ')'}}></div>
+                </Modal>
                 <NImageCrop id={this.props.id} aspect={this.props.aspect}/>
             </Modal>
         );
@@ -216,7 +396,6 @@ NFileListModel.propTypes = {
     returnLimit: PropTypes.number.isRequired,
     aspect: PropTypes.number,
     supportUploadTypes: PropTypes.arrayOf(PropTypes.oneOf(['image', 'cropImage', 'video', 'document']))
-    
 };
 
 NFileListModel.defaultProps = {

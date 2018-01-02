@@ -10,6 +10,7 @@ import NInputNumber from '../component/NInputNumber';
 import NSwitch from '../component/NSwitch';
 import NSelect from '../component/NSelect';
 import NInputHtml from '../component/NInputHtml';
+import NInputMedia from '../component/NInputMedia';
 import http from "../common/http";
 
 import constant from '../common/constant';
@@ -70,6 +71,22 @@ class NDetail extends Component {
                 let values = {};
 
                 for (let i = 0; i < this.props.columnList.length; i++) {
+                    if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit > 0) {
+                        let media = [];
+                        let mediaData = data[this.props.columnList[i].id];
+                        if (this.props.columnList[i].returnLimit === 1) {
+                            if (mediaData !== null) {
+                                media.push(mediaData);
+                            }
+                        } else {
+                            if (mediaData !== null && mediaData.length > 0) {
+                                media = mediaData;
+                            }
+                        }
+                        this.refs[this.props.columnList[i].ref].handleSetValue(media);
+                    } else if (this.props.columnList[i].type === 'HTML') {
+
+                    }
                     values[this.props.columnList[i].id] = data[this.props.columnList[i].id];
                 }
                 this.props.form.setFieldsValue(values);
@@ -105,6 +122,17 @@ class NDetail extends Component {
             this.setState({
                 isLoad: true
             });
+
+            for (let i = 0; i < this.props.columnList.length; i++) {
+                if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit > 0) {
+                    let fileList = this.refs[this.props.columnList[i].ref].handleGetValue();
+                    if (fileList.length === 0) {
+                        values[this.props.columnList[i].id] = '';
+                    } else {
+                        values[this.props.columnList[i].id]  = fileList[0].fileId;
+                    }
+                }
+            }
 
             if (this.state.isEdit) {
                 values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
@@ -186,6 +214,12 @@ class NDetail extends Component {
 
     handleReset() {
         this.props.form.resetFields();
+
+        for (let i = 0; i < this.props.columnList.length; i++) {
+            if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit > 0) {
+                this.refs[this.props.columnList[i].ref].handleReset();
+            }
+        }
     }
 
     handleBack() {
@@ -306,8 +340,20 @@ class NDetail extends Component {
                                                     :
                                                 column.type === 'HTML' ?
                                                     <NInputHtml id={column.id}
-                                                             label={column.name}
-                                                             getFieldDecorator={getFieldDecorator}
+                                                                label={column.name}
+                                                                getFieldDecorator={getFieldDecorator}
+                                                                ref={column.refs}
+                                                    />
+                                                    :
+                                                column.type === 'MEDIA' ?
+                                                    <NInputMedia id={column.id}
+                                                                 label={column.name}
+                                                                 type={column.type}
+                                                                 aspect={column.aspect}
+                                                                 returnLimit={column.returnLimit}
+                                                                 supportUploadTypes={column.supportUploadTypes}
+                                                                 getFieldDecorator={getFieldDecorator}
+                                                                 ref={column.ref}
                                                     />
                                                     :
                                                     null
