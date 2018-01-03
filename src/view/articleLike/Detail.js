@@ -4,16 +4,15 @@ import NDetail from '../../layout/NDetail';
 
 export default connect(function (state) {
     return {
-        id: 'role',
-        baseUrl: '/role',
-        title: '角色表单',
-        primaryKey: 'roleId',
-        store: state.role,
+        id: 'articleLike',
+        title: '文章点赞表单',
+        primaryKey: 'articleLikeId',
+        store: state.articleLike,
         breadcrumbList: [{
-            name: '角色管理',
-            url: '/role/index'
+            name: '文章点赞管理',
+            url: '/article/like/index'
         }, {
-            name: '角色信息',
+            name: '文章点赞信息',
             url: ''
         }],
         buttonList: [{
@@ -28,26 +27,14 @@ export default connect(function (state) {
             type: 'DELETE'
         }],
         columnList: [{
-            id: 'roleName',
-            name: '名称',
+            id: 'articleId',
+            name: '文章编号',
             type: 'VARCHAR',
             required: true
         }, {
-            id: 'roleCode',
-            name: '编码',
+            id: 'userId',
+            name: '点赞数',
             type: 'VARCHAR',
-            required: true
-        }, {
-            id: 'roleDescription',
-            name: '描述',
-            type: 'VARCHAR',
-            required: true
-        }, {
-            id: 'roleSort',
-            name: '排序',
-            type: 'NUMBER',
-            min: 0,
-            max: 99999,
             required: true
         }]
     }

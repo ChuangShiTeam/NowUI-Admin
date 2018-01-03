@@ -4,14 +4,14 @@ import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
     return {
-        id: 'role',
+        id: 'articleBookmark',
         type: 'TABLE',
-        title: '角色',
-        primaryKey: 'roleId',
-        store: state.role,
-        listUrl: '/role/admin/list',
+        title: '文章收藏',
+        primaryKey: 'articleBookMarkId',
+        store: state.articleBookmark,
+        listUrl: '/article/bookmark/admin/list',
         breadcrumbList: [{
-            name: '角色管理',
+            name: '文章收藏管理',
             url: ''
         }],
         buttonList: [{
@@ -24,27 +24,23 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            addUrl: '/role/add'
+            pathname: '/articleBookmark/add'
         }],
         searchList: [{
-            id: 'roleName',
-            name: '名称',
-            type: 'VARCHAR',
+            id: 'articleId',
+            name: '文章编号',
+            type: 'VARCHAR'
             }, {
-            id: 'roleCode',
-            name: '编码',
+            id: 'useId',
+            name: '用户编号',
             type: 'VARCHAR'
         }],
         columnList: [{
-            id: 'roleName',
-            name: '名称',
-            editUrl: '/role/edit/:roleId'
+            id: 'articleId',
+            name: '文章编号'
         }, {
-            id: 'roleCode',
-            name: '编码'
-        }, {
-            id: 'roleSort',
-            name: '排序'
+            id: 'useId',
+            name: '用户编号'
         }]
     }
 })(NIndex);

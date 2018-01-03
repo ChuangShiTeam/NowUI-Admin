@@ -1,6 +1,8 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
+import constant from "../../common/constant";
 
 export default connect(function (state) {
     return {
@@ -24,7 +26,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/user/add'
+            addUrl: '/user/add'
         }],
         searchList: [{
             id: 'userType',
@@ -48,13 +50,16 @@ export default connect(function (state) {
             name: '类型'
         }, {
             id: 'userAccount',
-            name: '账号'
+            name: '账号',
+            editUrl: '/user/edit/:userId'
         }, {
             id: 'userNickName',
-            name: '昵称'
+            name: '昵称',
+            editUrl: '/user/edit/:userId'
         }, {
             id: 'userName',
-            name: '姓名'
+            name: '姓名',
+            editUrl: '/user/edit/:userId'
         }, {
             id: 'userMobile',
             name: '手机号码'
@@ -63,7 +68,17 @@ export default connect(function (state) {
             name: '邮箱'
         }, {
             id: 'userAvatar',
-            name: '头像'
+            name: '头像',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }]
     }
 })(NIndex);

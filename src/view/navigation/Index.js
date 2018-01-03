@@ -1,6 +1,8 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
+import constant from "../../common/constant";
 
 export default connect(function (state) {
     return {
@@ -24,7 +26,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/navigation/add'
+            addUrl: '/navigation/add'
         }],
         searchList: [{
             id: 'navigationCategoryCode',
@@ -47,10 +49,21 @@ export default connect(function (state) {
             name: '导航栏编码'
         }, {
             id: 'navigationName',
-            name: '导航栏名称'
+            name: '导航栏名称',
+            editUrl: '/navigation/edit/:navigationId'
         }, {
             id: 'navigationImage',
-            name: '导航栏图片'
+            name: '导航栏图片',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }, {
             id: 'navigationUrl',
             name: '导航栏链接'

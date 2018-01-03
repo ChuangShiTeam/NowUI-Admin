@@ -5,6 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'user',
+        baseUrl: '/user',
         title: '用户表单',
         primaryKey: 'userId',
         store: state.user,
@@ -69,8 +70,10 @@ export default connect(function (state) {
         }, {
             id: 'userAvatar',
             name: '头像',
-            type: 'VARCHAR',
-            required: true
+            type: 'MEDIA',
+            returnLimit: 1,
+            supportUploadTypes: ['image'],
+            ref: 'navigationImage'
         }, {
             id: 'weixinOpenId',
             name: '微信openID',

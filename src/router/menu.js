@@ -25,5 +25,13 @@ export default {
                 cb(null, require('../view/menu/Detail').default);
             }, 'menu.detail');
         }
+    }, {
+        path: '/menu/add/:menuParentId',
+        onEnter: util.handleEnter,
+        getComponent(location, cb) {
+            require.ensure([], (require) => {
+                cb(null, require('../view/menu/Detail').default);
+            }, 'menu.detail');
+        }
     }]
 }

@@ -1,15 +1,17 @@
 const initialState = {
-    expandedRowKeys: [],
-    menuName: '',
+    articleId: '',
+    userId: '',
+    articleAuditStatus: '',
+    articleAuditTime: '',
     total: 0,
     list: [],
     pageIndex: 1,
     pageSize: 10
 };
 
-function menu(state = initialState, action) {
+function articleAudit(state = initialState, action) {
     switch (action.type) {
-        case 'menu':
+        case 'articleAudit':
             return Object.assign({}, state, action.data);
 
         default :
@@ -17,4 +19,4 @@ function menu(state = initialState, action) {
     }
 }
 
-export default menu;
+export default articleAudit;

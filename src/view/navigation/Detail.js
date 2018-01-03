@@ -5,6 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'navigation',
+        baseUrl: '/navigation',
         title: '导航栏表单',
         primaryKey: 'navigationId',
         store: state.navigation,
@@ -44,8 +45,10 @@ export default connect(function (state) {
         }, {
             id: 'navigationImage',
             name: '导航栏图片',
-            type: 'VARCHAR',
-            required: true
+            type: 'MEDIA',
+            returnLimit: 1,
+            supportUploadTypes: ['image'],
+            ref: 'navigationImage'
         }, {
             id: 'navigationUrl',
             name: '导航栏链接',
@@ -59,7 +62,9 @@ export default connect(function (state) {
         }, {
             id: 'navigationSort',
             name: '排序',
-            type: 'VARCHAR',
+            type: 'NUMBER',
+            min: 0,
+            max: 99999,
             required: true
         }]
     }
