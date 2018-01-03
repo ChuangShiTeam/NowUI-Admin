@@ -223,10 +223,6 @@ class NFileListModel extends Component {
                 if (index < this.props.returnLimit || this.props.returnLimit === 0) {
                     index++;
 
-                    if (this.props.type !== '') {
-                        item.filePath = item.filePath.substring(0, item.filePath.lastIndexOf("/")) + "/" + this.props.type + "/" + item.filePath.substring(item.filePath.lastIndexOf("/") + 1);
-                    }
-
                     list.push({
                         fileId: item.fileId,
                         filePath: item.filePath,

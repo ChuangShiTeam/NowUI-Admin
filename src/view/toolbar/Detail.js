@@ -5,6 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'toolbar',
+        baseUrl: '/toolbar',
         title: '工具栏表单',
         primaryKey: 'toolbarId',
         store: state.toolbar,
@@ -34,12 +35,16 @@ export default connect(function (state) {
         }, {
             id: 'toolbarImage',
             name: '工具栏图片',
-            type: 'VARCHAR',
-            required: true
+            type: 'MEDIA',
+            returnLimit: 1,
+            supportUploadTypes: ['image'],
+            ref: 'toolbarImage'
         }, {
             id: 'toolbarSort',
             name: '排序',
-            type: 'VARCHAR',
+            type: 'NUMBER',
+            min: 0,
+            max: 99999,
             required: true
         }]
     }

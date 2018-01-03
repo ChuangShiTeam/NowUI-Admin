@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import constant from '../../common/constant';
 import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
@@ -48,7 +49,17 @@ export default connect(function (state) {
             name: '编码'
         }, {
             id: 'advertisementImage',
-            name: '图片'
+            name: '图片',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }, {
             id: 'advertisementPosition',
             name: '位置'

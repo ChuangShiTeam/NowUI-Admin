@@ -1,5 +1,7 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import constant from '../../common/constant';
 import NIndex from '../../layout/NIndex';
 
 export default connect(function (state) {
@@ -24,7 +26,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/toolbar/add'
+            addUrl: '/toolbar/add'
         }],
         searchList: [{
             id: 'toolbarName',
@@ -36,7 +38,17 @@ export default connect(function (state) {
             name: '工具栏名称'
         }, {
             id: 'toolbarImage',
-            name: '工具栏图片'
+            name: '工具栏图片',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }, {
             id: 'toolbarSort',
             name: '排序'
