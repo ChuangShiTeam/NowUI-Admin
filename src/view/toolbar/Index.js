@@ -35,7 +35,8 @@ export default connect(function (state) {
         }],
         columnList: [{
             id: 'toolbarName',
-            name: '工具栏名称'
+            name: '工具栏名称',
+            editUrl: '/toolbar/edit/:toolbarId'
         }, {
             id: 'toolbarImage',
             name: '工具栏图片',

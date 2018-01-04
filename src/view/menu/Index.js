@@ -1,11 +1,13 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
+import constant from "../../common/constant";
 
 export default connect(function (state) {
     return {
         id: 'menu',
-        type: 'TABLE',
+        type: 'TREE_TABLE',
         title: '菜单',
         primaryKey: 'menuId',
         store: state.menu,
@@ -24,40 +26,44 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            pathname: '/menu/add'
+            addUrl: '/menu/add'
         }],
         searchList: [{
-            id: 'menuParentId',
-            name: '父级ID',
-            type: 'VARCHAR'
-            }, {
             id: 'menuName',
             name: '名称',
             type: 'VARCHAR'
-            }, {
-            id: 'menuImage',
-            name: '图片',
-            type: 'VARCHAR'
-            }, {
-            id: 'menuUrl',
-            name: '地址',
-            type: 'VARCHAR'
         }],
         columnList: [{
-            id: 'menuParentId',
-            name: '父级ID'
-        }, {
             id: 'menuName',
-            name: '名称'
+            name: '名称',
+            editUrl: '/menu/edit/:menuId'
         }, {
             id: 'menuImage',
-            name: '图片'
+            name: '图片',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }, {
             id: 'menuUrl',
             name: '地址'
         }, {
             id: 'menuSort',
             name: '排序'
+        }, {
+            id: 'menuId',
+            name: '操作',
+            render: function(text, record, index, self) {
+                return (<span>
+                    <a onClick={self.handleAdd.bind(self, '/menu/add/' + record.menuId)}>添加</a>
+                </span>)
+            }
         }]
     }
 })(NIndex);

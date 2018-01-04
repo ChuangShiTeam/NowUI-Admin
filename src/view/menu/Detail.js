@@ -5,6 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'menu',
+        baseUrl: '/menu',
         title: '菜单表单',
         primaryKey: 'menuId',
         store: state.menu,
@@ -27,16 +28,6 @@ export default connect(function (state) {
             type: 'DELETE'
         }],
         columnList: [{
-            id: 'menuParentId',
-            name: '父级ID',
-            type: 'VARCHAR',
-            required: true
-        }, {
-            id: 'menuParentPath',
-            name: '路径',
-            type: 'VARCHAR',
-            required: true
-        }, {
             id: 'menuName',
             name: '名称',
             type: 'VARCHAR',
@@ -44,8 +35,10 @@ export default connect(function (state) {
         }, {
             id: 'menuImage',
             name: '图片',
-            type: 'VARCHAR',
-            required: true
+            type: 'MEDIA',
+            returnLimit: 1,
+            supportUploadTypes: ['image'],
+            ref: 'navigationImage'
         }, {
             id: 'menuUrl',
             name: '地址',
@@ -54,7 +47,9 @@ export default connect(function (state) {
         }, {
             id: 'menuSort',
             name: '排序',
-            type: 'VARCHAR',
+            type: 'NUMBER',
+            min: 0,
+            max: 99999,
             required: true
         }]
     }
