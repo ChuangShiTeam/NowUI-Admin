@@ -43,11 +43,11 @@ class NInputHtml extends Component {
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
                     ['link', 'video', 'image']
                 ],
-                handlers: {
-                    "image": function () {
-                        notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
-                    }.bind(this)
-                }
+                // handlers: {
+                //     "image": function () {
+                //         notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
+                //     }.bind(this)
+                // }
             }
         };
 
