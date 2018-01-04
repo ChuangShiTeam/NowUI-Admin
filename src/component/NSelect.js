@@ -12,7 +12,7 @@ class NSelect extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length === 0) {
+		if (this.props.storeKey && this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length === 0) {
 			let { url, params, key, value} = this.props.remoteOptionConfig;
 			if (url) {
 				this.handleLoadOptionList(url, params, key, value);
@@ -92,7 +92,7 @@ class NSelect extends Component {
 								null
 						}
 						{
-							this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length > 0?
+							this.props.storeKey && this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length > 0?
 								this.props.store[this.props.storeKey].map(function (option) {
 									return (
 										<Option key={option.key} value={option.key}>{option.value}</Option>

@@ -37,7 +37,7 @@ class NInputNumber extends Component {
 						required: this.props.required,
 						message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : ''
 					}],
-					initialValue: ''
+					initialValue: this.props.min
 				})(
 					<InputNumber
 						size={this.props.size}

@@ -13,7 +13,7 @@ class NInputHtml extends Component {
         super(props);
 
         this.state = {
-            text: '123'
+            text: ''
         }
     }
 

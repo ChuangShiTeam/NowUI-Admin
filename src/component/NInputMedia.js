@@ -33,7 +33,7 @@ class NInputMedia extends Component {
 				}
 
 				if (isNotExit) {
-					if (array.length < this.props.returnLimit) {
+					if (array.length < this.props.returnLimit || this.props.returnLimit === 0) {
 						array.push(data[i]);
 					}
 				}
@@ -186,6 +186,15 @@ class NInputMedia extends Component {
 				}
 				{
 					this.state.list.length < this.props.returnLimit ?
+						<div className="button" onClick={this.handleAdd.bind(this)}>
+							<i className="anticon anticon-plus button-icon"/>
+							<div className="ant-upload-text button-text">添加{this.props.label}</div>
+						</div>
+						:
+						''
+				}
+				{
+					this.props.returnLimit === 0 ?
 						<div className="button" onClick={this.handleAdd.bind(this)}>
 							<i className="anticon anticon-plus button-icon"/>
 							<div className="ant-upload-text button-text">添加{this.props.label}</div>

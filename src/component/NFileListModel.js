@@ -232,6 +232,7 @@ class NFileListModel extends Component {
                 }
             }
         }
+
         notification.emit('notification_media_file_' + this.props.id + '_submit', list);
 
         this.handleCancel();
