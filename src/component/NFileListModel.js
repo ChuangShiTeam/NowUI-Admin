@@ -225,9 +225,7 @@ class NFileListModel extends Component {
 
                     list.push({
                         fileId: item.fileId,
-                        filePath: item.filePath,
-                        status: false,
-                        select: item.select
+                        filePath: item.filePath
                     });
                 }
             }
