@@ -41,8 +41,8 @@ export default connect(function (state) {
             id: 'articleCategoryName',
             name: '分类'
         }, {
-            id: 'articleCover',
-            name: '封面',
+            id: 'articleMedia',
+            name: '媒体',
             render: function (text, record, index, self) {
                 return (
                     text ?

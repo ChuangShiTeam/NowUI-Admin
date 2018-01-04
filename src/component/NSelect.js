@@ -79,6 +79,7 @@ class NSelect extends Component {
 							placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
 							size={this.props.size}
 							mode={this.props.mode}
+							filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
 							showSearch={this.props.showSearch}
 					>
 						{

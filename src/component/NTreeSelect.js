@@ -91,6 +91,8 @@ class NTreeSelect extends Component {
 						size={this.props.size}
 						multiple={this.props.multiple}
 						treeCheckable={this.props.treeCheckable}
+						filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+						treeNodeFilterProp={'title'}
 						showCheckedStrategy={this.props.showCheckedStrategy}
 						dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
 						treeData={this.props.store[this.props.storeKey]}
