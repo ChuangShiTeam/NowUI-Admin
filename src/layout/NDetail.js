@@ -71,23 +71,15 @@ class NDetail extends Component {
                 let values = {};
 
                 for (let i = 0; i < this.props.columnList.length; i++) {
-                    if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit > 0) {
-                        let media = [];
-                        let mediaData = data[this.props.columnList[i].id];
-                        if (this.props.columnList[i].returnLimit === 1) {
-                            if (mediaData !== null) {
-                                media.push(mediaData);
-                            }
-                        } else {
-                            if (mediaData !== null && mediaData.length > 0) {
-                                media = mediaData;
-                            }
+                    if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit === 1) {
+                        let mediaData = [];
+                        if (data[this.props.columnList[i].id] !== null) {
+                            mediaData.push(data[this.props.columnList[i].id]);
                         }
-                        this.refs[this.props.columnList[i].ref].handleSetValue(media);
-                    } else if (this.props.columnList[i].type === 'HTML') {
-
+                        values[this.props.columnList[i].id] = mediaData;
+                    }  else {
+                        values[this.props.columnList[i].id] = data[this.props.columnList[i].id];
                     }
-                    values[this.props.columnList[i].id] = data[this.props.columnList[i].id];
                 }
                 this.props.form.setFieldsValue(values);
 
@@ -124,12 +116,10 @@ class NDetail extends Component {
             });
 
             for (let i = 0; i < this.props.columnList.length; i++) {
-                if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit > 0) {
-                    let fileList = this.refs[this.props.columnList[i].ref].handleGetValue();
-                    if (fileList.length === 0) {
-                        values[this.props.columnList[i].id] = '';
-                    } else {
-                        values[this.props.columnList[i].id]  = fileList[0].fileId;
+                if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit === 1) {
+                    let mediaData = values[this.props.columnList[i].id];
+                    if (mediaData && mediaData.length > 0) {
+                        values[this.props.columnList[i].id] = mediaData[0].fileId
                     }
                 }
             }
@@ -214,12 +204,6 @@ class NDetail extends Component {
 
     handleReset() {
         this.props.form.resetFields();
-
-        for (let i = 0; i < this.props.columnList.length; i++) {
-            if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit > 0) {
-                this.refs[this.props.columnList[i].ref].handleReset();
-            }
-        }
     }
 
     handleBack() {
@@ -342,7 +326,6 @@ class NDetail extends Component {
                                                     <NInputHtml id={column.id}
                                                                 label={column.name}
                                                                 getFieldDecorator={getFieldDecorator}
-                                                                ref={column.refs}
                                                     />
                                                     :
                                                 column.type === 'MEDIA' ?
@@ -353,7 +336,6 @@ class NDetail extends Component {
                                                                  returnLimit={column.returnLimit}
                                                                  supportUploadTypes={column.supportUploadTypes}
                                                                  getFieldDecorator={getFieldDecorator}
-                                                                 ref={column.ref}
                                                     />
                                                     :
                                                     null

@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Row, Form, Col, Button, Modal, message, TreeSelect} from 'antd';
+import moment from 'moment';
 
 import NHeader from '../../component/NHeader';
+import NDetail from '../../layout/NDetail';
 import NCol from '../../component/NCol';
 import NInputText from '../../component/NInputText';
 import NInputTextArea from '../../component/NInputTextArea';
@@ -62,23 +64,46 @@ class Detail extends Component {
             url: '/article/admin/find',
             data: values,
             success: function (data) {
-                let values = {};
-
-                let articleCover = [];
-                if (data.articleCover !== null) {
-                    articleCover.push(data.articleCover);
+                let articlePrimaryCategoryId = '';
+                let articleSecondaryCategoryIds = null;
+                if (data.articleArticleCategoryList && data.articleArticleCategoryList.length > 0) {
+                    articleSecondaryCategoryIds = [];
+                    data.articleArticleCategoryList.forEach((articleArticleCategory) => {
+                        if (articleArticleCategory.articleCategoryIsPrimary) {
+                            articlePrimaryCategoryId = articleArticleCategory.articleCategoryId
+                        } else {
+                            articleSecondaryCategoryIds.push(articleArticleCategory.articleCategoryId);
+                        }
+                    });
                 }
-                this.refs.articleCover.handleSetValue(articleCover);
-                let articleMediaList = [];
-                if (data.articleMediaList && data.articleMediaList.length > 0) {
-                    articleMediaList = data.articleMediaList;
-                }
-                this.refs.articleMediaList.handleSetValue(articleMediaList);
-                if (data.articleContent) {
-                    this.refs.articleContent.handleSetValue(data.articleContent);
-                }
-
-                this.props.form.setFieldsValue(values);
+                let articleMedia = [];
+               if (data.articleMedia) {
+                  articleMedia.push(data.articleMedia);
+               }
+                this.props.form.setFieldsValue({
+                    articleTitle: data.articleTitle,
+                    articleAuthor: data.articleAuthor,
+                    articleSource: data.articleSource,
+                    articleSummary: data.articleSummary,
+                    articleContent: data.articleContent,
+                    articleTags: data.articleTags,
+                    articleKeywords: data.articleKeywords,
+                    articleOuterLink: data.articleOuterLink,
+                    articleIsOuterLink: data.articleIsOuterLink,
+                    articleIsAllowComment: data.articleIsAllowComment,
+                    articlePublishTime: moment(data.articlePublishTime),
+                    articleIsTop: data.articleIsTop,
+                    articleTopLevel: data.articleTopLevel,
+                    articleTopEndTime: moment(data.articleTopEndTime),
+                    articleIsDraft: data.articleIsDraft,
+                    articleWeight: data.articleWeight,
+                    articleIsRequireAudit: data.articleIsRequireAudit,
+                    articleSort: data.articleSort,
+                    articleMedia: articleMedia,
+                    articleMediaList: data.articleMediaList,
+                    articlePrimaryCategoryId: articlePrimaryCategoryId,
+                    articleSecondaryCategoryIds: articleSecondaryCategoryIds
+                });
 
                 this.setState({
                     systemVersion: data.systemVersion
@@ -127,6 +152,24 @@ class Detail extends Component {
             delete values.articlePrimaryCategoryId;
             delete values.articleSecondaryCategoryIds;
             values.articleArticleCategoryList = articleArticleCategoryList;
+
+            if (values.articleMedia && values.articleMedia.length > 0) {
+                values.articleMedia = values.articleMedia[0].fileId;
+                values.articleMediaType = 'IMAGE';
+            }
+
+            if (values.articleMediaList) {
+                values.articleMediaList = values.articleMediaList.map((articleMedia, index) => (articleMedia.articleMediaSort = index));
+            }
+
+            if (values.articleTopEndTime) {
+                values.articleTopEndTime = moment(values.articleTopEndTime).format('YYYY-MM-DD HH:mm:ss');
+            }
+            
+            if (values.articlePublishTime) {
+                values.articlePublishTime = moment(values.articlePublishTime).format('YYYY-MM-DD HH:mm:ss');
+            }
+
             if (this.state.isEdit) {
                 values.articleId = this.props.params.articleId;
             }
@@ -201,7 +244,6 @@ class Detail extends Component {
 
     handleReset() {
         this.props.form.resetFields();
-
     }
 
     handleBack() {
@@ -261,8 +303,6 @@ class Detail extends Component {
                         <NTreeSelect
                             id="articleSecondaryCategoryIds"
                             label="文章副分类"
-                            allowClear={true}
-                            showSearch={true}
                             multiple={true}
                             treeCheckable={true}
                             treeDefaultExpandAll={true}
@@ -296,21 +336,19 @@ class Detail extends Component {
                                     getFieldDecorator={getFieldDecorator}
                                     onPressEnter={this.handleSubmit.bind(this)}
                         />
-                        <NInputMedia id="articleCover"
-                                     label="文章封面"
+                        <NInputMedia id="articleMedia"
+                                     label="文章主媒体"
                                      type="MEDIA"
                                      returnLimit={1}
                                      supportUploadTypes={['image', 'cropImage']}
                                      getFieldDecorator={getFieldDecorator}
-                                     ref="articleCover"
                         />
                         <NInputMedia id="articleMediaList"
-                                     label="文章多媒体"
+                                     label="文章副媒体"
                                      type="MEDIA"
                                      returnLimit={0}
                                      supportUploadTypes={['image', 'cropImage', 'video']}
                                      getFieldDecorator={getFieldDecorator}
-                                     ref="articleMediaList"
                         />
                         <NInputTextArea id="articleSummary"
                                         label="文章摘要"
@@ -390,10 +428,10 @@ class Detail extends Component {
                                  getFieldDecorator={getFieldDecorator}
                         />
                         <NInputDate id="articleTopEndTime"
+                                    label="文章置顶截止时间"
                                     type="DatePicker"
                                     showTime={true}
                                     format={"YYYY-MM-DD HH:mm:ss"}
-                                    label="文章置顶截止时间"
                                     getFieldDecorator={getFieldDecorator}
                         />
                         <NInputNumber id="articleWeight"
@@ -408,13 +446,20 @@ class Detail extends Component {
                         <NInputHtml id="articleContent"
                                     label="文章内容"
                                     getFieldDecorator={getFieldDecorator}
-                                    ref="articleContent"
                         />
                         <NSwitch id="articleIsDraft"
                                  label={"文章是否草稿"}
                                  checkedChildren={'是'}
                                  unCheckedChildren={'否'}
                                  getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputDate id="articlePublishTime"
+                                    label="文章发布时间"
+                                    type="DatePicker"
+                                    showTime={true}
+                                    initialValue={moment()}
+                                    format={"YYYY-MM-DD HH:mm:ss"}
+                                    getFieldDecorator={getFieldDecorator}
                         />
                         <NSwitch id="articleIsRequireAudit"
                                  label={"文章是否需要审核"}

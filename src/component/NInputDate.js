@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Form, DatePicker} from 'antd';
+import moment from 'moment';
 
 class NInputDate extends Component {
 	constructor(props) {
@@ -37,7 +38,7 @@ class NInputDate extends Component {
 						required: this.props.required,
 						message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入日期时间') : ''
 					}],
-					initialValue: null
+					initialValue: this.props.initialValue
 				})(
 					this.props.type === 'DatePicker' ?
 						<DatePicker
@@ -95,7 +96,8 @@ NInputDate.propTypes = {
 	type: PropTypes.oneOf(['DatePicker', 'MonthPicker', 'RangePicker', 'WeekPicker']),
 	allowClear: PropTypes.bool,
 	showTime: PropTypes.bool,
-	format: PropTypes.string
+	format: PropTypes.string,
+	initialValue: PropTypes.instanceOf(moment)
 };
 
 NInputDate.defaultProps = {
@@ -107,7 +109,8 @@ NInputDate.defaultProps = {
 	multiLine: false,
 	type: 'DatePicker',
 	allowClear: false,
-	showTime: false
+	showTime: false,
+	initialValue: null
 };
 
 export default NInputDate
