@@ -58,7 +58,16 @@ class NInputHtml extends Component {
                 wrapperCol={{xs: {span: 24}, sm: {span: 17}, md: {span: 17}, lg: {span: 18}, xl: {span: 18}}}
                 className="form-item"
             >
-                <ReactQuill value={this.state.text} modules={modules}/>
+                {this.props.getFieldDecorator(this.props.id, {
+                    rules: [{
+                        required: this.props.required,
+                        message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : ''
+                    }],
+                    initialValue: ''
+                })(
+
+                    <ReactQuill modules={modules}/>
+                )}
                 <NFileListModel id={this.props.id} supportUploadTypes={['image', 'cropImage']} returnLimit={0} aspect={1}/>
             </FormItem>
         );
