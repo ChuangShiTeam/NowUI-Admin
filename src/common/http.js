@@ -12,17 +12,22 @@ function request(config) {
     config.data.version = constant.version;
     config.data.timestamp = Math.round(new Date().getTime() / 1000);
 
+    let data = {};
     let sign = '';
     var sdic = Object.keys(config.data).sort();
     for (let ki in sdic) {
         sign += sdic[ki];
-        if (typeof (config.data[sdic[ki]]) === 'object') {
+        if (typeof (config.data[sdic[ki]]) === 'object' && config.data[sdic[ki]] !== null) {
             sign += JSON.stringify(config.data[sdic[ki]]);
+
+            data[sdic[ki]] = JSON.stringify(config.data[sdic[ki]]);
         } else {
             sign += config.data[sdic[ki]];
+
+            data[sdic[ki]] = config.data[sdic[ki]];
         }
     }
-    config.data.sign = md5(sign);
+    data.sign = md5(sign);
 
     reqwest({
         url: constant.host + config.url,
@@ -33,7 +38,7 @@ function request(config) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        data: JSON.stringify(config.data),
+        data: JSON.stringify(data),
         success: function (response) {
             if (response.code === 200) {
                 config.success(response.data);

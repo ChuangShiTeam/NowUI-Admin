@@ -7,26 +7,42 @@ import ReactQuill from 'react-quill';
 import NFileListModel from './NFileListModel';
 
 import notification from '../common/notification';
+import constant from "../common/constant";
 
 class NInputHtml extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            text: '123'
+            text: ''
         }
-    }
-
-    componentDidMount() {
-
     }
 
     componentWillReceiveProps(nextProps) {
 
     }
 
-    componentWillUnmount() {
+    componentDidMount() {
+        const toolbar = this.quillRef.getEditor().getModule('toolbar');
+        toolbar.addHandler('image', this.handleImage.bind(this));
 
+        notification.on('notification_media_file_' + this.props.id + '_submit', this, function (data) {
+            let html = '';
+
+            for (let i = 0; i < data.length; i++) {
+                html += '<img src="' + constant.imageHost + data[i].file_path + '" />';
+            }
+
+            this.quillRef.getEditor().insertText(this.quillRef.getEditor().getSelection().index, html);
+        });
+    }
+
+    componentWillUnmount() {
+        notification.remove('notification_media_file_' + this.props.id + '_submit', this);
+    }
+
+    handleImage() {
+        notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
     }
 
     render() {
@@ -42,12 +58,7 @@ class NInputHtml extends Component {
                     [{'align': []}],
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
                     ['link', 'video', 'image']
-                ],
-                handlers: {
-                    "image": function () {
-                        notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
-                    }.bind(this)
-                }
+                ]
             }
         };
 
@@ -58,8 +69,20 @@ class NInputHtml extends Component {
                 wrapperCol={{xs: {span: 24}, sm: {span: 17}, md: {span: 17}, lg: {span: 18}, xl: {span: 18}}}
                 className="form-item"
             >
-                <ReactQuill value={this.state.text} modules={modules}/>
-                <NFileListModel id={this.props.id} supportUploadTypes={['image', 'cropImage']} returnLimit={0} aspect={1}/>
+                {this.props.getFieldDecorator(this.props.id, {
+                    rules: [{
+                        required: this.props.required,
+                        message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : ''
+                    }],
+                    initialValue: ''
+                })(
+                    <ReactQuill ref={(el) => this.quillRef = el}
+                                modules={modules}/>
+                )}
+                <NFileListModel id={this.props.id}
+                                supportUploadTypes={['image', 'cropImage']}
+                                returnLimit={0}
+                                aspect={1}/>
             </FormItem>
         );
     }

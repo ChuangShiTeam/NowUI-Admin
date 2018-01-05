@@ -225,13 +225,12 @@ class NFileListModel extends Component {
 
                     list.push({
                         fileId: item.fileId,
-                        filePath: item.filePath,
-                        status: false,
-                        select: item.select
+                        filePath: item.filePath
                     });
                 }
             }
         }
+
         notification.emit('notification_media_file_' + this.props.id + '_submit', list);
 
         this.handleCancel();

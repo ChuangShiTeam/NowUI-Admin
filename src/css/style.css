@@ -331,3 +331,11 @@ a, area {
     line-height: 20px;
 }
 
+.ant-input-number {
+    width: 100% !important;
+}
+
+.ant-calendar-picker {
+    width: 100% !important;
+}
+

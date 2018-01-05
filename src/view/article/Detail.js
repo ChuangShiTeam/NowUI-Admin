@@ -1,13 +1,23 @@
 import React, {Component} from 'react';
-import {Modal, Form, Row, Col, Spin, Button, Checkbox, Input, Table, message} from 'antd';
+import {connect} from 'react-redux';
+import {Row, Form, Col, Button, Modal, message, TreeSelect} from 'antd';
+import moment from 'moment';
 
 import NHeader from '../../component/NHeader';
+import NDetail from '../../layout/NDetail';
 import NCol from '../../component/NCol';
 import NInputText from '../../component/NInputText';
+import NInputTextArea from '../../component/NInputTextArea';
+import NInputNumber from '../../component/NInputNumber';
+import NSwitch from '../../component/NSwitch';
+import NSelect from '../../component/NSelect';
+import NInputHtml from '../../component/NInputHtml';
+import NInputMedia from '../../component/NInputMedia';
+import NTreeSelect from '../../component/NTreeSelect';
+import NInputDate from '../../component/NInputDate';
 import http from "../../common/http";
 
 import constant from '../../common/constant';
-import NSwitch from "../../component/NSwitch";
 
 class Detail extends Component {
     constructor(props) {
@@ -15,12 +25,19 @@ class Detail extends Component {
 
         this.state = {
             isLoad: false,
-            columnList: []
-        }
+            isEdit: false,
+            systemVersion: ''
+        };
     }
 
     componentDidMount() {
-        this.handleLoad();
+        if (this.props.route.path.indexOf('/edit') > -1) {
+            this.setState({
+                isEdit: true
+            });
+
+            this.handleLoad();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -40,57 +57,57 @@ class Detail extends Component {
             isLoad: true
         });
 
+        let values = {};
+        values.articleId = this.props.params.articleId;
+
         http.request({
-            url: '/code/admin/table/field/list',
-            data: {
-                tableSchema: this.props.params['tableSchema'],
-                tableName: this.props.params['tableName']
-            },
+            url: '/article/admin/find',
+            data: values,
             success: function (data) {
-                for (let i = 0; i < data.length; i++) {
-                    data[i].isSearch = false;
-                    data[i].isCanSearch = true;
-                    data[i].isList = false;
-                    data[i].isCanList = true;
-                    data[i].isDetail = true;
-                    data[i].isCanDetail = true;
-                    data[i].isUpdatable = true;
-                    data[i].isCanUpdatable = true;
-
-                    if (data[i].columnKey === 'PRI') {
-                        data[i].isCanSearch = false;
-                        data[i].isList = false;
-                        data[i].isCanList = false;
-                        data[i].isDetail = false;
-                        data[i].isCanDetail = false;
-                        data[i].isUpdatable = false;
-                        data[i].isCanUpdatable = false;
-                    }
-
-                    if (data[i].columnName === 'appId') {
-                        data[i].isCanSearch = false;
-                        data[i].isCanList = false;
-                        data[i].isDetail = false;
-                        data[i].isCanDetail = false;
-                        data[i].isUpdatable = false;
-                        data[i].isCanUpdatable = false;
-                    }
-
-                    if (data[i].columnName === 'systemVersion') {
-                        data[i].isList = false;
-                        data[i].isCanList = false;
-                    }
-
-                    if (data[i].columnName.indexOf('system') !== -1) {
-                        data[i].isDetail = false;
-                        data[i].isCanDetail = false;
-                        data[i].isUpdatable = false;
-                        data[i].isCanUpdatable = false;
-                    }
+                let articlePrimaryCategoryId = '';
+                let articleSecondaryCategoryIds = null;
+                if (data.articleArticleCategoryList && data.articleArticleCategoryList.length > 0) {
+                    articleSecondaryCategoryIds = [];
+                    data.articleArticleCategoryList.forEach((articleArticleCategory) => {
+                        if (articleArticleCategory.articleCategoryIsPrimary) {
+                            articlePrimaryCategoryId = articleArticleCategory.articleCategoryId
+                        } else {
+                            articleSecondaryCategoryIds.push(articleArticleCategory.articleCategoryId);
+                        }
+                    });
                 }
+                let articleMedia = [];
+               if (data.articleMedia) {
+                  articleMedia.push(data.articleMedia);
+               }
+                this.props.form.setFieldsValue({
+                    articleTitle: data.articleTitle,
+                    articleAuthor: data.articleAuthor,
+                    articleSource: data.articleSource,
+                    articleSummary: data.articleSummary,
+                    articleContent: data.articleContent,
+                    articleTags: data.articleTags,
+                    articleKeywords: data.articleKeywords,
+                    articleOuterLink: data.articleOuterLink,
+                    articleIsOuterLink: data.articleIsOuterLink,
+                    articleIsAllowComment: data.articleIsAllowComment,
+                    articlePublishTime: moment(data.articlePublishTime),
+                    articleIsTop: data.articleIsTop,
+                    articleTopLevel: data.articleTopLevel,
+                    articleTopEndTime: moment(data.articleTopEndTime),
+                    articleIsDraft: data.articleIsDraft,
+                    articleWeight: data.articleWeight,
+                    articleIsRequireAudit: data.articleIsRequireAudit,
+                    articleSort: data.articleSort,
+                    articleMedia: articleMedia,
+                    articleMediaList: data.articleMediaList,
+                    articlePrimaryCategoryId: articlePrimaryCategoryId,
+                    articleSecondaryCategoryIds: articleSecondaryCategoryIds
+                });
 
                 this.setState({
-                    columnList: data
+                    systemVersion: data.systemVersion
+
                 });
             }.bind(this),
             complete: function () {
@@ -102,71 +119,13 @@ class Detail extends Component {
         });
     }
 
-    handleChangeSearch(index) {
-        let columnList = this.state.columnList;
-        columnList[index].isSearch = !columnList[index].isSearch;
-        this.setState({
-            columnList: columnList
-        });
-    }
-
-    handleChangeList(index) {
-        let columnList = this.state.columnList;
-
-        if (columnList[index].columnKey === 'PRI' || columnList[index].columnName === 'systemVersion') {
-
-        } else {
-            columnList[index].isList = !columnList[index].isList;
-            this.setState({
-                columnList: columnList
-            });
-        }
-    }
-
-    handleChangeDetail(index) {
-        let columnList = this.state.columnList;
-        columnList[index].isDetail = !columnList[index].isDetail;
-        this.setState({
-            columnList: columnList
-        });
-    }
-
-    handleChangeUpdate(index) {
-        let columnList = this.state.columnList;
-        columnList[index].isUpdatable = !columnList[index].isUpdatable;
-        this.setState({
-            columnList: columnList
-        });
-    }
-
     handleSubmit() {
+        if (this.state.isLoad) {
+            return;
+        }
+
         this.props.form.validateFieldsAndScroll((errors, values) => {
             if (!!errors) {
-                return;
-            }
-
-            let is_appId = false;
-            let isSearch = false;
-            let isList = false;
-            for (let i = 0; i < this.state.columnList.length; i++) {
-                if (this.state.columnList[i].isSearch) {
-                    isSearch = true;
-                }
-
-                if (this.state.columnList[i].isList) {
-                    isList = true;
-                }
-            }
-
-            if (!isSearch) {
-                message.error("选择一个搜索字段" + (is_appId ? ',除了appId' : ''));
-
-                return;
-            }
-
-            if (!isList) {
-                message.error("选择一个列表字段");
-
                 return;
             }
 
@@ -174,15 +133,60 @@ class Detail extends Component {
                 isLoad: true
             });
 
-            values.tableName = this.props.params['tableName'];
-            values.columnList = JSON.stringify(this.state.columnList);
+            let articleArticleCategoryList = [];
+            articleArticleCategoryList.push({
+                articleCategoryId: values.articlePrimaryCategoryId,
+                articleCategoryIsPrimary: true
+            });
+            if (values.articleSecondaryCategoryIds && values.articleSecondaryCategoryIds.length > 0) {
+                values.articleSecondaryCategoryIds.forEach((id) =>
+                    values.articlePrimaryCategoryId != id ?
+                    articleArticleCategoryList.push({
+                        articleCategoryId: id,
+                        articleCategoryIsPrimary: false
+                    })
+                    :
+                    null
+                )
+            }
+            delete values.articlePrimaryCategoryId;
+            delete values.articleSecondaryCategoryIds;
+            values.articleArticleCategoryList = articleArticleCategoryList;
+
+            if (values.articleMedia && values.articleMedia.length > 0) {
+                values.articleMedia = values.articleMedia[0].fileId;
+                values.articleMediaType = 'IMAGE';
+            }
+
+            if (values.articleMediaList) {
+                values.articleMediaList = values.articleMediaList.map((articleMedia, index) => (articleMedia.articleMediaSort = index));
+            }
+
+            if (values.articleTopEndTime) {
+                values.articleTopEndTime = moment(values.articleTopEndTime).format('YYYY-MM-DD HH:mm:ss');
+            }
+            
+            if (values.articlePublishTime) {
+                values.articlePublishTime = moment(values.articlePublishTime).format('YYYY-MM-DD HH:mm:ss');
+            }
+
+            if (this.state.isEdit) {
+                values.articleId = this.props.params.articleId;
+            }
+            values.systemVersion = this.state.systemVersion;
 
             http.request({
-                url: '/code/admin/generate',
+                url: '/article/admin/' + (this.state.isEdit ? 'update' : 'save'),
                 data: values,
-                success: function () {
-                    message.success(constant.success);
-                },
+                success: function (data) {
+                    if (data) {
+                        message.success(constant.success);
+
+                        this.handleBack();
+                    } else {
+                        message.error(constant.failure);
+                    }
+                }.bind(this),
                 complete: function () {
                     this.setState({
                         isLoad: false
@@ -192,13 +196,50 @@ class Detail extends Component {
         });
     }
 
-    handleCancel() {
-        this.setState({
-            isLoad: false,
-            columnList: []
-        });
+    handleDelete() {
+        if (this.state.isLoad) {
+            return;
+        }
 
-        this.props.form.resetFields();
+        Modal.confirm({
+            title: '确定要删除该数据吗?',
+            content: '数据删除之后就不能恢复了',
+            okText: '确定',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk: function () {
+                this.setState({
+                    isLoad: true
+                });
+
+                let values = {};
+                values.articleId = this.props.params.articleId;
+                values.systemVersion = this.state.systemVersion;
+
+                http.request({
+                    url: '/article/admin/delete',
+                    data: values,
+                    success: function (data) {
+                        if (data) {
+                            message.success(constant.success);
+
+                            this.handleBack();
+                        } else {
+                            message.error(constant.failure);
+                        }
+                    }.bind(this),
+                    complete: function () {
+                        this.setState({
+                            isLoad: false
+                        });
+
+                    }.bind(this)
+                });
+            }.bind(this),
+            onCancel() {
+
+            }
+        });
     }
 
     handleReset() {
@@ -212,157 +253,261 @@ class Detail extends Component {
     render() {
         const {getFieldDecorator} = this.props.form;
 
-        const breadcrumbList = [{
-            name: '代码生成管理',
-            url: '/code/index'
-        }, {
-            name: '数据表信息',
-            url: ''
-        }];
-
-        const buttonList = [{
-            name: '生成',
-            icon: 'check-circle',
-            type: 'NORMARL',
-            isPrimary: true,
-            click: this.handleSubmit.bind(this)
-        }, {
+        let buttonList = [{
             name: '返回',
-            icon: 'left-circle',
-            type: 'BACK',
-            isPrimary: false,
+            icon: '',
+            isPrimary: true,
             click: this.handleBack.bind(this)
         }];
 
-        const columns = [{
-            title: '名称',
-            dataIndex: 'columnName'
-        }, {
-            width: 200,
-            title: '备注',
-            dataIndex: 'columnComment'
-        }, {
-            width: 150,
-            title: '类型',
-            dataIndex: 'columnType'
-        }, {
-            width: 100,
-            title: '是否搜索',
-            dataIndex: 'isSearch',
-            render: (text, record, index) => (
-                record.isCanSearch ?
-                    <Checkbox checked={record.isSearch}
-                              onChange={this.handleChangeSearch.bind(this, index)}></Checkbox>
-                    :
-                    ''
-            )
-        }, {
-            width: 100,
-            title: '是否列表',
-            dataIndex: 'isList',
-            render: (text, record, index) => (
-                record.isCanList ?
-                    <Checkbox checked={record.isList} onChange={this.handleChangeList.bind(this, index)}></Checkbox>
-                    :
-                    ''
-            )
-        }, {
-            width: 100,
-            title: '是否详情',
-            dataIndex: 'isDetail',
-            render: (text, record, index) => (
-                record.isCanDetail ?
-                    <Checkbox checked={record.isDetail}
-                              onChange={this.handleChangeDetail.bind(this, index)}></Checkbox>
-                    :
-                    ''
-            )
-        }, {
-            width: 100,
-            title: '是否更新',
-            dataIndex: 'isUpdatable',
-            render: (text, record, index) => (
-                record.isCanUpdatable ?
-                    <Checkbox checked={record.isUpdatable}
-                              onChange={this.handleChangeUpdate.bind(this, index)}></Checkbox>
-                    :
-                    ''
-            )
+
+        let secondButtonList = [{
+            name: '删除',
+            icon: '',
+            isPrimary: false,
+            click: this.handleDelete.bind(this)
         }];
 
-        const secondButtonList = [];
+        let breadcrumbList = [{
+            name: '文章管理',
+            url: '/article/index'
+        }, {
+            name: '文章信息',
+            url: ''
+        }];
 
         return (
             <div>
-                <NHeader name="数据表信息" isEdit={false} breadcrumbList={breadcrumbList} buttonList={buttonList}
-                         secondButtonList={secondButtonList}/>
-                <div className="page-search">
+                <NHeader name={'文章表单'} isEdit={this.state.isEdit} breadcrumbList={breadcrumbList} buttonList={buttonList} secondButtonList={secondButtonList}/>
+                <div className="page-content">
                     <Form>
+                        <NTreeSelect
+                            id="articlePrimaryCategoryId"
+                            label="文章主分类"
+                            required={true}
+                            allowClear={true}
+                            showSearch={true}
+                            treeDefaultExpandAll={true}
+                            dispatch={this.props.dispatch}
+                            store={this.props.article}
+                            storeName="article"
+                            storeKey="articleCategoryList"
+                            remoteOptionConfig={{
+                                key: 'articleCategoryId',
+                                value: 'articleCategoryName',
+                                url: '/article/category/admin/all/tree/list',
+                                params: {}
+                            }}
+                            getFieldDecorator={getFieldDecorator}
+                        />
+                        <NTreeSelect
+                            id="articleSecondaryCategoryIds"
+                            label="文章副分类"
+                            multiple={true}
+                            treeCheckable={true}
+                            treeDefaultExpandAll={true}
+                            dispatch={this.props.dispatch}
+                            store={this.props.article}
+                            storeName="article"
+                            storeKey="articleCategoryList"
+                            remoteOptionConfig={{
+                                key: 'articleCategoryId',
+                                value: 'articleCategoryName',
+                                url: '/article/category/admin/all/tree/list',
+                                params: {}
+                            }}
+                            getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputText id="articleTitle"
+                                    label="文章标题"
+                                    required={true}
+                                    getFieldDecorator={getFieldDecorator}
+                                    onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NInputText id="articleAuthor"
+                                    label="文章作者"
+                                    required={false}
+                                    getFieldDecorator={getFieldDecorator}
+                                    onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NInputText id="articleSource"
+                                    label="文章来源"
+                                    required={false}
+                                    getFieldDecorator={getFieldDecorator}
+                                    onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NInputMedia id="articleMedia"
+                                     label="文章主媒体"
+                                     type="MEDIA"
+                                     returnLimit={1}
+                                     supportUploadTypes={['image', 'cropImage']}
+                                     getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputMedia id="articleMediaList"
+                                     label="文章副媒体"
+                                     type="MEDIA"
+                                     returnLimit={0}
+                                     supportUploadTypes={['image', 'cropImage', 'video']}
+                                     getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputTextArea id="articleSummary"
+                                        label="文章摘要"
+                                        getFieldDecorator={getFieldDecorator}
+                                        onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NInputTextArea id="articleTags"
+                                        label="文章标签"
+                                        getFieldDecorator={getFieldDecorator}
+                                        onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NInputTextArea id="articleKeywords"
+                                        label="文章关键字"
+                                        getFieldDecorator={getFieldDecorator}
+                                        onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NSwitch id="articleIsOuterLink"
+                                 label={"文章是否外部链接"}
+                                 checkedChildren={'是'}
+                                 unCheckedChildren={'否'}
+                                 getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputText id="articleOuterLink"
+                                    label="文章外部链接"
+                                    getFieldDecorator={getFieldDecorator}
+                                    onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NSwitch id="articleIsAllowComment"
+                                 label={"文章是否允许评论"}
+                                 checkedChildren={'是'}
+                                 unCheckedChildren={'否'}
+                                 getFieldDecorator={getFieldDecorator}
+                        />
+                        <NSwitch id="articleIsTop"
+                                 label={"文章是否置顶"}
+                                 checkedChildren={'是'}
+                                 unCheckedChildren={'否'}
+                                 getFieldDecorator={getFieldDecorator}
+                        />
+                        <NSelect id="articleTopLevel"
+                                 label="文章置顶级别"
+                                 staticOptionList={[{
+                                    key: '',
+                                    value: '无级别'
+                                 }, {
+                                    key: 1,
+                                    value: '级别1'
+                                 }, {
+                                    key: 2,
+                                    value: '级别2'
+                                 }, {
+                                    key: 3,
+                                    value: '级别3'
+                                 }, {
+                                    key: 4,
+                                    value: '级别4'
+                                 }, {
+                                    key: 5,
+                                    value: '级别5'
+                                 }, {
+                                    key: 6,
+                                    value: '级别6'
+                                 }, {
+                                    key: 7,
+                                    value: '级别7'
+                                 }, {
+                                    key: 8,
+                                    value: '级别8'
+                                 }, {
+                                    key: 9,
+                                    value: '级别9'
+                                 }, {
+                                    key: 10,
+                                    value: '级别10'
+                                 }]}
+                                 allowClear={true}
+                                 getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputDate id="articleTopEndTime"
+                                    label="文章置顶截止时间"
+                                    type="DatePicker"
+                                    showTime={true}
+                                    format={"YYYY-MM-DD HH:mm:ss"}
+                                    getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputNumber id="articleWeight"
+                                      label="文章权重"
+                                      min={0}
+                                      max={99999}
+                                      step={1}
+                                      required={true}
+                                      getFieldDecorator={getFieldDecorator}
+                                      onPressEnter={this.handleSubmit.bind(this)}
+                        />
+                        <NInputHtml id="articleContent"
+                                    label="文章内容"
+                                    getFieldDecorator={getFieldDecorator}
+                        />
+                        <NSwitch id="articleIsDraft"
+                                 label={"文章是否草稿"}
+                                 checkedChildren={'是'}
+                                 unCheckedChildren={'否'}
+                                 getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputDate id="articlePublishTime"
+                                    label="文章发布时间"
+                                    type="DatePicker"
+                                    showTime={true}
+                                    initialValue={moment()}
+                                    format={"YYYY-MM-DD HH:mm:ss"}
+                                    getFieldDecorator={getFieldDecorator}
+                        />
+                        <NSwitch id="articleIsRequireAudit"
+                                 label={"文章是否需要审核"}
+                                 checkedChildren={'是'}
+                                 unCheckedChildren={'否'}
+                                 getFieldDecorator={getFieldDecorator}
+                        />
+                        <NInputNumber id="articleSort"
+                                      label="文章排序"
+                                      min={0}
+                                      max={99999}
+                                      step={1}
+                                      required={true}
+                                      getFieldDecorator={getFieldDecorator}
+                                      onPressEnter={this.handleSubmit.bind(this)}
+                        />
                         <Row>
-                            <NCol multiLine={true}>
-                                <NInputText id="moduleName"
-                                            label="模块名称"
-                                            getFieldDecorator={getFieldDecorator}
-                                            onPressEnter={this.handleSubmit.bind(this)}
-                                            multiLine={true}
-                                            required={true}
-                                />
-                            </NCol>
-                            <NCol multiLine={true}>
-                                <NInputText id="packageName"
-                                            label="包名"
-                                            getFieldDecorator={getFieldDecorator}
-                                            onPressEnter={this.handleSubmit.bind(this)}
-                                            multiLine={true}
-                                            required={true}
-                                />
-                            </NCol>
-                            <NCol multiLine={true}>
-                                <NInputText id="tableComment"
-                                            label="注释前缀"
-                                            getFieldDecorator={getFieldDecorator}
-                                            onPressEnter={this.handleSubmit.bind(this)}
-                                            multiLine={true}
-                                            required={true}
-                                />
-                            </NCol>
-                            <NCol multiLine={true}>
-                                <NInputText id="author"
-                                            label="开发者"
-                                            getFieldDecorator={getFieldDecorator}
-                                            onPressEnter={this.handleSubmit.bind(this)}
-                                            multiLine={true}
-                                            required={true}
-                                />
-                            </NCol>
-                            <NCol multiLine={true}>
-                                <NSwitch id="isMq"
-                                         label="消息队列"
-                                         getFieldDecorator={getFieldDecorator}
-                                         multiLine={true}
-                                />
+                            <NCol>
+                                <Col xs={{span: 24}}
+                                     sm={{span: 17, offset: 4}}
+                                     md={{span: 17, offset: 4}}
+                                     lg={{span: 17, offset: 4}}
+                                     xl={{span: 17, offset: 4}}
+                                >
+                                    <Button type="primary"
+                                            icon="check-circle"
+                                            loading={this.state.isLoad}
+                                            className="page-button-left"
+                                            onClick={this.handleSubmit.bind(this)}
+                                    >
+                                        提交
+                                    </Button>
+                                    <Button icon="reload"
+                                            loading={this.state.isLoad}
+                                            onClick={this.handleReset.bind(this)}
+                                    >
+                                        重置
+                                    </Button>
+                                </Col>
                             </NCol>
                         </Row>
                     </Form>
-                </div>
-                <div className="page-content">
-                    <Table
-                        rowKey={record => record.columnName}
-                        size="default"
-                        className="margin-top"
-                        columns={columns}
-                        dataSource={this.state.columnList} pagination={false}
-                    />
                 </div>
             </div>
         );
     }
 }
 
-Detail.propTypes = {};
-
-Detail.defaultProps = {};
-
 Detail = Form.create()(Detail);
 
-export default Detail;
+export default connect(({article}) => ({article}))(Detail);

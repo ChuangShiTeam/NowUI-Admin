@@ -48,7 +48,6 @@ export default connect(function (state) {
             type: 'MEDIA',
             returnLimit: 1,
             supportUploadTypes: ['image'],
-            ref: 'advertisementImage'
         }, {
             id: 'advertisementContent',
             name: '广告内容',
