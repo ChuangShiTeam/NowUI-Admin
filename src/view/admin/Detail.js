@@ -5,6 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'admin',
+        baseUrl: '/admin',
         title: '管理员表单',
         primaryKey: 'adminId',
         store: state.admin,

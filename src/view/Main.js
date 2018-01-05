@@ -129,8 +129,9 @@ class Index extends Component {
                             <Menu.Item key="4.2"><Link to={'/article/index'}>文章管理</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub5" title={<span><Icon type="user" /><span>权限管理</span></span>}>
-                            <Menu.Item key="5.1"><Link to={'/role/index'}>角色管理</Link></Menu.Item>
-                            <Menu.Item key="5.2"><Link to={'/user/index'}>用户管理</Link></Menu.Item>
+                            <Menu.Item key="5.1"><Link to={'/admin/index'}>管理员管理</Link></Menu.Item>
+                            <Menu.Item key="5.2"><Link to={'/role/index'}>角色管理</Link></Menu.Item>
+                            <Menu.Item key="5.3"><Link to={'/user/index'}>用户管理</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub6" title={<span><Icon type="setting" /><span>系统管理</span></span>}>
                             <Menu.Item key="6.1"><Link to={'/app/index'}>应用管理</Link></Menu.Item>

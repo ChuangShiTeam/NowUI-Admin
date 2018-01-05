@@ -38,21 +38,8 @@ export default connect(function (state) {
             name: '名称',
             editUrl: '/menu/edit/:menuId'
         }, {
-            id: 'menuImage',
-            name: '图片',
-            render: function (text, record, index, self) {
-                return (
-                    text ?
-                        <span>
-                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
-                        </span>
-                        :
-                        null
-                )
-            }
-        }, {
             id: 'menuUrl',
-            name: '地址'
+            name: '地址',
         }, {
             id: 'menuSort',
             name: '排序'

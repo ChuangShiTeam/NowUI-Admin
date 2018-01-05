@@ -8,6 +8,7 @@ export default connect(function (state) {
         baseUrl: '/menu',
         title: '菜单表单',
         primaryKey: 'menuId',
+        submitKey: ['menuParentId'],
         store: state.menu,
         breadcrumbList: [{
             name: '菜单管理',
@@ -32,13 +33,6 @@ export default connect(function (state) {
             name: '名称',
             type: 'VARCHAR',
             required: true
-        }, {
-            id: 'menuImage',
-            name: '图片',
-            type: 'MEDIA',
-            returnLimit: 1,
-            supportUploadTypes: ['image'],
-            ref: 'navigationImage'
         }, {
             id: 'menuUrl',
             name: '地址',
