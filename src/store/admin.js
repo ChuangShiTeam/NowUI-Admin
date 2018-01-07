@@ -1,7 +1,6 @@
 const initialState = {
-    userType: '',
     userAccount: '',
-    userName: '',
+    userNickName: '',
     userMobile: '',
     total: 0,
     list: [],

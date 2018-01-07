@@ -39,7 +39,7 @@ class NInputText extends Component {
                     }],
                     initialValue: ''
                 })(
-                    <Input type="text"
+                    <Input type={this.props.type}
                            size={this.props.size}
                            prefix={this.props.prefix}
                            placeholder={this.props.placeholder === '' ? ('请输入' + this.props.label) : this.props.placeholder}
@@ -55,6 +55,7 @@ NInputText.propTypes = {
     getFieldDecorator: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
+    type: PropTypes.string,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     message: PropTypes.string,
@@ -70,6 +71,7 @@ NInputText.defaultProps = {
     required: false,
     message: '',
     size: 'default',
+    type: 'text',
     multiLine: false
 };
 
