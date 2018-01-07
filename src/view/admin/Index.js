@@ -1,6 +1,8 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
+import constant from "../../common/constant";
 
 export default connect(function (state) {
     return {
@@ -27,13 +29,52 @@ export default connect(function (state) {
             addUrl: '/admin/add'
         }],
         searchList: [{
-            id: 'userId',
-            name: '用户编号',
+            id: 'userAccount',
+            name: '账号',
+            type: 'VARCHAR'
+        }, {
+            id: 'userName',
+            name: '姓名',
+            type: 'VARCHAR'
+        }, {
+            id: 'userMobile',
+            name: '手机号码',
             type: 'VARCHAR'
         }],
         columnList: [{
             id: 'userId',
             name: '用户编号'
+        }, {
+            id: 'userAccount',
+            name: '账号',
+            editUrl: '/admin/edit/:adminId'
+        }, {
+            id: 'userNickName',
+            name: '昵称',
+            editUrl: '/admin/edit/:adminId'
+        }, {
+            id: 'userName',
+            name: '姓名',
+            editUrl: '/admin/edit/:adminId'
+        }, {
+            id: 'userMobile',
+            name: '手机号码'
+        }, {
+            id: 'userEmail',
+            name: '邮箱'
+        }, {
+            id: 'userAvatar',
+            name: '头像',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }]
     }
 })(NIndex);

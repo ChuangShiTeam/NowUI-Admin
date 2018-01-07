@@ -1,5 +1,8 @@
 const initialState = {
-    userId: '',
+    userType: '',
+    userAccount: '',
+    userName: '',
+    userMobile: '',
     total: 0,
     list: [],
     pageIndex: 1,

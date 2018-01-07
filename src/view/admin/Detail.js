@@ -28,10 +28,42 @@ export default connect(function (state) {
             type: 'DELETE'
         }],
         columnList: [{
-            id: 'userId',
-            name: '用户编号',
+            id: 'userNickName',
+            name: '昵称',
             type: 'VARCHAR',
             required: true
+        }, {
+            id: 'userAccount',
+            name: '账号',
+            type: 'VARCHAR',
+            required: true
+        }, {
+            id: 'userPassword',
+            name: '密码',
+            type: 'VARCHAR',
+            required: true
+        }, {
+            id: 'userName',
+            name: '姓名',
+            type: 'VARCHAR',
+            required: true
+        }, {
+            id: 'userMobile',
+            name: '手机号码',
+            type: 'VARCHAR',
+            required: true
+        }, {
+            id: 'userEmail',
+            name: '邮箱',
+            type: 'VARCHAR',
+            required: true
+        }, {
+            id: 'userAvatar',
+            name: '头像',
+            type: 'MEDIA',
+            returnLimit: 1,
+            supportUploadTypes: ['image'],
+            ref: 'navigationImage'
         }]
     }
 })(NDetail);
