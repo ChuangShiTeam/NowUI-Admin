@@ -41,7 +41,7 @@ export default connect(function (state) {
             id: 'articleCategoryName',
             name: '分类'
         }, {
-            id: 'articleMedia',
+            id: 'articleMediaId',
             name: '媒体',
             render: function (text, record, index, self) {
                 return (
@@ -62,6 +62,17 @@ export default connect(function (state) {
         }, {
             id: 'articleIsTop',
             name: '是否置顶',
+            render: function (text, record, index, self){
+                return (
+                    record.articleIsTop ?
+                        <span style={{color: '#52C41A'}}>是</span>
+                        :
+                        <span style={{color: '#F5222D'}}>否</span>
+                );
+            }
+        }, {
+            id: 'articleIsRecommend',
+            name: '是否推荐',
             render: function (text, record, index, self){
                 return (
                     record.articleIsTop ?
