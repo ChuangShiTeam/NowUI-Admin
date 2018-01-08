@@ -8,6 +8,7 @@ export default connect(function (state) {
         baseUrl: '/admin',
         title: '管理员表单',
         primaryKey: 'adminId',
+        submitKey: ['userId'],
         store: state.admin,
         breadcrumbList: [{
             name: '管理员管理',
@@ -50,20 +51,17 @@ export default connect(function (state) {
         }, {
             id: 'userMobile',
             name: '手机号码',
-            type: 'VARCHAR',
-            required: true
+            type: 'VARCHAR'
         }, {
             id: 'userEmail',
             name: '邮箱',
-            type: 'VARCHAR',
-            required: true
+            type: 'VARCHAR'
         }, {
             id: 'userAvatar',
             name: '头像',
             type: 'MEDIA',
             returnLimit: 1,
-            supportUploadTypes: ['image'],
-            ref: 'navigationImage'
+            supportUploadTypes: ['image']
         }]
     }
 })(NDetail);

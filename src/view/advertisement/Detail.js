@@ -47,7 +47,7 @@ export default connect(function (state) {
             name: '广告图片',
             type: 'MEDIA',
             returnLimit: 1,
-            supportUploadTypes: ['image'],
+            supportUploadTypes: ['image']
         }, {
             id: 'advertisementContent',
             name: '广告内容',

@@ -305,6 +305,7 @@ class NDetail extends Component {
                                             {
                                                 column.type === 'VARCHAR' ?
                                                     <NInputText id={column.id}
+                                                                type={column.inputType}
                                                                 label={column.name}
                                                                 required={column.required}
                                                                 getFieldDecorator={getFieldDecorator}

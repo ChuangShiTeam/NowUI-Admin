@@ -4,7 +4,6 @@ import {Row, Form, Col, Button, Modal, message, TreeSelect} from 'antd';
 import moment from 'moment';
 
 import NHeader from '../../component/NHeader';
-import NDetail from '../../layout/NDetail';
 import NCol from '../../component/NCol';
 import NInputText from '../../component/NInputText';
 import NInputTextArea from '../../component/NInputTextArea';
@@ -77,8 +76,8 @@ class Detail extends Component {
                     });
                 }
                 let articleMedia = [];
-               if (data.articleMedia) {
-                  articleMedia.push(data.articleMedia);
+               if (data.articleMediaId) {
+                  articleMedia.push(data.articleMediaId);
                }
                 this.props.form.setFieldsValue({
                     articleTitle: data.articleTitle,
@@ -98,6 +97,7 @@ class Detail extends Component {
                     articleIsDraft: data.articleIsDraft,
                     articleWeight: data.articleWeight,
                     articleIsRequireAudit: data.articleIsRequireAudit,
+                    articleIsRecommend: data.articleIsRecommend,
                     articleSort: data.articleSort,
                     articleMedia: articleMedia,
                     articleMediaList: data.articleMediaList,
@@ -154,7 +154,7 @@ class Detail extends Component {
             values.articleArticleCategoryList = articleArticleCategoryList;
 
             if (values.articleMedia && values.articleMedia.length > 0) {
-                values.articleMedia = values.articleMedia[0].fileId;
+                values.articleMediaId = values.articleMedia[0].fileId;
                 values.articleMediaType = 'IMAGE';
             }
 
@@ -463,6 +463,12 @@ class Detail extends Component {
                         />
                         <NSwitch id="articleIsRequireAudit"
                                  label={"文章是否需要审核"}
+                                 checkedChildren={'是'}
+                                 unCheckedChildren={'否'}
+                                 getFieldDecorator={getFieldDecorator}
+                        />
+                        <NSwitch id="articleIsRecommend"
+                                 label={"文章是否推荐"}
                                  checkedChildren={'是'}
                                  unCheckedChildren={'否'}
                                  getFieldDecorator={getFieldDecorator}
