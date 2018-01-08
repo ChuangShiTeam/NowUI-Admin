@@ -202,6 +202,37 @@ class NDetail extends Component {
         });
     }
 
+    handleReplace() {
+        this.setState({
+            isLoad: true
+        });
+
+        let values = {};
+        values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+
+        http.request({
+            url: this.props.baseUrl + '/admin/replace',
+            data: values,
+            success: function (data) {
+                if (data) {
+                    message.success(constant.success);
+
+
+                    this.setState({
+                        isLoad: false
+                    }, function () {
+                        this.handleLoad()
+                    }.bind(this));
+                } else {
+                    message.error(constant.failure);
+                }
+            }.bind(this),
+            complete: function () {
+
+            }.bind(this)
+        });
+    }
+
     handleReset() {
         this.props.form.resetFields();
     }
@@ -249,6 +280,9 @@ class NDetail extends Component {
                     break;
                 case 'DELETE':
                     button.click = this.handleDelete.bind(this);
+                    break;
+                case 'REPLACE':
+                    button.click = this.handleReplace.bind(this);
                     break;
                 default:
                     button.click = this.props.secondButtonList[i].click;

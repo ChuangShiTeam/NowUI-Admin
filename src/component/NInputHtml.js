@@ -14,7 +14,7 @@ class NInputHtml extends Component {
         super(props);
 
         this.state = {
-            text: ''
+            index: 0
         }
     }
 
@@ -30,10 +30,10 @@ class NInputHtml extends Component {
             let html = '';
 
             for (let i = 0; i < data.length; i++) {
-                html += '<img src="' + constant.imageHost + data[i].file_path + '" />';
+                html += '<img src="' + constant.imageHost + data[i].filePath + '" />';
             }
 
-            this.quillRef.getEditor().insertText(this.quillRef.getEditor().getSelection().index, html);
+            this.quillRef.getEditor().insertText(this.state.index, html);
         });
     }
 
@@ -42,6 +42,10 @@ class NInputHtml extends Component {
     }
 
     handleImage() {
+        this.setState({
+            index: this.quillRef.getEditor().getSelection().index
+        });
+
         notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
     }
 

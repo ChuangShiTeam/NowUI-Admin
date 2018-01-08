@@ -33,7 +33,8 @@ export default connect(function (state) {
         }],
         columnList: [{
             id: 'productName',
-            name: '商品名称'
+            name: '商品名称',
+            editUrl: '/product/edit/:productId'
         }]
     }
 })(NIndex);

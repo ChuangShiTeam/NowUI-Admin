@@ -27,6 +27,8 @@ function request(config) {
             data[sdic[ki]] = config.data[sdic[ki]];
         }
     }
+    // console.log(sign);
+
     data.sign = md5(sign);
 
     reqwest({

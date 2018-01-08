@@ -23,6 +23,10 @@ export default connect(function (state) {
             isPrimary: false
         }],
         secondButtonList: [{
+            name: '更新',
+            icon: 'delete',
+            type: 'REPLACE'
+        }, {
             name: '删除',
             icon: 'delete',
             type: 'DELETE'
