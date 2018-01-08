@@ -46,8 +46,7 @@ export default connect(function (state) {
             id: 'articleCategorySort',
             name: '排序',
             type: 'NUMBER',
-            min: 0,
-            required: true
+            min: 0
         }]
     }
 })(NDetail);

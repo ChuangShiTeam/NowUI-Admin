@@ -33,8 +33,8 @@ export default connect(function (state) {
             name: '账号',
             type: 'VARCHAR'
         }, {
-            id: 'userName',
-            name: '姓名',
+            id: 'userNickName',
+            name: '昵称',
             type: 'VARCHAR'
         }, {
             id: 'userMobile',
@@ -42,20 +42,15 @@ export default connect(function (state) {
             type: 'VARCHAR'
         }],
         columnList: [{
-            id: 'userId',
-            name: '用户编号'
-        }, {
             id: 'userAccount',
             name: '账号',
             editUrl: '/admin/edit/:adminId'
         }, {
             id: 'userNickName',
-            name: '昵称',
-            editUrl: '/admin/edit/:adminId'
+            name: '昵称'
         }, {
             id: 'userName',
-            name: '姓名',
-            editUrl: '/admin/edit/:adminId'
+            name: '姓名'
         }, {
             id: 'userMobile',
             name: '手机号码'
