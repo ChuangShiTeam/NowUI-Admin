@@ -11,7 +11,7 @@ export default connect(function (state) {
         title: '菜单',
         primaryKey: 'menuId',
         store: state.menu,
-        listUrl: '/menu/admin/list',
+        listUrl: '/menu/admin/v1/list',
         breadcrumbList: [{
             name: '菜单管理',
             url: ''

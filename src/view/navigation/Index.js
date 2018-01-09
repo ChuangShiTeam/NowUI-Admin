@@ -11,7 +11,7 @@ export default connect(function (state) {
         title: '导航栏',
         primaryKey: 'navigationId',
         store: state.navigation,
-        listUrl: '/navigation/admin/list',
+        listUrl: '/navigation/admin/v1/list',
         breadcrumbList: [{
             name: '导航栏管理',
             url: ''

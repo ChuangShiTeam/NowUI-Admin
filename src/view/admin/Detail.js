@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'admin',
-        baseUrl: '/admin',
+        baseUrl: '/admin/admin/v1',
         title: '管理员表单',
         primaryKey: 'adminId',
         submitKey: ['userId'],
@@ -46,8 +46,7 @@ export default connect(function (state) {
         }, {
             id: 'userName',
             name: '姓名',
-            type: 'VARCHAR',
-            required: true
+            type: 'VARCHAR'
         }, {
             id: 'userMobile',
             name: '手机号码',

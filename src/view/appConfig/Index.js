@@ -10,7 +10,7 @@ export default connect(function (state) {
         title: '应用配置信息',
         primaryKey: 'configId',
         store: state.appConfig,
-        listUrl: '/app/config/admin/list',
+        listUrl: '/app/config/admin/v1/list',
         breadcrumbList: [{
             name: '应用配置管理',
             url: ''

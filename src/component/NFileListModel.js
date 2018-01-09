@@ -56,7 +56,7 @@ class NFileListModel extends Component {
         });
 
         http.request({
-            url: '/file/admin/list',
+            url: '/file/admin/v1/list',
             data: {
                 fileName: '',
                 fileType: 'IMAGE',
@@ -265,7 +265,7 @@ class NFileListModel extends Component {
             name: 'file',
             multiple: true,
             showUploadList: false,
-            action: 'http://localhost:8080/file/admin/image/upload',
+            action: 'http://localhost:8080/file/admin/v1/image/upload',
             accept: 'image/jpg,image/jpeg,image/png',
             data: {
                 'appId': constant.appId,

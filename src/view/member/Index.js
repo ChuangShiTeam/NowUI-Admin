@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '会员',
         primaryKey: 'memberId',
         store: state.member,
-        listUrl: '/member/admin/list',
+        listUrl: '/member/admin/v1/list',
         breadcrumbList: [{
             name: '会员管理',
             url: ''

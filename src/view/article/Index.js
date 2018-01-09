@@ -11,7 +11,7 @@ export default connect(function (state) {
         title: '文章信息',
         primaryKey: 'articleId',
         store: state.article,
-        listUrl: '/article/admin/list',
+        listUrl: '/article/admin/v1/list',
         breadcrumbList: [{
             name: '文章管理',
             url: ''

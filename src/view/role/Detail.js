@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'role',
-        baseUrl: '/role',
+        baseUrl: '/role/admin/v1',
         title: '角色表单',
         primaryKey: 'roleId',
         store: state.role,

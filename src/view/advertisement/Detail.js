@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'advertisement',
-        baseUrl: '/advertisement',
+        baseUrl: '/advertisement/admin/v1',
         title: '广告表单',
         primaryKey: 'advertisementId',
         store: state.advertisement,

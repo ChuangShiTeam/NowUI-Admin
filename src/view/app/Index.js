@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '应用信息',
         primaryKey: 'appId',
         store: state.app,
-        listUrl: '/app/admin/list',
+        listUrl: '/app/admin/v1/list',
         breadcrumbList: [{
             name: '应用管理',
             url: ''

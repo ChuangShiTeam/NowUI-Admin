@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '消息',
         primaryKey: 'messageId',
         store: state.message,
-        listUrl: '/message/admin/list',
+        listUrl: '/message/admin/v1/list',
         breadcrumbList: [{
             name: '消息管理',
             url: ''

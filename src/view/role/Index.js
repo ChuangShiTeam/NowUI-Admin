@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '角色',
         primaryKey: 'roleId',
         store: state.role,
-        listUrl: '/role/admin/list',
+        listUrl: '/role/admin/v1/list',
         breadcrumbList: [{
             name: '角色管理',
             url: ''

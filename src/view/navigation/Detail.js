@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'navigation',
-        baseUrl: '/navigation',
+        baseUrl: '/navigation/admin/v1',
         title: '导航栏表单',
         primaryKey: 'navigationId',
         store: state.navigation,

@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'appConfig',
-        baseUrl: '/app/config',
+        baseUrl: '/app/config/admin/v1',
         title: '应用配置表单',
         primaryKey: 'configId',
         store: state.appConfig,

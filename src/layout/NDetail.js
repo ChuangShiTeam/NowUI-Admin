@@ -65,7 +65,7 @@ class NDetail extends Component {
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
 
         http.request({
-            url: this.props.baseUrl + '/admin/find',
+            url: this.props.baseUrl + '/find',
             data: values,
             success: function (data) {
                 let values = {};
@@ -136,7 +136,7 @@ class NDetail extends Component {
             }
 
             http.request({
-                url: this.props.baseUrl + '/admin/' + (this.state.isEdit ? 'update' : 'save'),
+                url: this.props.baseUrl + '/' + (this.state.isEdit ? 'update' : 'save'),
                 data: values,
                 success: function (data) {
                     if (data) {
@@ -177,7 +177,7 @@ class NDetail extends Component {
                 values.systemVersion = this.state.systemVersion;
 
                 http.request({
-                    url: this.props.baseUrl + '/admin/delete',
+                    url: this.props.baseUrl + '/delete',
                     data: values,
                     success: function (data) {
                         if (data) {

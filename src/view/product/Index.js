@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '商品信息',
         primaryKey: 'productId',
         store: state.product,
-        listUrl: '/product/admin/list',
+        listUrl: '/product/admin/v1/list',
         breadcrumbList: [{
             name: '商品管理',
             url: ''

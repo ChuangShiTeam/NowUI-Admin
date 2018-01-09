@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'menu',
-        baseUrl: '/menu',
+        baseUrl: '/menu/admin/v1',
         title: '菜单表单',
         primaryKey: 'menuId',
         submitKey: ['menuParentId'],

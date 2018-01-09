@@ -11,7 +11,7 @@ export default connect(function (state) {
         title: '工具栏',
         primaryKey: 'toolbarId',
         store: state.toolbar,
-        listUrl: '/toolbar/admin/list',
+        listUrl: '/toolbar/admin/v1/list',
         breadcrumbList: [{
             name: '工具栏管理',
             url: ''

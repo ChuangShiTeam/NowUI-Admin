@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'articleCategory',
-        baseUrl: '/article/category',
+        baseUrl: '/article/category/admin/v1',
         title: '文章分类表单',
         primaryKey: 'articleCategoryId',
         submitKey: ['articleCategoryParentId'],

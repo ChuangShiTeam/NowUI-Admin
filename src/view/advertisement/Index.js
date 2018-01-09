@@ -11,7 +11,7 @@ export default connect(function (state) {
         title: '广告信息',
         primaryKey: 'advertisementId',
         store: state.advertisement,
-        listUrl: '/advertisement/admin/list',
+        listUrl: '/advertisement/admin/v1/list',
         breadcrumbList: [{
             name: '广告管理',
             url: ''

@@ -60,7 +60,7 @@ class Detail extends Component {
         values.articleId = this.props.params.articleId;
 
         http.request({
-            url: '/article/admin/find',
+            url: '/article/admin/v1/find',
             data: values,
             success: function (data) {
                 let articlePrimaryCategoryId = '';
@@ -176,7 +176,7 @@ class Detail extends Component {
             values.systemVersion = this.state.systemVersion;
 
             http.request({
-                url: '/article/admin/' + (this.state.isEdit ? 'update' : 'save'),
+                url: '/article/admin/v1/' + (this.state.isEdit ? 'update' : 'save'),
                 data: values,
                 success: function (data) {
                     if (data) {
@@ -217,7 +217,7 @@ class Detail extends Component {
                 values.systemVersion = this.state.systemVersion;
 
                 http.request({
-                    url: '/article/admin/delete',
+                    url: '/article/admin/v1/delete',
                     data: values,
                     success: function (data) {
                         if (data) {

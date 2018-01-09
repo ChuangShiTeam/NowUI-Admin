@@ -11,7 +11,7 @@ export default connect(function (state) {
         title: '管理员',
         primaryKey: 'adminId',
         store: state.admin,
-        listUrl: '/admin/admin/list',
+        listUrl: '/admin/admin/v1/list',
         breadcrumbList: [{
             name: '管理员管理',
             url: ''

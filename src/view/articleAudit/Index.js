@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '文章审核',
         primaryKey: 'articleAuditId',
         store: state.articleAudit,
-        listUrl: '/article/audit/admin/list',
+        listUrl: '/article/audit/admin/v1/list',
         breadcrumbList: [{
             name: '文章审核管理',
             url: ''

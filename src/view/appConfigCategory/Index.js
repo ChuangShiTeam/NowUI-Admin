@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '应用配置分类信息',
         primaryKey: 'configCategoryId',
         store: state.appConfigCategory,
-        listUrl: '/app/config/category/admin/list',
+        listUrl: '/app/config/category/admin/v1/list',
         breadcrumbList: [{
             name: '应用配置分类管理',
             url: ''

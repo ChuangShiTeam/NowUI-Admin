@@ -10,7 +10,7 @@ export default connect(function (state) {
         title: '文章分类信息',
         primaryKey: 'articleCategoryId',
         store: state.articleCategory,
-        listUrl: '/article/category/admin/list',
+        listUrl: '/article/category/admin/v1/list',
         breadcrumbList: [{
             name: '文章分类管理',
             url: ''

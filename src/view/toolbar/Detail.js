@@ -5,7 +5,7 @@ import NDetail from '../../layout/NDetail';
 export default connect(function (state) {
     return {
         id: 'toolbar',
-        baseUrl: '/toolbar',
+        baseUrl: '/toolbar/admin/v1',
         title: '工具栏表单',
         primaryKey: 'toolbarId',
         store: state.toolbar,
