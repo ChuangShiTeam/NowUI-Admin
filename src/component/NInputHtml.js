@@ -14,7 +14,7 @@ class NInputHtml extends Component {
         super(props);
 
         this.state = {
-            text: ''
+
         }
     }
 
@@ -27,13 +27,15 @@ class NInputHtml extends Component {
         toolbar.addHandler('image', this.handleImage.bind(this));
 
         notification.on('notification_media_file_' + this.props.id + '_submit', this, function (data) {
-            let html = '';
+            this.quillRef.focus();
 
             for (let i = 0; i < data.length; i++) {
-                html += '<img src="' + constant.imageHost + data[i].file_path + '" />';
-            }
+                let index = this.quillRef.getEditor().getSelection().index;
+                let length = this.quillRef.getEditor().getSelection().length;
 
-            this.quillRef.getEditor().insertText(this.quillRef.getEditor().getSelection().index, html);
+                this.quillRef.getEditor().insertEmbed(index, 'image', constant.imageHost + data[i].filePath);
+                this.quillRef.getEditor().setSelection({index: index + 1, length: length});
+            }
         });
     }
 
