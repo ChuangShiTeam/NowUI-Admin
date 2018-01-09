@@ -24,7 +24,7 @@ export default connect(function (state) {
         }],
         secondButtonList: [{
             name: '更新',
-            icon: 'delete',
+            icon: 'reload',
             type: 'REPLACE'
         }, {
             name: '删除',
@@ -35,6 +35,11 @@ export default connect(function (state) {
             id: 'productName',
             name: '商品名称',
             type: 'VARCHAR',
+            required: true
+        }, {
+            id: 'productContent',
+            name: '商品内容',
+            type: 'HTML',
             required: true
         }]
     }
