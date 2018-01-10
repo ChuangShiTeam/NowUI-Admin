@@ -175,7 +175,7 @@ class Detail extends Component {
             });
 
             values.tableName = this.props.params['tableName'];
-            values.columnList = JSON.stringify(this.state.columnList);
+            values.columnList = this.state.columnList;
 
             http.request({
                 url: '/code/admin/generate',
