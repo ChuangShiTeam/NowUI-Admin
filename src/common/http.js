@@ -17,15 +17,9 @@ function request(config) {
     var sdic = Object.keys(config.data).sort();
     for (let ki in sdic) {
         sign += sdic[ki];
-        if (typeof (config.data[sdic[ki]]) === 'object' && config.data[sdic[ki]] !== null) {
-            sign += JSON.stringify(config.data[sdic[ki]]);
+        sign += config.data[sdic[ki]];
 
-            data[sdic[ki]] = JSON.stringify(config.data[sdic[ki]]);
-        } else {
-            sign += config.data[sdic[ki]];
-
-            data[sdic[ki]] = config.data[sdic[ki]];
-        }
+        data[sdic[ki]] = config.data[sdic[ki]];
     }
     // console.log(sign);
 
@@ -49,7 +43,7 @@ function request(config) {
             }
         },
         error: function () {
-
+            message.error('网络出现错误');
         },
         complete: function () {
             config.complete();
