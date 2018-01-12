@@ -48,13 +48,13 @@ export default connect(function (state) {
             id: 'advertisementCode',
             name: '编码'
         }, {
-            id: 'advertisementImage',
+            id: 'filePath',
             name: '图片',
             render: function (text, record, index, self) {
                 return (
-                    text ?
+                    record.filePath ?
                         <span>
-                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + record.filePath} />
                         </span>
                         :
                         null
