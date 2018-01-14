@@ -24,7 +24,7 @@ export default connect(function (state) {
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
-            addUrl: '/memberDeliveryAddress/add'
+            addUrl: '/member/delivery/address/add'
         }],
         searchList: [{
             id: 'memberDeliveryAddressName',
