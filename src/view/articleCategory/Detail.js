@@ -34,6 +34,11 @@ export default connect(function (state) {
             type: 'VARCHAR',
             required: true
         }, {
+            id: 'articleCategoryCode',
+            name: '编码',
+            type: 'VARCHAR',
+            required: true
+        }, {
             id: 'articleCategoryKeywords',
             name: '关键字',
             type: 'LONG_VARCHAR',

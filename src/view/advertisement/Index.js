@@ -54,7 +54,7 @@ export default connect(function (state) {
                 return (
                     record.filePath ?
                         <span>
-                          <img alt="example" style={{width: 100}} src={constant.imageHost + record.filePath} />
+                          <img alt="example" style={{width: 50}} src={constant.imageHost + record.filePath} />
                         </span>
                         :
                         null
@@ -77,6 +77,9 @@ export default connect(function (state) {
                         <span style={{color: '#F5222D'}}>否</span>
                 );
             }
+        }, {
+            id: 'advertisementSort',
+            name: '排序'
         }]
     }
 })(NIndex);

@@ -175,6 +175,7 @@ class Image extends React.Component {
 	}
 
 	render() {
+		console.log('this.state.value', this.state.value);
 		return (
 			<div>
 				{

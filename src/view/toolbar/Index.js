@@ -38,13 +38,13 @@ export default connect(function (state) {
             name: '工具栏名称',
             editUrl: '/toolbar/edit/:toolbarId'
         }, {
-            id: 'toolbarImage',
+            id: 'filePath',
             name: '工具栏图片',
             render: function (text, record, index, self) {
                 return (
                     text ?
                         <span>
-                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                          <img alt="example" style={{width: 30}} src={constant.imageHost + text} />
                         </span>
                         :
                         null
