@@ -211,7 +211,7 @@ class NDetail extends Component {
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
 
         http.request({
-            url: this.props.baseUrl + '/admin/replace',
+            url: this.props.baseUrl + '/replace',
             data: values,
             success: function (data) {
                 if (data) {

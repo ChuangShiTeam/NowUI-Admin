@@ -196,6 +196,37 @@ class Detail extends Component {
         });
     }
 
+    handleReplace() {
+        this.setState({
+            isLoad: true
+        });
+
+        let values = {};
+        values.articleId = this.props.params.articleId;
+
+        http.request({
+            url: '/article/admin/v1/replace',
+            data: values,
+            success: function (data) {
+                if (data) {
+                    message.success(constant.success);
+
+
+                    this.setState({
+                        isLoad: false
+                    }, function () {
+                        this.handleLoad()
+                    }.bind(this));
+                } else {
+                    message.error(constant.failure);
+                }
+            }.bind(this),
+            complete: function () {
+
+            }.bind(this)
+        });
+    }
+
     handleDelete() {
         if (this.state.isLoad) {
             return;
@@ -262,6 +293,11 @@ class Detail extends Component {
 
 
         let secondButtonList = [{
+            name: '更新',
+            icon: 'reload',
+            isPrimary: false,
+            click: this.handleReplace.bind(this)
+        }, {
             name: '删除',
             icon: '',
             isPrimary: false,
