@@ -37,6 +37,11 @@ export default connect(function (state) {
             type: 'VARCHAR',
             required: true
         }, {
+            id: 'toolbarUrl',
+            name: '工具栏链接',
+            type: 'VARCHAR',
+            required: true
+        }, {
             id: 'toolbarImage',
             name: '工具栏图片',
             type: 'MEDIA',

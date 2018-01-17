@@ -38,6 +38,10 @@ export default connect(function (state) {
             name: '工具栏名称',
             editUrl: '/toolbar/edit/:toolbarId'
         }, {
+            id: 'toolbarUrl',
+            name: '工具栏链接',
+            type: 'VARCHAR',
+        }, {
             id: 'toolbarActiveImage',
             name: '工具栏激活图片',
             render: function (text, record, index, self) {
