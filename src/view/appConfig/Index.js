@@ -38,7 +38,7 @@ export default connect(function (state) {
                 remoteOptionConfig: {
                     key: 'configCategoryId',
                     value: 'configCategoryName',
-                    url: '/app/config/category/admin/all/list',
+                    url: '/app/config/category/admin/v1/all/list',
                     params: {}
                 }
             }
