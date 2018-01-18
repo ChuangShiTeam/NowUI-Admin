@@ -128,7 +128,7 @@ class Index extends Component {
                             <Menu.Item key="4.1"><Link to={'/article/category/index'}>文章分类管理</Link></Menu.Item>
                             <Menu.Item key="4.2"><Link to={'/article/index'}>文章管理</Link></Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub5" title={<span><Icon type="cloud" /><span>论坛管理</span></span>}>
+                        <SubMenu key="sub5" title={<span><Icon type="camera-o" /><span>论坛管理</span></span>}>
                             <Menu.Item key="5.1"><Link to={'/forum/index'}>论坛管理</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub6" title={<span><Icon type="user" /><span>权限管理</span></span>}>

@@ -32,26 +32,60 @@ export default connect(function (state) {
             id: 'forumName',
             name: '论坛名称',
             type: 'VARCHAR'
-            }, {
-            id: 'forumDescription',
-            name: '论坛简介',
-            type: 'VARCHAR'
-            }, {
-            id: 'forumModerator',
-            name: '版主(用户id)',
-            type: 'VARCHAR'
-            }, {
-            id: 'forumTop',
-            name: '论坛是否置顶',
-            type: 'VARCHAR'
-            }, {
+        }, {
             id: 'forumIsActive',
-            name: '论坛是否有效',
-            type: 'VARCHAR'
-            }, {
-            id: 'forumIsRecomand',
+            name: '是否有效',
+            type: 'SELECT',
+            initialValue: '',
+            select: {
+                staticOptionList: [{
+                    key: '',
+                    value: '全部'
+                }, {
+                    key: true,
+                    value: '是'
+                }, {
+                    key: false,
+                    value: '否'
+                }]
+            }
+        }, {
+            id: 'forumIsRecommend',
             name: '是否推荐',
-            type: 'VARCHAR',
+            type: 'SELECT',
+            initialValue: '',
+            select: {
+                staticOptionList: [{
+                    key: '',
+                    value: '全部'
+                }, {
+                    key: true,
+                    value: '是'
+                }, {
+                    key: false,
+                    value: '否'
+                }]
+            }
+        }, {
+            id: 'forumAuditStatus',
+            name: '审核状态',
+            type: 'SELECT',
+            initialValue: '',
+            select: {
+                staticOptionList: [{
+                    key: '',
+                    value: '全部'
+                }, {
+                    key: 'WAIT_AUDIT',
+                    value: '待审核'
+                }, {
+                    key: 'AUDIT_PASS',
+                    value: '审核通过'
+                }, {
+                    key: 'AUDIT_NOT_PASS',
+                    value: '审核不通过'
+                }]
+            }
         }],
         columnList: [{
             id: 'forumName',
@@ -59,29 +93,24 @@ export default connect(function (state) {
             editUrl:'/forum/edit/:forumId'
         }, {
             id: 'forumModerator',
-            name: '版主(用户id)'
-        }, {
-            id: 'forumDescription',
-            name: '论坛简介'
-        }, {
-            id: 'forumMediaId',
-            name: '论坛多媒体',
+            name: '版主',
             render: function (text, record, index, self) {
                 return (
                     text ?
                         <span>
-                          <img alt="example" style={{width: 50}} src={constant.imageHost + text} />
+                            {text.userNickName}
+                            <img alt="example" style={{width: 50}} src={constant.imageHost + text.userAvatar} />
                         </span>
                         :
                         null
                 )
             }
-        }, {
-            id: 'forumBackgroundMediaId',
-            name: '论坛多媒体背景',
+        },{
+            id: 'forumMedia',
+            name: '论坛图片',
             render: function (text, record, index, self) {
                 return (
-                    text && text.filePath ?
+                    text && text.filePath?
                         <span>
                           <img alt="example" style={{width: 50}} src={constant.imageHost + text.filePath} />
                         </span>
@@ -90,14 +119,11 @@ export default connect(function (state) {
                 )
             }
         }, {
-            id: 'forumTopicLocation',
-            name: '位置'
-        }, {
-            id: 'forumTop',
+            id: 'forumIsTop',
             name: '论坛是否置顶',
             render: function (text, record, index, self){
                 return (
-                    record.articleIsTop ?
+                    record.forumIsTop ?
                         <span style={{color: '#52C41A'}}>是</span>
                         :
                         <span style={{color: '#F5222D'}}>否</span>
@@ -114,7 +140,7 @@ export default connect(function (state) {
             name: '论坛是否有效',
             render: function (text, record, index, self){
                 return (
-                    record.articleIsTop ?
+                    record.forumIsActive ?
                         <span style={{color: '#52C41A'}}>是</span>
                         :
                         <span style={{color: '#F5222D'}}>否</span>
@@ -125,7 +151,7 @@ export default connect(function (state) {
             name: '是否推荐',
             render: function (text, record, index, self){
                 return (
-                    record.articleIsTop ?
+                    record.forumIsRecomand ?
                         <span style={{color: '#52C41A'}}>是</span>
                         :
                         <span style={{color: '#F5222D'}}>否</span>
