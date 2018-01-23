@@ -23,6 +23,10 @@ export default connect(function (state) {
             isPrimary: false
         }],
         secondButtonList: [{
+            name: '更新',
+            icon: 'reload',
+            type: 'REPLACE'
+        }, {
             name: '删除',
             icon: 'delete',
             type: 'DELETE'
@@ -33,12 +37,22 @@ export default connect(function (state) {
             type: 'VARCHAR',
             required: true
         }, {
+            id: 'toolbarUrl',
+            name: '工具栏链接',
+            type: 'VARCHAR',
+            required: true
+        }, {
             id: 'toolbarImage',
             name: '工具栏图片',
             type: 'MEDIA',
             returnLimit: 1,
             supportUploadTypes: ['image'],
-            ref: 'toolbarImage'
+        }, {
+            id: 'toolbarActiveImage',
+            name: '工具栏激活图片',
+            type: 'MEDIA',
+            returnLimit: 1,
+            supportUploadTypes: ['image'],
         }, {
             id: 'toolbarSort',
             name: '排序',

@@ -29,36 +29,36 @@ export default connect(function (state) {
             addUrl: '/navigation/add'
         }],
         searchList: [{
-            id: 'navigationCategoryCode',
-            name: '导航栏分类编码',
-            type: 'VARCHAR'
-            }, {
-            id: 'navigationCode',
-            name: '导航栏编码',
-            type: 'VARCHAR'
-            }, {
             id: 'navigationName',
             name: '导航栏名称',
             type: 'VARCHAR'
+        }, {
+            id: 'navigationCategoryCode',
+            name: '导航栏分类编码',
+            type: 'VARCHAR'
+        }, {
+            id: 'navigationCode',
+            name: '导航栏编码',
+            type: 'VARCHAR'
         }],
         columnList: [{
+            id: 'navigationName',
+            name: '导航栏名称',
+            editUrl: '/navigation/edit/:navigationId'
+        }, {
             id: 'navigationCategoryCode',
             name: '导航栏分类编码'
         }, {
             id: 'navigationCode',
             name: '导航栏编码'
         }, {
-            id: 'navigationName',
-            name: '导航栏名称',
-            editUrl: '/navigation/edit/:navigationId'
-        }, {
-            id: 'navigationImage',
+            id: 'filePath',
             name: '导航栏图片',
             render: function (text, record, index, self) {
                 return (
                     text ?
                         <span>
-                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                          <img alt="example" style={{width: 50}} src={constant.imageHost + text} />
                         </span>
                         :
                         null

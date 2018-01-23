@@ -4,17 +4,16 @@ import NDetail from '../../layout/NDetail';
 
 export default connect(function (state) {
     return {
-        id: 'menu',
-        baseUrl: '/menu/admin/v1',
-        title: '菜单表单',
-        primaryKey: 'menuId',
-        submitKey: ['menuParentId'],
-        store: state.menu,
+        id: 'forumAudit',
+        baseUrl: '/forumAudit',
+        title: '论坛审核信息表单',
+        primaryKey: 'forumAuditId',
+        store: state.forumAudit,
         breadcrumbList: [{
-            name: '菜单管理',
-            url: '/menu/index'
+            name: '论坛审核信息管理',
+            url: '/forum/audit/index'
         }, {
-            name: '菜单信息',
+            name: '论坛审核信息信息',
             url: ''
         }],
         buttonList: [{
@@ -24,30 +23,24 @@ export default connect(function (state) {
             isPrimary: false
         }],
         secondButtonList: [{
-            name: '更新',
-            icon: 'reload',
-            type: 'REPLACE'
-        }, {
             name: '删除',
             icon: 'delete',
             type: 'DELETE'
         }],
         columnList: [{
-            id: 'menuName',
-            name: '名称',
+            id: 'forumAuditStatus',
+            name: '审核状态',
             type: 'VARCHAR',
             required: true
         }, {
-            id: 'menuUrl',
-            name: '地址',
+            id: 'auditSuggestContent',
+            name: '审核内容',
             type: 'VARCHAR',
             required: true
         }, {
-            id: 'menuSort',
-            name: '排序',
-            type: 'NUMBER',
-            min: 0,
-            max: 99999,
+            id: 'forumId',
+            name: '论坛id',
+            type: 'VARCHAR',
             required: true
         }]
     }

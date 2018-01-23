@@ -4,17 +4,16 @@ import NDetail from '../../layout/NDetail';
 
 export default connect(function (state) {
     return {
-        id: 'menu',
-        baseUrl: '/menu/admin/v1',
-        title: '菜单表单',
-        primaryKey: 'menuId',
-        submitKey: ['menuParentId'],
-        store: state.menu,
+        id: 'forumUserFollow',
+        baseUrl: '/forumUserFollow',
+        title: '论坛用户关注表单',
+        primaryKey: 'forumUserFollowId',
+        store: state.forumUserFollow,
         breadcrumbList: [{
-            name: '菜单管理',
-            url: '/menu/index'
+            name: '论坛用户关注管理',
+            url: '/forum/user/follow/index'
         }, {
-            name: '菜单信息',
+            name: '论坛用户关注信息',
             url: ''
         }],
         buttonList: [{
@@ -24,30 +23,19 @@ export default connect(function (state) {
             isPrimary: false
         }],
         secondButtonList: [{
-            name: '更新',
-            icon: 'reload',
-            type: 'REPLACE'
-        }, {
             name: '删除',
             icon: 'delete',
             type: 'DELETE'
         }],
         columnList: [{
-            id: 'menuName',
-            name: '名称',
+            id: 'userId',
+            name: '用户Id',
             type: 'VARCHAR',
             required: true
         }, {
-            id: 'menuUrl',
-            name: '地址',
+            id: 'forumId',
+            name: '论坛Id',
             type: 'VARCHAR',
-            required: true
-        }, {
-            id: 'menuSort',
-            name: '排序',
-            type: 'NUMBER',
-            min: 0,
-            max: 99999,
             required: true
         }]
     }

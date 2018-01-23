@@ -31,11 +31,18 @@ export default connect(function (state) {
             id: 'articleCategoryName',
             name: '名称',
             type: 'VARCHAR'
+        }, {
+            id: 'articleCategoryCode',
+            name: '编码',
+            type: 'VARCHAR'
         }],
         columnList: [{
             id: 'articleCategoryName',
             name: '名称',
             editUrl: '/article/category/edit/:articleCategoryId'
+        }, {
+            id: 'articleCategoryCode',
+            name: '编码'
         }, {
             id: 'articleCategorySort',
             name: '排序'

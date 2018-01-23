@@ -24,6 +24,10 @@ export default connect(function (state) {
             isPrimary: false
         }],
         secondButtonList: [{
+            name: '更新',
+            icon: 'reload',
+            type: 'REPLACE'
+        }, {
             name: '删除',
             icon: 'delete',
             type: 'DELETE'
@@ -31,6 +35,11 @@ export default connect(function (state) {
         columnList: [{
             id: 'articleCategoryName',
             name: '名称',
+            type: 'VARCHAR',
+            required: true
+        }, {
+            id: 'articleCategoryCode',
+            name: '编码',
             type: 'VARCHAR',
             required: true
         }, {

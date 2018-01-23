@@ -1,5 +1,6 @@
 const initialState = {
 	articleCategoryName: '',
+	articleCategoryCode: '',
 	expandedRowKeys: [],
 	total: 0,
 	pageIndex: 1,

@@ -128,15 +128,18 @@ class Index extends Component {
                             <Menu.Item key="4.1"><Link to={'/article/category/index'}>文章分类管理</Link></Menu.Item>
                             <Menu.Item key="4.2"><Link to={'/article/index'}>文章管理</Link></Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub5" title={<span><Icon type="user" /><span>权限管理</span></span>}>
-                            <Menu.Item key="5.1"><Link to={'/admin/index'}>管理员管理</Link></Menu.Item>
-                            <Menu.Item key="5.2"><Link to={'/role/index'}>角色管理</Link></Menu.Item>
-                            <Menu.Item key="5.3"><Link to={'/menu/index'}>菜单管理</Link></Menu.Item>
+                        <SubMenu key="sub5" title={<span><Icon type="camera-o" /><span>论坛管理</span></span>}>
+                            <Menu.Item key="5.1"><Link to={'/forum/index'}>论坛管理</Link></Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub6" title={<span><Icon type="setting" /><span>系统管理</span></span>}>
-                            <Menu.Item key="6.1"><Link to={'/app/index'}>应用管理</Link></Menu.Item>
-                            <Menu.Item key="6.2"><Link to={'/app/config/category/index'}>应用配置分类管理</Link></Menu.Item>
-                            <Menu.Item key="6.3"><Link to={'/app/config/index'}>应用配置管理</Link></Menu.Item>
+                        <SubMenu key="sub6" title={<span><Icon type="user" /><span>权限管理</span></span>}>
+                            <Menu.Item key="6.1"><Link to={'/admin/index'}>管理员管理</Link></Menu.Item>
+                            <Menu.Item key="6.2"><Link to={'/role/index'}>角色管理</Link></Menu.Item>
+                            <Menu.Item key="6.3"><Link to={'/menu/index'}>菜单管理</Link></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub7" title={<span><Icon type="setting" /><span>系统管理</span></span>}>
+                            <Menu.Item key="7.1"><Link to={'/app/index'}>应用管理</Link></Menu.Item>
+                            <Menu.Item key="7.2"><Link to={'/app/config/category/index'}>应用配置分类管理</Link></Menu.Item>
+                            <Menu.Item key="7.3"><Link to={'/app/config/index'}>应用配置管理</Link></Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>

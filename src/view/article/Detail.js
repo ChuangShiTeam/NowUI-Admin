@@ -76,8 +76,8 @@ class Detail extends Component {
                     });
                 }
                 let articleMedia = [];
-               if (data.articleMediaId) {
-                  articleMedia.push(data.articleMediaId);
+               if (data.articleMedia) {
+                  articleMedia.push(data.articleMedia);
                }
                 this.props.form.setFieldsValue({
                     articleTitle: data.articleTitle,
@@ -196,6 +196,37 @@ class Detail extends Component {
         });
     }
 
+    handleReplace() {
+        this.setState({
+            isLoad: true
+        });
+
+        let values = {};
+        values.articleId = this.props.params.articleId;
+
+        http.request({
+            url: '/article/admin/v1/replace',
+            data: values,
+            success: function (data) {
+                if (data) {
+                    message.success(constant.success);
+
+
+                    this.setState({
+                        isLoad: false
+                    }, function () {
+                        this.handleLoad()
+                    }.bind(this));
+                } else {
+                    message.error(constant.failure);
+                }
+            }.bind(this),
+            complete: function () {
+
+            }.bind(this)
+        });
+    }
+
     handleDelete() {
         if (this.state.isLoad) {
             return;
@@ -262,6 +293,11 @@ class Detail extends Component {
 
 
         let secondButtonList = [{
+            name: '更新',
+            icon: 'reload',
+            isPrimary: false,
+            click: this.handleReplace.bind(this)
+        }, {
             name: '删除',
             icon: '',
             isPrimary: false,
@@ -295,7 +331,7 @@ class Detail extends Component {
                             remoteOptionConfig={{
                                 key: 'articleCategoryId',
                                 value: 'articleCategoryName',
-                                url: '/article/category/admin/all/tree/list',
+                                url: '/article/category/admin/v1/all/tree/list',
                                 params: {}
                             }}
                             getFieldDecorator={getFieldDecorator}
@@ -313,7 +349,7 @@ class Detail extends Component {
                             remoteOptionConfig={{
                                 key: 'articleCategoryId',
                                 value: 'articleCategoryName',
-                                url: '/article/category/admin/all/tree/list',
+                                url: '/article/category/admin/v1/all/tree/list',
                                 params: {}
                             }}
                             getFieldDecorator={getFieldDecorator}
@@ -391,7 +427,7 @@ class Detail extends Component {
                         <NSelect id="articleTopLevel"
                                  label="文章置顶级别"
                                  staticOptionList={[{
-                                    key: '',
+                                    key: 99999,
                                     value: '无级别'
                                  }, {
                                     key: 1,
@@ -454,6 +490,7 @@ class Detail extends Component {
                                  getFieldDecorator={getFieldDecorator}
                         />
                         <NInputDate id="articlePublishTime"
+                                    required={true}
                                     label="文章发布时间"
                                     type="DatePicker"
                                     showTime={true}

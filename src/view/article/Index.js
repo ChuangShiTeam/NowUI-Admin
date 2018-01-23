@@ -41,13 +41,13 @@ export default connect(function (state) {
             id: 'articleCategoryName',
             name: '分类'
         }, {
-            id: 'articleMediaId',
+            id: 'filePath',
             name: '媒体',
             render: function (text, record, index, self) {
                 return (
                     text ?
                         <span>
-                          <img alt="example" style={{width: 100}} src={constant.imageHost + text.filePath} />
+                          <img alt="example" style={{width: 100}} src={constant.imageHost + text} />
                         </span>
                         :
                         null

@@ -11,6 +11,7 @@ import NSwitch from '../component/NSwitch';
 import NSelect from '../component/NSelect';
 import NInputHtml from '../component/NInputHtml';
 import NInputMedia from '../component/NInputMedia';
+import NInputDate from '../component/NInputDate';
 import http from "../common/http";
 
 import constant from '../common/constant';
@@ -211,7 +212,7 @@ class NDetail extends Component {
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
 
         http.request({
-            url: this.props.baseUrl + '/admin/replace',
+            url: this.props.baseUrl + '/replace',
             data: values,
             success: function (data) {
                 if (data) {
@@ -360,6 +361,17 @@ class NDetail extends Component {
                                                 column.type === 'HTML' ?
                                                     <NInputHtml id={column.id}
                                                                 label={column.name}
+                                                                getFieldDecorator={getFieldDecorator}
+                                                    />
+                                                    :
+                                                column.type === 'DatePicker' ?
+                                                    <NInputDate id={column.id}
+                                                                required={column.required}
+                                                                label={column.name}
+                                                                type={column.type}
+                                                                showTime={column.showTime}
+                                                                initialValue={column.initialValue}
+                                                                format={column.format}
                                                                 getFieldDecorator={getFieldDecorator}
                                                     />
                                                     :
