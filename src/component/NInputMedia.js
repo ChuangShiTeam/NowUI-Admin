@@ -27,12 +27,12 @@ class Image extends React.Component {
 
 	componentDidMount() {
 		notification.on('notification_media_file_' + this.props.id + '_submit', this, function (data) {
-			var array = this.state.value;
+			let array = this.state.value;
 
-			for (var i = 0; i < data.length; i++) {
-				var isNotExit = true;
+			for (let i = 0; i < data.length; i++) {
+				let isNotExit = true;
 
-				for (var k = 0; k < this.state.value.length; k++) {
+				for (let k = 0; k < this.state.value.length; k++) {
 					if (data[i].filePath === this.state.value[k].filePath) {
 						isNotExit = false;
 
@@ -53,8 +53,8 @@ class Image extends React.Component {
 
 			const onChange = this.props.onChange;
 			if (onChange) {
-				var value = [];
-				for (var i = 0; i < array.length; i++) {
+				let value = [];
+				for (let i = 0; i < array.length; i++) {
 					value.push({
 						fileId: array[i].fileId,
 						filePath: array[i].filePath
@@ -69,26 +69,6 @@ class Image extends React.Component {
 		notification.remove('notification_media_file_' + this.props.id + '_submit', this);
 	}
 
-	handleGetValue() {
-		return this.state.value;
-	}
-
-	handleSetValue(data) {
-		var array = [];
-
-		for (var i = 0; i < data.length; i++) {
-			array.push({
-				fileId: data[i].fileId,
-				filePath: data[i].filePath,
-				status: false
-			});
-		}
-
-		this.setState({
-			value: array
-		});
-	}
-
 	handleCancel() {
 		this.setState({
 			isPreview: false
@@ -96,8 +76,8 @@ class Image extends React.Component {
 	}
 
 	handlePreview(fileId) {
-		var filePath = '';
-		for (var i = 0; i < this.state.value.length; i++) {
+		let filePath = '';
+		for (let i = 0; i < this.state.value.length; i++) {
 			if (this.state.value[i].fileId === fileId) {
 				filePath = this.state.value[i].filePath;
 			}
@@ -110,10 +90,10 @@ class Image extends React.Component {
 	}
 
 	handleDelete(fileId) {
-		var index = -1;
-		var value = this.state.value;
+		let index = -1;
+		let value = this.state.value;
 
-		for (var i = 0; i < value.length; i++) {
+		for (let i = 0; i < value.length; i++) {
 			if (value[i].fileId === fileId) {
 				index = i;
 			}
@@ -131,10 +111,10 @@ class Image extends React.Component {
 	}
 
 	handleMouseOver(fileId) {
-		var value = [];
+		let value = [];
 
-		for (var i = 0; i < this.state.value.length; i++) {
-			var item = this.state.value[i];
+		for (let i = 0; i < this.state.value.length; i++) {
+			let item = this.state.value[i];
 
 			value.push({
 				fileId: item.fileId,
@@ -149,10 +129,10 @@ class Image extends React.Component {
 	}
 
 	handleMouseOut(fileId) {
-		var value = [];
+		let value = [];
 
-		for (var i = 0; i < this.state.value.length; i++) {
-			var item = this.state.value[i];
+		for (let i = 0; i < this.state.value.length; i++) {
+			let item = this.state.value[i];
 
 			value.push({
 				fileId: item.fileId,
