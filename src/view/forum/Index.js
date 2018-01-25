@@ -30,7 +30,7 @@ export default connect(function (state) {
         }],
         searchList: [{
             id: 'forumName',
-            name: '论坛名称',
+            name: '名称',
             type: 'VARCHAR'
         }, {
             id: 'forumIsActive',
@@ -89,7 +89,7 @@ export default connect(function (state) {
         }],
         columnList: [{
             id: 'forumName',
-            name: '论坛名称',
+            name: '名称',
             editUrl:'/forum/edit/:forumId'
         }, {
             id: 'forumModerator',
@@ -107,7 +107,7 @@ export default connect(function (state) {
             }
         },{
             id: 'forumMedia',
-            name: '论坛图片',
+            name: '图片',
             render: function (text, record, index, self) {
                 return (
                     text && text.filePath?
@@ -120,7 +120,7 @@ export default connect(function (state) {
             }
         }, {
             id: 'forumIsTop',
-            name: '论坛是否置顶',
+            name: '是否置顶',
             render: function (text, record, index, self){
                 return (
                     record.forumIsTop ?
@@ -131,13 +131,13 @@ export default connect(function (state) {
             }
         }, {
             id: 'forumTopLevel',
-            name: '论坛置顶级别'
+            name: '置顶级别'
         }, {
             id: 'forumTopEndTime',
-            name: '论坛置顶结束时间'
+            name: '置顶结束时间'
         }, {
             id: 'forumIsActive',
-            name: '论坛是否有效',
+            name: '是否有效',
             render: function (text, record, index, self){
                 return (
                     record.forumIsActive ?
@@ -147,19 +147,19 @@ export default connect(function (state) {
                 );
             }
         }, {
-            id: 'forumIsRecomand',
+            id: 'forumIsRecommend',
             name: '是否推荐',
             render: function (text, record, index, self){
                 return (
-                    record.forumIsRecomand ?
-                        <span style={{color: '#52C41A'}}>是</span>
+                    record.forumIsRecommend ?
+                        <span style={{color: '#52C41A'}}>是{text}</span>
                         :
                         <span style={{color: '#F5222D'}}>否</span>
                 );
             }
         }, {
             id: 'forumSort',
-            name: '论坛排序'
+            name: '排序'
         }]
     }
 })(NIndex);
