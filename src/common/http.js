@@ -43,7 +43,7 @@ function request(config) {
             }
         },
         error: function () {
-            message.error('网络出现错误');
+            message.error('网络繁忙，请稍后访问！');
         },
         complete: function () {
             config.complete();

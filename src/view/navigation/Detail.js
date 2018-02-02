@@ -51,8 +51,7 @@ export default connect(function (state) {
             name: '导航栏图片',
             type: 'MEDIA',
             returnLimit: 1,
-            supportUploadTypes: ['image'],
-            ref: 'navigationImage'
+            supportUploadTypes: ['image']
         }, {
             id: 'navigationUrl',
             name: '导航栏链接',
