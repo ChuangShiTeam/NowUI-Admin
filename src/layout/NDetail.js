@@ -78,6 +78,7 @@ class NDetail extends Component {
                             mediaData.push(data[this.props.columnList[i].id]);
                         }
                         values[this.props.columnList[i].id] = mediaData;
+                        console.log(values[this.props.columnList[i].id]);
                     }  else {
                         values[this.props.columnList[i].id] = data[this.props.columnList[i].id];
                     }
@@ -108,6 +109,7 @@ class NDetail extends Component {
         }
 
         this.props.form.validateFieldsAndScroll((errors, values) => {
+            console.log(values);
             if (!!errors) {
                 return;
             }
@@ -120,7 +122,9 @@ class NDetail extends Component {
                 if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit === 1) {
                     let mediaData = values[this.props.columnList[i].id];
                     if (mediaData && mediaData.length > 0) {
-                        values[this.props.columnList[i].id] = mediaData[0].fileId
+                        values[this.props.columnList[i].id] = mediaData[0]
+                    } else {
+                        delete values[this.props.columnList[i].id];
                     }
                 }
             }

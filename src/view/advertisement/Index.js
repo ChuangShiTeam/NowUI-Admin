@@ -52,9 +52,9 @@ export default connect(function (state) {
             name: '图片',
             render: function (text, record, index, self) {
                 return (
-                    record.filePath ?
+                    record.advertisementImage.filePath ?
                         <span>
-                          <img alt="example" style={{width: 50}} src={constant.imageHost + record.filePath} />
+                          <img alt="example" style={{width: 50}} src={constant.imageHost + record.advertisementImage.filePath} />
                         </span>
                         :
                         null
