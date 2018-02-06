@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Form, Row, Col, Spin, Button, Checkbox, Input, Table, message} from 'antd';
+import {Form, Row, Checkbox, Table, message} from 'antd';
 
 import NHeader from '../../component/NHeader';
 import NCol from '../../component/NCol';

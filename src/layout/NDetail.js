@@ -216,7 +216,7 @@ class NDetail extends Component {
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
 
         http.request({
-            url: this.props.baseUrl + '/replace',
+            url: this.props.baseUrl + '/synchronize',
             data: values,
             success: function (data) {
                 if (data) {
@@ -234,7 +234,7 @@ class NDetail extends Component {
             }.bind(this),
             complete: function () {
 
-            }.bind(this)
+            }
         });
     }
 

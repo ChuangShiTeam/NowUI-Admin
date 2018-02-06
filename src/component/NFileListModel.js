@@ -236,26 +236,6 @@ class NFileListModel extends Component {
         this.handleCancel();
     }
 
-    handleCancel() {
-        var list = [];
-
-        for (var i = 0; i < this.state.list.length; i++) {
-            var item = this.state.list[i];
-
-            list.push({
-                fileId: item.fileId,
-                filePath: item.filePath,
-                status: false,
-                select: false
-            });
-        }
-
-        this.setState({
-            isShow: false,
-            list: list
-        });
-    }
-
     handlePaginationChange(page, pageSize) {
         this.handleLoad(page);
     }
@@ -326,6 +306,8 @@ class NFileListModel extends Component {
                                                    </Upload>
                                                </div>
                                            )
+                                        } else {
+                                            return null
                                         }
                                     })
                                     :
