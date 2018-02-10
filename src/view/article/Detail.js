@@ -98,7 +98,7 @@ class Detail extends Component {
                     articleIsRequireAudit: data.articleIsRequireAudit,
                     articleIsRecommend: data.articleIsRecommend,
                     articleSort: data.articleSort,
-                    articleMedia: [],
+                    articleMedia: data.articleMedia,
                     articleMediaList: data.articleMediaList,
                     articlePrimaryArticleCategory: data.articlePrimaryArticleCategory,
                     articleSecondaryArticleCategoryList: data.articleSecondaryArticleCategoryList
@@ -124,8 +124,6 @@ class Detail extends Component {
         }
 
         this.props.form.validateFieldsAndScroll((errors, values) => {
-            console.log(values);
-            return;
             if (!!errors) {
                 return;
             }

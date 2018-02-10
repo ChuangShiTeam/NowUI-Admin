@@ -25,15 +25,14 @@ class Children extends React.Component {
 
                 this.setState({
                     isLoad: true
-                })
+                });
 
                 if (this.props.multiple) {
                     let array = [];
+                    let array2 = [];
 
                     for (let i = 0; i < value.length; i++) {
                         let item = {};
-
-                        console.log(value[i])
 
                         if (typeof (value[i].value) === 'undefined') {
                             item['value'] = value[i][this.props.returnValueName];
@@ -44,11 +43,18 @@ class Children extends React.Component {
                         }
 
                         array.push(item);
+
+                        array2.push(Object.assign(this.props.returnObject, value[i]));
                     }
 
                     this.setState({
                         value: array
                     });
+
+                    const onChange = this.props.onChange;
+                    if (onChange) {
+                        onChange(array2);
+                    }
                 } else {
                     let item = {};
 
@@ -67,6 +73,11 @@ class Children extends React.Component {
                     this.setState({
                         value: item
                     });
+
+                    const onChange = this.props.onChange;
+                    if (onChange) {
+                        onChange(Object.assign(this.props.returnObject, value));
+                    }
                 }
             }
         }
