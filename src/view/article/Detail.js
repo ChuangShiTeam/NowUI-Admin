@@ -261,7 +261,7 @@ class Detail extends Component {
     }
 
     render() {
-        const {getFieldDecorator} = this.props.form;
+        const {getFieldDecorator, getFieldValue, setFieldsValue} = this.props.form;
 
         let buttonList = [{
             name: '返回',
@@ -443,6 +443,8 @@ class Detail extends Component {
                         <NInputHtml id="articleContent"
                                     label="文章内容"
                                     getFieldDecorator={getFieldDecorator}
+                                    getFieldValue={getFieldValue}
+                                    setFieldsValue={setFieldsValue}
                         />
                         <NSwitch id="articleIsDraft"
                                  label={"文章是否草稿"}

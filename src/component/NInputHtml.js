@@ -53,7 +53,7 @@ class NInputHtml extends Component {
     handleShowCode() {
         this.setState({
             isCode: true,
-            code: this.quillRef.getEditor().getText()
+            code: this.props.getFieldValue(this.props.id)
         });
     }
 
@@ -62,7 +62,9 @@ class NInputHtml extends Component {
             isCode: false
         });
 
-        this.quillRef.getEditor().setText(this.state.code);
+        let object = {};
+        object[this.props.id] = this.state.code;
+        this.props.setFieldsValue(object);
     }
 
     handleChangeCode(event) {
@@ -130,7 +132,9 @@ class NInputHtml extends Component {
 NInputHtml.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
-    getFieldDecorator: PropTypes.func.isRequired
+    getFieldDecorator: PropTypes.func.isRequired,
+    getFieldValue: PropTypes.func,
+    setFieldsValue: PropTypes.func
 };
 
 NInputHtml.defaultProps = {
