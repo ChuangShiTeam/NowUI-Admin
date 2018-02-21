@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Form} from 'antd';
+import {Form, Modal, Input} from 'antd';
 
 import ReactQuill from 'react-quill';
 
@@ -14,7 +14,8 @@ class NInputHtml extends Component {
         super(props);
 
         this.state = {
-
+            isCode: false,
+            code: ''
         }
     }
 
@@ -24,7 +25,9 @@ class NInputHtml extends Component {
 
     componentDidMount() {
         const toolbar = this.quillRef.getEditor().getModule('toolbar');
+
         toolbar.addHandler('image', this.handleImage.bind(this));
+        toolbar.addHandler('code', this.handleShowCode.bind(this));
 
         notification.on('notification_media_file_' + this.props.id + '_submit', this, function (data) {
             this.quillRef.focus();
@@ -47,8 +50,30 @@ class NInputHtml extends Component {
         notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
     }
 
+    handleShowCode() {
+        this.setState({
+            isCode: true,
+            code: this.quillRef.getEditor().getText()
+        });
+    }
+
+    handleCloseCode() {
+        this.setState({
+            isCode: false
+        });
+
+        this.quillRef.getEditor().setText(this.state.code);
+    }
+
+    handleChangeCode(event) {
+        this.setState({
+            code: event.target.value
+        });
+    }
+
     render() {
         const FormItem = Form.Item;
+        const {TextArea} = Input;
 
         const modules = {
             toolbar: {
@@ -59,7 +84,7 @@ class NInputHtml extends Component {
                     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                     [{'align': []}],
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-                    ['link', 'video', 'image']
+                    ['link', 'video', 'image', 'code']
                 ]
             }
         };
@@ -85,6 +110,18 @@ class NInputHtml extends Component {
                                 supportUploadTypes={['image', 'cropImage']}
                                 returnLimit={0}
                                 aspect={1}/>
+                <Modal
+                    title="源代码"
+                    maskClosable={false}
+                    width={document.documentElement.clientWidth - 200}
+                    visible={this.state.isCode}
+                    onOk={this.handleCloseCode.bind(this)}
+                    onCancel={this.handleCloseCode.bind(this)}
+                >
+                    <TextArea rows={20}
+                              value={this.state.code}
+                              onChange={this.handleChangeCode.bind(this)}/>
+                </Modal>
             </FormItem>
         );
     }
