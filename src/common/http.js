@@ -25,8 +25,12 @@ function request(config) {
 
     data.sign = md5(sign);
 
+    if (!config.url.startsWith('http')) {
+        config.url = constant.host + config.url;
+    }
+
     reqwest({
-        url: constant.host + config.url,
+        url: config.url,
         type: 'json',
         method: 'POST',
         crossOrigin: true,

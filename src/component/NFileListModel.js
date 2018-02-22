@@ -56,7 +56,7 @@ class NFileListModel extends Component {
         });
 
         http.request({
-            url: '/file/admin/v1/list',
+            url: constant.imageHost + '/file/admin/v1/list',
             data: {
                 fileName: '',
                 fileType: 'IMAGE',
