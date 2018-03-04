@@ -41,7 +41,7 @@ export default connect(function (state) {
             id: 'articleCategoryName',
             name: '分类'
         }, {
-            id: 'filePath',
+            id: 'articleMediaPath',
             name: '媒体',
             render: function (text, record, index, self) {
                 return (

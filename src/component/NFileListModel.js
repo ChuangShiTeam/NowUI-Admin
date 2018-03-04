@@ -245,7 +245,7 @@ class NFileListModel extends Component {
             name: 'file',
             multiple: true,
             showUploadList: false,
-            action: constant.host + '/file/admin/v1/image/upload',
+            action: constant.imageHost + '/file/admin/v1/image/upload',
             accept: 'image/jpg,image/jpeg,image/png',
             data: {
                 'appId': constant.appId,

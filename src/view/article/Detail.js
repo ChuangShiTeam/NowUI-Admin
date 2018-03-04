@@ -74,10 +74,13 @@ class Detail extends Component {
                 //         }
                 //     });
                 // }
-                // let articleMedia = [];
-                // if (data.articleMedia) {
-                //     articleMedia.push(data.articleMedia);
-                // }
+                let articleMedia = [];
+                if (data.articleMediaId && data.articleMediaPath) {
+                    articleMedia.push({
+                        fileId: data.articleMediaId,
+                        filePath: data.articleMediaPath
+                    });
+                }
                 this.props.form.setFieldsValue({
                     articleTitle: data.articleTitle,
                     articleAuthor: data.articleAuthor,
@@ -98,7 +101,7 @@ class Detail extends Component {
                     articleIsRequireAudit: data.articleIsRequireAudit,
                     articleIsRecommend: data.articleIsRecommend,
                     articleSort: data.articleSort,
-                    articleMedia: data.articleMedia,
+                    articleMedia: articleMedia,
                     articleMediaList: data.articleMediaList,
                     articlePrimaryArticleCategory: data.articlePrimaryArticleCategory,
                     articleSecondaryArticleCategoryList: data.articleSecondaryArticleCategoryList
@@ -106,7 +109,6 @@ class Detail extends Component {
 
                 this.setState({
                     systemVersion: data.systemVersion
-
                 });
             }.bind(this),
             complete: function () {
@@ -134,11 +136,16 @@ class Detail extends Component {
 
             if (values.articleMedia && values.articleMedia.length > 0) {
                 values.articleMediaId = values.articleMedia[0].fileId;
+                values.articleMediaPath = values.articleMedia[0].filePath;
                 values.articleMediaType = 'IMAGE';
             }
 
             if (values.articleMediaList) {
                 values.articleMediaList = values.articleMediaList.map((articleMedia, index) => (articleMedia.articleMediaSort = index));
+            }
+
+            if (!values.articleSecondaryArticleCategoryList) {
+                values.articleSecondaryArticleCategoryList = []
             }
 
             if (values.articleTopEndTime) {
