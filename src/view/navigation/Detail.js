@@ -47,7 +47,8 @@ export default connect(function (state) {
             type: 'VARCHAR',
             required: true
         }, {
-            id: 'navigationImage',
+            id: 'navigationImageFileId',
+            mediaPathKey: 'navigationImageFilePath',
             name: '导航栏图片',
             type: 'MEDIA',
             returnLimit: 1,
