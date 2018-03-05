@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Row, Form, Col, Button, Modal, message, TreeSelect} from 'antd';
+import {Row, Form, Col, Button, Modal, message} from 'antd';
 import moment from 'moment';
 
 import NHeader from '../../component/NHeader';
@@ -9,7 +9,6 @@ import NInputText from '../../component/NInputText';
 import NInputTextArea from '../../component/NInputTextArea';
 import NInputNumber from '../../component/NInputNumber';
 import NSwitch from '../../component/NSwitch';
-import NSelect from '../../component/NSelect';
 import NInputHtml from '../../component/NInputHtml';
 import NInputMedia from '../../component/NInputMedia';
 import NTreeSelect from '../../component/NTreeSelect';
@@ -63,22 +62,25 @@ class Detail extends Component {
             url: '/article/admin/v1/find',
             data: values,
             success: function (data) {
-                let articlePrimaryCategoryId = '';
-                let articleSecondaryCategoryIds = null;
-                if (data.articleArticleCategoryList && data.articleArticleCategoryList.length > 0) {
-                    articleSecondaryCategoryIds = [];
-                    data.articleArticleCategoryList.forEach((articleArticleCategory) => {
-                        if (articleArticleCategory.articleCategoryIsPrimary) {
-                            articlePrimaryCategoryId = articleArticleCategory.articleCategoryId
-                        } else {
-                            articleSecondaryCategoryIds.push(articleArticleCategory.articleCategoryId);
-                        }
+                // let articlePrimaryCategoryId = '';
+                // let articleSecondaryCategoryIds = null;
+                // if (data.articleArticleCategoryList && data.articleArticleCategoryList.length > 0) {
+                //     articleSecondaryCategoryIds = [];
+                //     data.articleArticleCategoryList.forEach((articleArticleCategory) => {
+                //         if (articleArticleCategory.articleCategoryIsPrimary) {
+                //             articlePrimaryCategoryId = articleArticleCategory.articleCategoryId
+                //         } else {
+                //             articleSecondaryCategoryIds.push(articleArticleCategory.articleCategoryId);
+                //         }
+                //     });
+                // }
+                let articleMedia = [];
+                if (data.articleMediaId && data.articleMediaPath) {
+                    articleMedia.push({
+                        fileId: data.articleMediaId,
+                        filePath: data.articleMediaPath
                     });
                 }
-                let articleMedia = [];
-               if (data.articleMedia) {
-                  articleMedia.push(data.articleMedia);
-               }
                 this.props.form.setFieldsValue({
                     articleTitle: data.articleTitle,
                     articleAuthor: data.articleAuthor,
@@ -101,13 +103,12 @@ class Detail extends Component {
                     articleSort: data.articleSort,
                     articleMedia: articleMedia,
                     articleMediaList: data.articleMediaList,
-                    articlePrimaryCategoryId: articlePrimaryCategoryId,
-                    articleSecondaryCategoryIds: articleSecondaryCategoryIds
+                    articlePrimaryArticleCategory: data.articlePrimaryArticleCategory,
+                    articleSecondaryArticleCategoryList: data.articleSecondaryArticleCategoryList
                 });
 
                 this.setState({
                     systemVersion: data.systemVersion
-
                 });
             }.bind(this),
             complete: function () {
@@ -133,28 +134,9 @@ class Detail extends Component {
                 isLoad: true
             });
 
-            let articleArticleCategoryList = [];
-            articleArticleCategoryList.push({
-                articleCategoryId: values.articlePrimaryCategoryId,
-                articleCategoryIsPrimary: true
-            });
-            if (values.articleSecondaryCategoryIds && values.articleSecondaryCategoryIds.length > 0) {
-                values.articleSecondaryCategoryIds.forEach((id) =>
-                    values.articlePrimaryCategoryId != id ?
-                    articleArticleCategoryList.push({
-                        articleCategoryId: id,
-                        articleCategoryIsPrimary: false
-                    })
-                    :
-                    null
-                )
-            }
-            delete values.articlePrimaryCategoryId;
-            delete values.articleSecondaryCategoryIds;
-            values.articleArticleCategoryList = articleArticleCategoryList;
-
             if (values.articleMedia && values.articleMedia.length > 0) {
                 values.articleMediaId = values.articleMedia[0].fileId;
+                values.articleMediaPath = values.articleMedia[0].filePath;
                 values.articleMediaType = 'IMAGE';
             }
 
@@ -162,10 +144,14 @@ class Detail extends Component {
                 values.articleMediaList = values.articleMediaList.map((articleMedia, index) => (articleMedia.articleMediaSort = index));
             }
 
+            if (!values.articleSecondaryArticleCategoryList) {
+                values.articleSecondaryArticleCategoryList = []
+            }
+
             if (values.articleTopEndTime) {
                 values.articleTopEndTime = moment(values.articleTopEndTime).format('YYYY-MM-DD HH:mm:ss');
             }
-            
+
             if (values.articlePublishTime) {
                 values.articlePublishTime = moment(values.articlePublishTime).format('YYYY-MM-DD HH:mm:ss');
             }
@@ -205,7 +191,7 @@ class Detail extends Component {
         values.articleId = this.props.params.articleId;
 
         http.request({
-            url: '/article/admin/v1/replace',
+            url: '/article/admin/v1/synchronize',
             data: values,
             success: function (data) {
                 if (data) {
@@ -282,7 +268,7 @@ class Detail extends Component {
     }
 
     render() {
-        const {getFieldDecorator} = this.props.form;
+        const {getFieldDecorator, getFieldValue, setFieldsValue} = this.props.form;
 
         let buttonList = [{
             name: '返回',
@@ -314,11 +300,12 @@ class Detail extends Component {
 
         return (
             <div>
-                <NHeader name={'文章表单'} isEdit={this.state.isEdit} breadcrumbList={breadcrumbList} buttonList={buttonList} secondButtonList={secondButtonList}/>
+                <NHeader name={'文章表单'} isEdit={this.state.isEdit} breadcrumbList={breadcrumbList}
+                         buttonList={buttonList} secondButtonList={secondButtonList}/>
                 <div className="page-content">
                     <Form>
                         <NTreeSelect
-                            id="articlePrimaryCategoryId"
+                            id="articlePrimaryArticleCategory"
                             label="文章主分类"
                             required={true}
                             allowClear={true}
@@ -334,10 +321,15 @@ class Detail extends Component {
                                 url: '/article/category/admin/v1/all/tree/list',
                                 params: {}
                             }}
+                            returnValueName={'articleCategoryId'}
+                            returnLabelName={'articleCategoryName'}
+                            returnObject={{
+                                articleCategoryIsPrimary: true
+                            }}
                             getFieldDecorator={getFieldDecorator}
                         />
                         <NTreeSelect
-                            id="articleSecondaryCategoryIds"
+                            id="articleSecondaryArticleCategoryList"
                             label="文章副分类"
                             multiple={true}
                             treeCheckable={true}
@@ -351,6 +343,11 @@ class Detail extends Component {
                                 value: 'articleCategoryName',
                                 url: '/article/category/admin/v1/all/tree/list',
                                 params: {}
+                            }}
+                            returnValueName={'articleCategoryId'}
+                            returnLabelName={'articleCategoryName'}
+                            returnObject={{
+                                articleCategoryIsPrimary: false
                             }}
                             getFieldDecorator={getFieldDecorator}
                         />
@@ -374,6 +371,7 @@ class Detail extends Component {
                         />
                         <NInputMedia id="articleMedia"
                                      label="文章主媒体"
+                                     required={true}
                                      type="MEDIA"
                                      returnLimit={1}
                                      supportUploadTypes={['image', 'cropImage']}
@@ -424,44 +422,14 @@ class Detail extends Component {
                                  unCheckedChildren={'否'}
                                  getFieldDecorator={getFieldDecorator}
                         />
-                        <NSelect id="articleTopLevel"
-                                 label="文章置顶级别"
-                                 staticOptionList={[{
-                                    key: 99999,
-                                    value: '无级别'
-                                 }, {
-                                    key: 1,
-                                    value: '级别1'
-                                 }, {
-                                    key: 2,
-                                    value: '级别2'
-                                 }, {
-                                    key: 3,
-                                    value: '级别3'
-                                 }, {
-                                    key: 4,
-                                    value: '级别4'
-                                 }, {
-                                    key: 5,
-                                    value: '级别5'
-                                 }, {
-                                    key: 6,
-                                    value: '级别6'
-                                 }, {
-                                    key: 7,
-                                    value: '级别7'
-                                 }, {
-                                    key: 8,
-                                    value: '级别8'
-                                 }, {
-                                    key: 9,
-                                    value: '级别9'
-                                 }, {
-                                    key: 10,
-                                    value: '级别10'
-                                 }]}
-                                 allowClear={true}
-                                 getFieldDecorator={getFieldDecorator}
+                        <NInputNumber id="articleTopLevel"
+                                      label="文章置顶级别"
+                                      min={0}
+                                      max={99999}
+                                      step={1}
+                                      required={true}
+                                      getFieldDecorator={getFieldDecorator}
+                                      onPressEnter={this.handleSubmit.bind(this)}
                         />
                         <NInputDate id="articleTopEndTime"
                                     label="文章置顶截止时间"
@@ -482,6 +450,8 @@ class Detail extends Component {
                         <NInputHtml id="articleContent"
                                     label="文章内容"
                                     getFieldDecorator={getFieldDecorator}
+                                    getFieldValue={getFieldValue}
+                                    setFieldsValue={setFieldsValue}
                         />
                         <NSwitch id="articleIsDraft"
                                  label={"文章是否草稿"}

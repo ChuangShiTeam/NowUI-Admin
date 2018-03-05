@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Form, Row, Col, Spin, Button, Checkbox, Input, Table, message} from 'antd';
+import {Form, Row, Checkbox, Table, message} from 'antd';
 
 import NHeader from '../../component/NHeader';
 import NCol from '../../component/NCol';
@@ -301,7 +301,7 @@ class Detail extends Component {
                         <Row>
                             <NCol multiLine={true}>
                                 <NInputText id="moduleName"
-                                            label="模块名称"
+                                            label="微服务名称"
                                             getFieldDecorator={getFieldDecorator}
                                             onPressEnter={this.handleSubmit.bind(this)}
                                             multiLine={true}
@@ -310,7 +310,7 @@ class Detail extends Component {
                             </NCol>
                             <NCol multiLine={true}>
                                 <NInputText id="packageName"
-                                            label="包名"
+                                            label="模块名称"
                                             getFieldDecorator={getFieldDecorator}
                                             onPressEnter={this.handleSubmit.bind(this)}
                                             multiLine={true}
@@ -319,7 +319,7 @@ class Detail extends Component {
                             </NCol>
                             <NCol multiLine={true}>
                                 <NInputText id="tableComment"
-                                            label="注释前缀"
+                                            label="注释前缀(中文)"
                                             getFieldDecorator={getFieldDecorator}
                                             onPressEnter={this.handleSubmit.bind(this)}
                                             multiLine={true}

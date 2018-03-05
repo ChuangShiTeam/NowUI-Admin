@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Form, message} from 'antd';
+import {Modal, Form} from 'antd';
 
 import NFileListModel from './NFileListModel';
 import constant from '../common/constant';
@@ -182,7 +182,7 @@ class Image extends React.Component {
 					this.state.value.length < this.props.returnLimit ?
 						<div className="button" onClick={this.handleAdd.bind(this)}>
 							<i className="anticon anticon-plus button-icon"/>
-							<div className="ant-upload-text button-text">添加{this.props.label}</div>
+							<div className="ant-upload-text button-text">添加</div>
 						</div>
 						:
 						''
@@ -191,7 +191,7 @@ class Image extends React.Component {
 					this.props.returnLimit === 0 ?
 						<div className="button" onClick={this.handleAdd.bind(this)}>
 							<i className="anticon anticon-plus button-icon"/>
-							<div className="ant-upload-text button-text">添加{this.props.label}</div>
+							<div className="ant-upload-text button-text">添加</div>
 						</div>
 						:
 						''
@@ -273,7 +273,7 @@ NInputMedia.propTypes = {
 NInputMedia.defaultProps = {
 	type: '',
 	returnLimit: 0,
-	label: ''
+	label: '22'
 };
 
 export default NInputMedia;

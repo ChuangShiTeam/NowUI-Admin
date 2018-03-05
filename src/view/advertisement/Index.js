@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 
 import constant from '../../common/constant';
@@ -48,13 +48,13 @@ export default connect(function (state) {
             id: 'advertisementCode',
             name: '编码'
         }, {
-            id: 'filePath',
+            id: 'advertisementImageFilePath',
             name: '图片',
             render: function (text, record, index, self) {
                 return (
-                    record.filePath ?
+                    text ?
                         <span>
-                          <img alt="example" style={{width: 50}} src={constant.imageHost + record.filePath} />
+                          <img alt="example" style={{width: 50}} src={constant.imageHost + text} />
                         </span>
                         :
                         null

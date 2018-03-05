@@ -62,7 +62,7 @@ class NHeader extends Component {
                                                             <Menu.Item key={index}><Icon type={button.icon}/>{button.name}
                                                             </Menu.Item>
                                                         )
-                                                    }.bind(this))
+                                                    })
                                                 }
                                             </Menu>
                                         )} placement="bottomRight">

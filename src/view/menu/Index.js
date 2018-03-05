@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
-import constant from "../../common/constant";
 
 export default connect(function (state) {
     return {

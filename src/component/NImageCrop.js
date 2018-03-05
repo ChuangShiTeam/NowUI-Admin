@@ -63,7 +63,7 @@ class NImageCrop extends Component {
 	}
 
 	handleSubmit() {
-		if (this.state.src == '') {
+		if (this.state.src === '') {
 			return;
 		}
 
@@ -87,7 +87,7 @@ class NImageCrop extends Component {
 			}.bind(this),
 			complete: function () {
 
-			}.bind(this)
+			}
 		});
 	}
 

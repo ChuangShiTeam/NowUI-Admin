@@ -75,7 +75,10 @@ class NDetail extends Component {
                     if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit === 1) {
                         let mediaData = [];
                         if (data[this.props.columnList[i].id] !== null) {
-                            mediaData.push(data[this.props.columnList[i].id]);
+                            mediaData.push({
+                                fileId: data[this.props.columnList[i].id],
+                                filePath: data[this.props.columnList[i].mediaPathKey]
+                            });
                         }
                         values[this.props.columnList[i].id] = mediaData;
                     }  else {
@@ -108,6 +111,7 @@ class NDetail extends Component {
         }
 
         this.props.form.validateFieldsAndScroll((errors, values) => {
+            console.log(values);
             if (!!errors) {
                 return;
             }
@@ -120,7 +124,10 @@ class NDetail extends Component {
                 if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit === 1) {
                     let mediaData = values[this.props.columnList[i].id];
                     if (mediaData && mediaData.length > 0) {
-                        values[this.props.columnList[i].id] = mediaData[0].fileId
+                        values[this.props.columnList[i].id] = mediaData[0].fileId;
+                        values[this.props.columnList[i].mediaPathKey] = mediaData[0].filePath;
+                    } else {
+                        delete values[this.props.columnList[i].id];
                     }
                 }
             }
@@ -212,7 +219,7 @@ class NDetail extends Component {
         values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
 
         http.request({
-            url: this.props.baseUrl + '/replace',
+            url: this.props.baseUrl + '/synchronize',
             data: values,
             success: function (data) {
                 if (data) {
@@ -230,7 +237,7 @@ class NDetail extends Component {
             }.bind(this),
             complete: function () {
 
-            }.bind(this)
+            }
         });
     }
 

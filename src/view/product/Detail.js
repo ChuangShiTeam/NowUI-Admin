@@ -36,11 +36,6 @@ export default connect(function (state) {
             name: '商品名称',
             type: 'VARCHAR',
             required: true
-        }, {
-            id: 'productContent',
-            name: '商品内容',
-            type: 'HTML',
-            required: true
         }]
     }
 })(NDetail);
