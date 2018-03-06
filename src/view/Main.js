@@ -142,7 +142,11 @@ class Index extends Component {
                         <SubMenu key="sub8" title={<span><Icon type="shop"/><span>品牌供应商管理</span></span>}>
                             <Menu.Item key="8.1"><Link to={'/supplier/index'}>供应商基础信息</Link></Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub19" title={<span><Icon type="user" /><span>权限管理</span></span>}>
+
+                        <SubMenu key="sub10" title={<span><Icon type="user" /><span>会员管理</span></span>}>
+                            <Menu.Item key="10.1"><Link to={'/member/default/avatar/index'}>默认头像管理</Link></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub19" title={<span><Icon type="lock" /><span>权限管理</span></span>}>
                             <Menu.Item key="19.1"><Link to={'/admin/index'}>管理员管理</Link></Menu.Item>
                             <Menu.Item key="19.2"><Link to={'/role/index'}>角色管理</Link></Menu.Item>
                             <Menu.Item key="19.3"><Link to={'/menu/index'}>菜单管理</Link></Menu.Item>
