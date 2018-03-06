@@ -135,6 +135,13 @@ class Index extends Component {
                             <Menu.Item key="6.1"><Link to={'/pet/category/index'}>宠物分类管理</Link></Menu.Item>
                             <Menu.Item key="6.2"><Link to={'/pet/index'}>宠物管理</Link></Menu.Item>
                         </SubMenu>
+
+                        <SubMenu key="sub7" title={<span><Icon type="shop"/><span>WMS</span></span>}>
+                            <Menu.Item key="7.1"><Link to={'/purchaseOrder/index'}>采购申请</Link></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub8" title={<span><Icon type="shop"/><span>品牌供应商管理</span></span>}>
+                            <Menu.Item key="8.1"><Link to={'/supplier/index'}>供应商基础信息</Link></Menu.Item>
+                        </SubMenu>
                         <SubMenu key="sub19" title={<span><Icon type="user" /><span>权限管理</span></span>}>
                             <Menu.Item key="19.1"><Link to={'/admin/index'}>管理员管理</Link></Menu.Item>
                             <Menu.Item key="19.2"><Link to={'/role/index'}>角色管理</Link></Menu.Item>
