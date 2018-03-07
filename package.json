@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.2.1",
+    "ant-design-pro": "^1.1.0",
+    "antd": "^3.2.3",
     "blueimp-md5": "^2.10.0",
     "history": "^1.17.0",
     "react": "^15.6.2",

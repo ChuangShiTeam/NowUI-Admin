@@ -27,8 +27,20 @@ class NSwitch extends Component {
 		return (
 			<FormItem
 				label={this.props.label}
-				labelCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 7 : 4}, md: {span: this.props.multiLine ? 7 : 4}, lg: {span: this.props.multiLine ? 7 : 4}, xl: {span: this.props.multiLine ? 7 : 4}}}
-				wrapperCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 17 : 17}, md: {span: this.props.multiLine ? 17 : 17}, lg: {span: this.props.multiLine ? 17 : 10}, xl: {span: this.props.multiLine ? 17 : 10}}}
+				labelCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 7 : 4},
+					md: {span: this.props.multiLine ? 7 : 4},
+					lg: {span: this.props.multiLine ? 7 : 4},
+					xl: {span: this.props.multiLine ? 7 : 4}
+				}}
+				wrapperCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 17 : 17},
+					md: {span: this.props.multiLine ? 17 : 17},
+					lg: {span: this.props.multiLine ? 17 : 10},
+					xl: {span: this.props.multiLine ? 17 : 10}
+				}}
 				className="form-item"
 			>
 				{this.props.getFieldDecorator(this.props.id, {
@@ -48,6 +60,8 @@ class NSwitch extends Component {
 
 NSwitch.propTypes = {
 	getFieldDecorator: PropTypes.func.isRequired,
+	getFieldValue: PropTypes.func.isRequired,
+	setFieldsValue: PropTypes.func.isRequired,
 	id: PropTypes.string.isRequired,
 	label: PropTypes.string,
 	size: PropTypes.string,

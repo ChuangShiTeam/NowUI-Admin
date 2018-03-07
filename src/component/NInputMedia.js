@@ -264,6 +264,8 @@ NInputMedia.propTypes = {
 	id: PropTypes.string.isRequired,
 	type: PropTypes.string,
 	returnLimit: PropTypes.number,
+	returnValueName: PropTypes.string,
+	returnLabelName: PropTypes.string,
 	aspect: PropTypes.number,
 	supportUploadTypes: PropTypes.arrayOf(PropTypes.oneOf(['image', 'cropImage', 'video'])),
 	label: PropTypes.string,

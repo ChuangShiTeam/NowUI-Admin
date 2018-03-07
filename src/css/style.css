@@ -131,6 +131,7 @@ a, area {
     padding: 25px 24px 1px 24px;
     box-sizing: border-box;
     background-color: #ffffff;
+    border: 1px solid #e8e8e8;
 }
 
 .page-content {
@@ -138,6 +139,7 @@ a, area {
     padding: 25px 24px 24px 24px;
     box-sizing: border-box;
     background-color: #ffffff;
+    border: 1px solid #e8e8e8;
 }
 
 .form-item {
@@ -301,7 +303,6 @@ a, area {
 }
 
 .ant-modal-body {
-    height: 520px;
     overflow: visible;
     overflow-y: auto;
     overflow-x: hidden;
