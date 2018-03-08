@@ -131,6 +131,7 @@ a, area {
     padding: 25px 24px 1px 24px;
     box-sizing: border-box;
     background-color: #ffffff;
+    border: 1px solid #e8e8e8;
 }
 
 .page-content {
@@ -138,6 +139,7 @@ a, area {
     padding: 25px 24px 24px 24px;
     box-sizing: border-box;
     background-color: #ffffff;
+    border: 1px solid #e8e8e8;
 }
 
 .form-item {
@@ -204,6 +206,11 @@ a, area {
 .ant-layout {
     background: #F0F2F5 !important;
 }
+/*.ant-layout-content {*/
+    /*background: #001529;*/
+/*}*/
+
+
 
 .ql-toolbar.ql-snow {
     border-top-left-radius: 4px;
@@ -248,6 +255,14 @@ a, area {
 .item-image {
     width: 100%;
     height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.preview-image {
+    width: 472px;
+    height: 472px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -301,7 +316,6 @@ a, area {
 }
 
 .ant-modal-body {
-    height: 520px;
     overflow: visible;
     overflow-y: auto;
     overflow-x: hidden;

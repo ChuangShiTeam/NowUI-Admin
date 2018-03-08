@@ -1,15 +1,15 @@
 const initialState = {
-    productName: '',
+    articleId: '',
+    articeIsFree: '',
     total: 0,
-    pageIndex: 1,
-    pageSize: 10,
     list: [],
-	productCategoryList: []
+    pageIndex: 1,
+    pageSize: 10
 };
 
-function product(state = initialState, action) {
+function articlePrice(state = initialState, action) {
     switch (action.type) {
-        case 'product':
+        case 'articlePrice':
             return Object.assign({}, state, action.data);
 
         default :
@@ -17,4 +17,4 @@ function product(state = initialState, action) {
     }
 }
 
-export default product;
+export default articlePrice;

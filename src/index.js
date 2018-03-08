@@ -11,13 +11,14 @@ import Main from './view/Main';
 import constant from './common/constant';
 import util from './common/util';
 
+import 'ant-design-pro/dist/ant-design-pro.css';
 import './css/style.css';
 
 for (var i = 0; i < document.styleSheets.length; i++) {
     var rule = document.styleSheets[i].cssRules;
     for (var j = 0; j < rule.length; j++) {
         if (rule[j].selectorText === '.ant-modal-body') {
-            //rule[j].style.height = document.documentElement.clientHeight - 290 + 'px';
+            // rule[j].style.height = document.documentElement.clientHeight - 290 + 'px';
             break;
         }
     }

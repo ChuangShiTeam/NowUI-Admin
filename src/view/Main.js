@@ -116,24 +116,27 @@ class Index extends Component {
                             <Menu.Item key="0.1"><Link to={'/product/index'}>商品信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub1" title={<span><Icon type="credit-card" /><span>广告管理</span></span>}>
-                            <Menu.Item key="1.1"><Link to={'/advertisement/index'}>广告管理</Link></Menu.Item>
+                            <Menu.Item key="1.1"><Link to={'/advertisement/index'}>广告信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub2" title={<span><Icon type="tool" /><span>工具栏管理</span></span>}>
-                            <Menu.Item key="2.1"><Link to={'/toolbar/index'}>工具栏管理</Link></Menu.Item>
+                            <Menu.Item key="2.1"><Link to={'/toolbar/index'}>工具栏信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub3" title={<span><Icon type="double-right" /><span>导航栏管理</span></span>}>
-                            <Menu.Item key="3.1"><Link to={'/navigation/index'}>导航栏管理</Link></Menu.Item>
+                            <Menu.Item key="3.1"><Link to={'/navigation/index'}>导航栏信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub4" title={<span><Icon type="cloud" /><span>文章管理</span></span>}>
-                            <Menu.Item key="4.1"><Link to={'/article/category/index'}>文章分类管理</Link></Menu.Item>
-                            <Menu.Item key="4.2"><Link to={'/article/index'}>文章管理</Link></Menu.Item>
+                            <Menu.Item key="4.1"><Link to={'/article/category/index'}>文章分类信息</Link></Menu.Item>
+                            <Menu.Item key="4.2"><Link to={'/article/index'}>文章信息</Link></Menu.Item>
+                            <Menu.Item key="4.3"><Link to={'/article/author/index'}>文章作者信息</Link></Menu.Item>
+                            <Menu.Item key="4.4"><Link to={'/article/price/index'}>文章价格信息</Link></Menu.Item>
+                            <Menu.Item key="4.5"><Link to={'/article/user/purchase/index'}>文章购买信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub5" title={<span><Icon type="camera-o" /><span>论坛管理</span></span>}>
-                            <Menu.Item key="5.1"><Link to={'/forum/index'}>论坛管理</Link></Menu.Item>
+                            <Menu.Item key="5.1"><Link to={'/forum/index'}>论坛信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub6" title={<span><Icon type="camera-o" /><span>宠物管理</span></span>}>
-                            <Menu.Item key="6.1"><Link to={'/pet/category/index'}>宠物分类管理</Link></Menu.Item>
-                            <Menu.Item key="6.2"><Link to={'/pet/index'}>宠物管理</Link></Menu.Item>
+                            <Menu.Item key="6.1"><Link to={'/pet/category/index'}>宠物分类信息</Link></Menu.Item>
+                            <Menu.Item key="6.2"><Link to={'/pet/index'}>宠物信息</Link></Menu.Item>
                         </SubMenu>
 
                         <SubMenu key="sub7" title={<span><Icon type="shop"/><span>WMS</span></span>}>
@@ -145,16 +148,24 @@ class Index extends Component {
 
                         <SubMenu key="sub10" title={<span><Icon type="user" /><span>会员管理</span></span>}>
                             <Menu.Item key="10.1"><Link to={'/member/default/avatar/index'}>默认头像管理</Link></Menu.Item>
+                        <SubMenu key="sub7" title={<span><Icon type="camera-o" /><span>医院管理</span></span>}>
+                            <Menu.Item key="7.1"><Link to={'/doctor/index'}>医生信息</Link></Menu.Item>
+                            <Menu.Item key="7.2"><Link to={'/patient/index'}>患者信息</Link></Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub19" title={<span><Icon type="lock" /><span>权限管理</span></span>}>
-                            <Menu.Item key="19.1"><Link to={'/admin/index'}>管理员管理</Link></Menu.Item>
-                            <Menu.Item key="19.2"><Link to={'/role/index'}>角色管理</Link></Menu.Item>
-                            <Menu.Item key="19.3"><Link to={'/menu/index'}>菜单管理</Link></Menu.Item>
+
+                        <SubMenu key="sub8" title={<span><Icon type="camera-o" /><span>代码管理</span></span>}>
+                            <Menu.Item key="8.1"><Link to={'/code/index'}>数据库表信息</Link></Menu.Item>
+                        </SubMenu>
+
+                        <SubMenu key="sub19" title={<span><Icon type="user" /><span>权限管理</span></span>}>
+                            <Menu.Item key="19.1"><Link to={'/admin/index'}>管理员信息</Link></Menu.Item>
+                            <Menu.Item key="19.2"><Link to={'/role/index'}>角色信息</Link></Menu.Item>
+                            <Menu.Item key="19.3"><Link to={'/menu/index'}>菜单信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub20" title={<span><Icon type="setting" /><span>系统管理</span></span>}>
-                            <Menu.Item key="20.1"><Link to={'/app/index'}>应用管理</Link></Menu.Item>
-                            <Menu.Item key="20.2"><Link to={'/app/config/category/index'}>应用配置分类管理</Link></Menu.Item>
-                            <Menu.Item key="20.3"><Link to={'/app/config/index'}>应用配置管理</Link></Menu.Item>
+                            <Menu.Item key="20.1"><Link to={'/app/index'}>应用信息</Link></Menu.Item>
+                            <Menu.Item key="20.2"><Link to={'/app/config/category/index'}>应用配置分类信息</Link></Menu.Item>
+                            <Menu.Item key="20.3"><Link to={'/app/config/index'}>应用配置信息</Link></Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>

@@ -68,7 +68,7 @@ class Login extends Component {
                 <div className="login-body">
                     <Form className="login-body-form">
                         <Row>
-                            <div className="login-body-form-title">{constant.name}总控后台</div>
+                            <div className="login-body-form-title">欢迎光临{constant.name}</div>
                         </Row>
                         <Row>
                             <NInputText id="user_account"
@@ -78,6 +78,7 @@ class Login extends Component {
                                         getFieldDecorator={getFieldDecorator} placeholder="请输入账号"
                                         labelColSpan={0}
                                         wrapperColSpan={24}
+										wrapperCol={{xs: {span: 24}, sm: {span: 24}, md: {span: 24}, lg: {span: 24}, xl: {span: 24}}}
                                         onPressEnter={this.handleSubmit.bind(this)}
                             />
                         </Row>
@@ -89,6 +90,7 @@ class Login extends Component {
                                         getFieldDecorator={getFieldDecorator} placeholder="请输入密码"
                                         labelColSpan={0}
                                         wrapperColSpan={24}
+										wrapperCol={{xs: {span: 24}, sm: {span: 24}, md: {span: 24}, lg: {span: 24}, xl: {span: 24}}}
                                         onPressEnter={this.handleSubmit.bind(this)}
                             />
                         </Row>
