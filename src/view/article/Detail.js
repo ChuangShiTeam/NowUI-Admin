@@ -136,7 +136,7 @@ class Detail extends Component {
 
 			if (values.articleMedia && values.articleMedia.length > 0) {
 				values.articleMediaId = values.articleMedia[0].fileId;
-				values.articleMediaPath = values.articleMedia[0].filePath;
+                values.articleMediaPath = values.articleMedia[0].filePath;
 				values.articleMediaType = 'IMAGE';
 			}
 
