@@ -34,7 +34,8 @@ export default connect(function (state) {
         }],
         columnList: [{
             id: 'supplierName',
-            name: '供应商名称'
+            name: '供应商名称',
+            editUrl: '/supplier/edit/:supplierId'
         }, {
             id: 'supplierContact',
             name: '联系人'

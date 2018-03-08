@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
 import NDetail from '../../layout/NDetail';
+import { Cascader } from 'antd';
 
 export default connect(function (state) {
     return {
@@ -33,10 +33,13 @@ export default connect(function (state) {
             name: '供应商名称',
             type: 'VARCHAR',
             required: true
-        }, {
+        },  {
             id: 'supplierSrcFileId',
+            mediaPathKey: 'supplierSrcFilePath',
             name: '供应商图片',
-            type: 'VARCHAR',
+            type: 'MEDIA',
+            returnLimit: 1,
+            supportUploadTypes: ['image'],
             required: true
         }, {
             id: 'supplierContact',
@@ -62,52 +65,60 @@ export default connect(function (state) {
             id: 'supplierEmail',
             name: '电子邮箱',
             type: 'VARCHAR',
-            required: true
+            required: false
         }, {
             id: 'supplierQQ',
             name: 'QQ号码',
             type: 'VARCHAR',
-            required: true
+            required: false
         }, {
             id: 'supplierWeiXin',
             name: 'WeiXin',
             type: 'VARCHAR',
-            required: true
-        }, {
-            id: 'supplierProvince',
-            name: '供应商所属省份',
-            type: 'VARCHAR',
-            required: true
-        }, {
-            id: 'supplierCity',
-            name: '供应商所属市',
-            type: 'VARCHAR',
-            required: true
-        }, {
-            id: 'supplierArea',
-            name: '供应商所属',
-            type: 'VARCHAR',
-            required: true
-        }, {
+            required: false
+        },
+            {
+                id: 'supplierProvinceCityArea',
+                name: '供应商所属省',
+                type: 'CASCADER',
+                required: true
+            },
+        //     {
+        //     id: 'supplierProvince',
+        //     name: '供应商所属省份',
+        //     type: 'VARCHAR',
+        //     required: true
+        // }, {
+        //     id: 'supplierCity',
+        //     name: '供应商所属市',
+        //     type: 'VARCHAR',
+        //     required: true
+        // }, {
+        //     id: 'supplierArea',
+        //     name: '供应商所属',
+        //     type: 'VARCHAR',
+        //     required: true
+        // },
+            {
             id: 'supplierAddress',
             name: '详细地址',
             type: 'VARCHAR',
-            required: true
+            required: false
         }, {
             id: 'supplierZipCode',
             name: '邮政编码',
             type: 'VARCHAR',
-            required: true
+            required: false
         }, {
             id: 'supplierLongitude',
             name: '经度',
             type: 'VARCHAR',
-            required: true
+            required: false
         }, {
             id: 'supplierLatitude',
             name: '纬度',
             type: 'VARCHAR',
-            required: true
+            required: false
         }]
     }
 })(NDetail);
