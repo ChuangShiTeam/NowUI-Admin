@@ -129,7 +129,7 @@ class Index extends Component {
                             <Menu.Item key="4.2"><Link to={'/article/index'}>文章信息</Link></Menu.Item>
                             <Menu.Item key="4.3"><Link to={'/article/author/index'}>文章作者信息</Link></Menu.Item>
                             <Menu.Item key="4.4"><Link to={'/article/price/index'}>文章价格信息</Link></Menu.Item>
-                            <Menu.Item key="4.5"><Link to={'/article/index'}>文章购买信息</Link></Menu.Item>
+                            <Menu.Item key="4.5"><Link to={'/article/user/purchase/index'}>文章购买信息</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub5" title={<span><Icon type="camera-o" /><span>论坛管理</span></span>}>
                             <Menu.Item key="5.1"><Link to={'/forum/index'}>论坛信息</Link></Menu.Item>
