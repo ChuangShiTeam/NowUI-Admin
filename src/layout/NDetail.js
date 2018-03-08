@@ -13,6 +13,7 @@ import NTreeSelect from '../component/NTreeSelect';
 import NInputHtml from '../component/NInputHtml';
 import NInputMedia from '../component/NInputMedia';
 import NInputDate from '../component/NInputDate';
+import NInputCascader from '../component/NInputCascader'
 import http from "../common/http";
 
 import constant from '../common/constant';
@@ -473,6 +474,16 @@ class NDetail extends Component {
 																		 setFieldsValue={setFieldsValue}
 															/>
 														)
+													case 'CASCADER':
+                                                         return (
+															<NInputCascader  id={column.id}
+																			 type={column.inputType}
+																			 label={column.name}
+																			 required={column.required}
+																			 getFieldDecorator={getFieldDecorator}
+																			 onPressEnter={this.handleSubmit.bind(this)}
+															/>
+                                                         )	
 													default:
 														return '';
 												}

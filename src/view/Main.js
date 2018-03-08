@@ -138,16 +138,6 @@ class Index extends Component {
                             <Menu.Item key="6.1"><Link to={'/pet/category/index'}>宠物分类信息</Link></Menu.Item>
                             <Menu.Item key="6.2"><Link to={'/pet/index'}>宠物信息</Link></Menu.Item>
                         </SubMenu>
-
-                        <SubMenu key="sub7" title={<span><Icon type="shop"/><span>WMS</span></span>}>
-                            <Menu.Item key="7.1"><Link to={'/purchaseOrder/index'}>采购申请</Link></Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="sub8" title={<span><Icon type="shop"/><span>品牌供应商管理</span></span>}>
-                            <Menu.Item key="8.1"><Link to={'/supplier/index'}>供应商基础信息</Link></Menu.Item>
-                        </SubMenu>
-
-                        <SubMenu key="sub10" title={<span><Icon type="user" /><span>会员管理</span></span>}>
-                            <Menu.Item key="10.1"><Link to={'/member/default/avatar/index'}>默认头像管理</Link></Menu.Item>
                         <SubMenu key="sub7" title={<span><Icon type="camera-o" /><span>医院管理</span></span>}>
                             <Menu.Item key="7.1"><Link to={'/doctor/index'}>医生信息</Link></Menu.Item>
                             <Menu.Item key="7.2"><Link to={'/patient/index'}>患者信息</Link></Menu.Item>
