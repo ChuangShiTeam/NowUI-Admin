@@ -47,7 +47,8 @@ export default connect(function (state) {
             type: 'VARCHAR',
             required: true
         }, {
-            id: 'advertisementImage',
+            id: 'advertisementImageFileId',
+            mediaPathKey: 'advertisementImageFilePath',
             name: '广告图片',
             type: 'MEDIA',
             returnLimit: 1,

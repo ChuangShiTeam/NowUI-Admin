@@ -22,9 +22,9 @@ class NHeader extends Component {
 
     }
 
-    handleClick(item) {
-        this.props.secondButtonList[item.key].click();
-    }
+    // handleClick(item) {
+    //     this.props.secondButtonList[item.key].click();
+    // }
 
     render() {
         const ButtonGroup = Button.Group;
@@ -51,27 +51,27 @@ class NHeader extends Component {
                             {this.props.name}
                         </Col>
                         <Col xs={{span: 24}} sm={{span: 12}} className="page-header-body-button">
-                            {
-                                this.props.secondButtonList.length > 0 && this.props.isEdit ?
-                                    <ButtonGroup className="page-button-left">
-                                        <Dropdown overlay={(
-                                            <Menu onClick={this.handleClick.bind(this)}>
-                                                {
-                                                    this.props.secondButtonList.map(function (button, index) {
-                                                        return (
-                                                            <Menu.Item key={index}><Icon type={button.icon}/>{button.name}
-                                                            </Menu.Item>
-                                                        )
-                                                    })
-                                                }
-                                            </Menu>
-                                        )} placement="bottomRight">
-                                            <Button><Icon type="ellipsis"/></Button>
-                                        </Dropdown>
-                                    </ButtonGroup>
-                                    :
-                                    ''
-                            }
+                            {/*{*/}
+                                {/*this.props.secondButtonList.length > 0 && this.props.isEdit ?*/}
+                                    {/*<ButtonGroup className="page-button-left">*/}
+                                        {/*<Dropdown overlay={(*/}
+                                            {/*<Menu onClick={this.handleClick.bind(this)}>*/}
+                                                {/*{*/}
+                                                    {/*this.props.secondButtonList.map(function (button, index) {*/}
+                                                        {/*return (*/}
+                                                            {/*<Menu.Item key={index}><Icon type={button.icon}/>{button.name}*/}
+                                                            {/*</Menu.Item>*/}
+                                                        {/*)*/}
+                                                    {/*})*/}
+                                                {/*}*/}
+                                            {/*</Menu>*/}
+                                        {/*)} placement="bottomRight">*/}
+                                            {/*<Button><Icon type="ellipsis"/></Button>*/}
+                                        {/*</Dropdown>*/}
+                                    {/*</ButtonGroup>*/}
+                                    {/*:*/}
+                                    {/*''*/}
+                            {/*}*/}
                             {
                                 this.props.buttonList.map(function (button, index) {
                                     return (
@@ -102,8 +102,7 @@ NHeader.propTypes = {
     name: PropTypes.string.isRequired,
     isEdit: PropTypes.bool.isRequired,
     breadcrumbList: PropTypes.array.isRequired,
-    buttonList: PropTypes.array.isRequired,
-    secondButtonList: PropTypes.array.isRequired
+    buttonList: PropTypes.array.isRequired
 };
 
 NHeader.defaultProps = {};

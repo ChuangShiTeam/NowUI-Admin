@@ -28,8 +28,20 @@ class NInputNumber extends Component {
 			<FormItem
 				hasFeedback={true}
 				label={this.props.label}
-				labelCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 7 : 4}, md: {span: this.props.multiLine ? 7 : 4}, lg: {span: this.props.multiLine ? 7 : 4}, xl: {span: this.props.multiLine ? 7 : 4}}}
-				wrapperCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 17 : 17}, md: {span: this.props.multiLine ? 17 : 17}, lg: {span: this.props.multiLine ? 17 : 10}, xl: {span: this.props.multiLine ? 17 : 10}}}
+				labelCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 7 : 4},
+					md: {span: this.props.multiLine ? 7 : 4},
+					lg: {span: this.props.multiLine ? 7 : 4},
+					xl: {span: this.props.multiLine ? 7 : 4}
+				}}
+				wrapperCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 17 : 17},
+					md: {span: this.props.multiLine ? 17 : 17},
+					lg: {span: this.props.multiLine ? 17 : 10},
+					xl: {span: this.props.multiLine ? 17 : 10}
+				}}
 				className="form-item"
 			>
 				{this.props.getFieldDecorator(this.props.id, {
@@ -41,13 +53,13 @@ class NInputNumber extends Component {
 				})(
 					<InputNumber
 						size={this.props.size}
-					 	min={this.props.min}
-					   	max={this.props.max}
+						min={this.props.min}
+						max={this.props.max}
 						step={this.props.step}
 						parser={this.props.parser}
 						formatter={this.props.formatter}
-					   	placeholder={this.props.placeholder === '' ? ('请输入' + this.props.label) : this.props.placeholder}
-					   	onPressEnter={this.props.onPressEnter}
+						placeholder={this.props.placeholder === '' ? ('请输入' + this.props.label) : this.props.placeholder}
+						onPressEnter={this.props.onPressEnter}
 					/>
 				)}
 			</FormItem>
@@ -57,6 +69,8 @@ class NInputNumber extends Component {
 
 NInputNumber.propTypes = {
 	getFieldDecorator: PropTypes.func.isRequired,
+	getFieldValue: PropTypes.func.isRequired,
+	setFieldsValue: PropTypes.func.isRequired,
 	id: PropTypes.string.isRequired,
 	label: PropTypes.string,
 	placeholder: PropTypes.string,

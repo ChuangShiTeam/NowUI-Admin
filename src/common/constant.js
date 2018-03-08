@@ -8,7 +8,7 @@ export default {
     pageSize: 10,
     name: 'Wawipet总控后台',
     shortName: 'Wawipet',
-    index: '/code/index',
+    index: '/dashboard/index',
     login: '/admin/admin/login',
     success: '操作成功',
     failure: '操作失败',

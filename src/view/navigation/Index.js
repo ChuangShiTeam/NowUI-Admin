@@ -52,7 +52,7 @@ export default connect(function (state) {
             id: 'navigationCode',
             name: '导航栏编码'
         }, {
-            id: 'filePath',
+            id: 'navigationImageFilePath',
             name: '导航栏图片',
             render: function (text, record, index, self) {
                 return (

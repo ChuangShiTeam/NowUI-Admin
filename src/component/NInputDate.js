@@ -24,13 +24,25 @@ class NInputDate extends Component {
 
 	render() {
 		const FormItem = Form.Item;
-		const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+		const {MonthPicker, RangePicker, WeekPicker} = DatePicker;
 		return (
 			<FormItem
 				hasFeedback={true}
 				label={this.props.label}
-				labelCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 7 : 4}, md: {span: this.props.multiLine ? 7 : 4}, lg: {span: this.props.multiLine ? 7 : 4}, xl: {span: this.props.multiLine ? 7 : 4}}}
-				wrapperCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 17 : 17}, md: {span: this.props.multiLine ? 17 : 17}, lg: {span: this.props.multiLine ? 17 : 10}, xl: {span: this.props.multiLine ? 17 : 10}}}
+				labelCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 7 : 4},
+					md: {span: this.props.multiLine ? 7 : 4},
+					lg: {span: this.props.multiLine ? 7 : 4},
+					xl: {span: this.props.multiLine ? 7 : 4}
+				}}
+				wrapperCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 17 : 17},
+					md: {span: this.props.multiLine ? 17 : 17},
+					lg: {span: this.props.multiLine ? 17 : 10},
+					xl: {span: this.props.multiLine ? 17 : 10}
+				}}
 				className="form-item"
 			>
 				{this.props.getFieldDecorator(this.props.id, {
@@ -50,32 +62,31 @@ class NInputDate extends Component {
 							onPressEnter={this.props.onPressEnter}
 						/>
 						:
-					this.props.type === 'MonthPicker' ?
-						<MonthPicker
-							size={this.props.size}
-							allowClear={this.props.allowClear}
-							placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
-							onPressEnter={this.props.onPressEnter}
-						/>
-						:
-					this.props.type === 'RangePicker' ?
-						<RangePicker
-							size={this.props.size}
-							allowClear={this.props.allowClear}
-							placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
-							onPressEnter={this.props.onPressEnter}
-						/>
-						:
-					this.props.type === 'WeekPicker' ?
-						<WeekPicker
-							size={this.props.size}
-							allowClear={this.props.allowClear}
-							placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
-							onPressEnter={this.props.onPressEnter}
-						/>
-						:
-						null
-
+						this.props.type === 'MonthPicker' ?
+							<MonthPicker
+								size={this.props.size}
+								allowClear={this.props.allowClear}
+								placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
+								onPressEnter={this.props.onPressEnter}
+							/>
+							:
+							this.props.type === 'RangePicker' ?
+								<RangePicker
+									size={this.props.size}
+									allowClear={this.props.allowClear}
+									placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
+									onPressEnter={this.props.onPressEnter}
+								/>
+								:
+								this.props.type === 'WeekPicker' ?
+									<WeekPicker
+										size={this.props.size}
+										allowClear={this.props.allowClear}
+										placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
+										onPressEnter={this.props.onPressEnter}
+									/>
+									:
+									null
 				)}
 			</FormItem>
 		);
@@ -84,6 +95,8 @@ class NInputDate extends Component {
 
 NInputDate.propTypes = {
 	getFieldDecorator: PropTypes.func.isRequired,
+	getFieldValue: PropTypes.func.isRequired,
+	setFieldsValue: PropTypes.func.isRequired,
 	id: PropTypes.string.isRequired,
 	label: PropTypes.string,
 	placeholder: PropTypes.string,

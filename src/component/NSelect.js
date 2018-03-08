@@ -7,13 +7,12 @@ class NSelect extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-		}
+		this.state = {}
 	}
 
 	componentDidMount() {
 		if (this.props.storeKey && this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length === 0) {
-			let { url, params, key, value} = this.props.remoteOptionConfig;
+			let {url, params, key, value} = this.props.remoteOptionConfig;
 			if (url) {
 				this.handleLoadOptionList(url, params, key, value);
 			}
@@ -35,7 +34,7 @@ class NSelect extends Component {
 			data: params,
 			success: function (data) {
 				if (data) {
-					let optionList = data.map(function(option) {
+					let optionList = data.map(function (option) {
 						return {
 							key: option[key],
 							value: option[value]
@@ -64,8 +63,20 @@ class NSelect extends Component {
 			<FormItem
 				hasFeedback={true}
 				label={this.props.label}
-				labelCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 7 : 4}, md: {span: this.props.multiLine ? 7 : 4}, lg: {span: this.props.multiLine ? 7 : 4}, xl: {span: this.props.multiLine ? 7 : 4}}}
-				wrapperCol={{xs: {span: 24}, sm: {span: this.props.multiLine ? 17 : 17}, md: {span: this.props.multiLine ? 17 : 17}, lg: {span: this.props.multiLine ? 17 : 10}, xl: {span: this.props.multiLine ? 17 : 10}}}
+				labelCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 7 : 4},
+					md: {span: this.props.multiLine ? 7 : 4},
+					lg: {span: this.props.multiLine ? 7 : 4},
+					xl: {span: this.props.multiLine ? 7 : 4}
+				}}
+				wrapperCol={{
+					xs: {span: 24},
+					sm: {span: this.props.multiLine ? 17 : 17},
+					md: {span: this.props.multiLine ? 17 : 17},
+					lg: {span: this.props.multiLine ? 17 : 10},
+					xl: {span: this.props.multiLine ? 17 : 10}
+				}}
 				className="form-item"
 			>
 				{this.props.getFieldDecorator(this.props.id, {
@@ -93,7 +104,7 @@ class NSelect extends Component {
 								null
 						}
 						{
-							this.props.storeKey && this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length > 0?
+							this.props.storeKey && this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length > 0 ?
 								this.props.store[this.props.storeKey].map(function (option) {
 									return (
 										<Option key={option.key} value={option.key}>{option.value}</Option>
@@ -111,6 +122,8 @@ class NSelect extends Component {
 
 NSelect.propTypes = {
 	getFieldDecorator: PropTypes.func.isRequired,
+	getFieldValue: PropTypes.func.isRequired,
+	setFieldsValue: PropTypes.func.isRequired,
 	id: PropTypes.string.isRequired,
 	label: PropTypes.string,
 	placeholder: PropTypes.string,

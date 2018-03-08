@@ -17,24 +17,22 @@ export default connect(function (state) {
             url: ''
         }],
         buttonList: [{
-            name: '返回',
-            icon: 'left-circle',
-            type: 'BACK',
-            isPrimary: false
-        }],
-        secondButtonList: [{
-            name: '更新',
-            icon: 'reload',
-            type: 'REPLACE'
-        }, {
-            name: '删除',
-            icon: 'delete',
-            type: 'DELETE'
+			name: '返回',
+			icon: 'left-circle',
+			type: 'BACK',
+			isPrimary: false
+		}, {
+			name: '删除',
+			icon: 'delete',
+			type: 'DELETE',
+			isPrimary: false
         }],
         columnList: [{
             id: 'productName',
             name: '商品名称',
-            type: 'VARCHAR',
+			type: 'MEDIA',
+			returnLimit: 1,
+			supportUploadTypes: ['image'],
             required: true
         }]
     }
