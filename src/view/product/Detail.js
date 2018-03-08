@@ -30,35 +30,29 @@ export default connect(function (state) {
         columnList: [{
 			id: 'productName',
 			name: '商品名称',
-			type: 'VARCHAR',
-			required: true
+			type: 'VARCHAR'
 		}, {
 			id: 'productCategory',
 			name: '商品分类',
-			type: 'TREESELECT',
+			type: 'SELECT',
 			required: true,
 			select: {
-				allowClear: true,
-				showSearch: true,
-				multiple: false,
-				treeCheckable: false,
-				treeDefaultExpandAll: true,
-				storeName: "product",
-				storeKey: 'productCategoryList',
 				returnValueName: 'productCategoryId',
 				returnLabelName: 'productCategoryName',
-				remoteOptionConfig: {
-					key: 'articleCategoryId',
-					value: 'articleCategoryName',
-					url: '/article/category/admin/v1/all/tree/list',
-					params: {}
-				}
-			}
+				staticOptionList: [
+					{
+						key: 'MAN',
+						value: '男'
+					}, {
+						key: 'WOMEN',
+						value: '女'
+					}
+				]
+			},
 		}, {
 			id: 'productImage',
 			name: '商品图片',
 			type: 'MEDIA',
-			required: true,
 			returnLimit: 1,
 			returnValueName: 'productImageId',
 			returnLabelName: 'productImagePath',

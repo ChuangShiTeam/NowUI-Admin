@@ -57,10 +57,10 @@ class NSelect extends Component {
 	}
 
 	render() {
-		const FormItem = Form.Item;
 		const Option = Select.Option;
+
 		return (
-			<FormItem
+			<Form.Item
 				hasFeedback={true}
 				label={this.props.label}
 				labelCol={{
@@ -87,6 +87,7 @@ class NSelect extends Component {
 					initialValue: this.props.initialValue
 				})(
 					<Select allowClear={this.props.allowClear}
+							labelInValue={true}
 							placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
 							size={this.props.size}
 							mode={this.props.mode}
@@ -115,7 +116,7 @@ class NSelect extends Component {
 						}
 					</Select>
 				)}
-			</FormItem>
+			</Form.Item>
 		);
 	}
 }
@@ -140,7 +141,7 @@ NSelect.propTypes = {
 	allowClear: PropTypes.bool,
 	mode: PropTypes.oneOf(['multiple', 'tags', 'combobox']),
 	showSearch: PropTypes.bool,
-	initialValue: PropTypes.string
+	initialValue: PropTypes.array
 };
 
 NSelect.defaultProps = {
@@ -155,7 +156,7 @@ NSelect.defaultProps = {
 	storeKey: '',
 	allowClear: false,
 	showSearch: false,
-	initialValue: ''
+	initialValue: []
 
 };
 

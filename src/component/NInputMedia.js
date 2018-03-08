@@ -229,7 +229,7 @@ class NInputMedia extends Component {
 	}
 
 	handleValidator(rule, value, callback) {
-		if (this.props.getFieldValue(this.props.id).length > 0) {
+		if (this.props.getFieldValue(this.props.id).length > 0 || !this.props.isRequired) {
 			callback();
 			return;
 		}

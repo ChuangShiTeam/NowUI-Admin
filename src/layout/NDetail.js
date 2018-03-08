@@ -74,11 +74,16 @@ class NDetail extends Component {
 				let values = {};
 
 				for (let i = 0; i < this.props.columnList.length; i++) {
-					if (this.props.columnList[i].type === 'TREESELECT') {
+					if (this.props.columnList[i].type === 'SELECT') {
 						values[this.props.columnList[i].id] = {
-							value: data[this.props.columnList[i].select.returnValueName],
+							key: data[this.props.columnList[i].select.returnValueName],
 							label: data[this.props.columnList[i].select.returnLabelName]
 						};
+					} else if (this.props.columnList[i].type === 'TREESELECT') {
+						values[this.props.columnList[i].id] = [{
+							value: data[this.props.columnList[i].returnValueName],
+							label: data[this.props.columnList[i].returnLabelName]
+						}];
 					} else if (this.props.columnList[i].type === 'MEDIA') {
 						values[this.props.columnList[i].id] = [{
 							value: data[this.props.columnList[i].returnValueName],
@@ -122,7 +127,20 @@ class NDetail extends Component {
 			}
 
 			for (let i = 0; i < this.props.columnList.length; i++) {
-				if (this.props.columnList[i].type === 'TREESELECT') {
+				if (this.props.columnList[i].type === 'SELECT') {
+					for (let value in values) {
+						if (value === this.props.columnList[i].id) {
+							let item = Object.assign({}, values[value]);
+							item[this.props.columnList[i].select.returnValueName] = item.key;
+							item[this.props.columnList[i].select.returnLabelName] = item.label;
+							delete item.key;
+							delete item.label;
+
+							values = Object.assign({}, values, item);
+							delete values[value];
+						}
+					}
+				} else if (this.props.columnList[i].type === 'TREESELECT') {
 					for (let value in values) {
 						if (value === this.props.columnList[i].id) {
 							let item = Object.assign({}, values[value]);
@@ -155,6 +173,9 @@ class NDetail extends Component {
 				}
 			}
 
+			// console.log(values);
+			// return;
+
 			this.setState({
 				isLoad: true
 			});
@@ -177,7 +198,7 @@ class NDetail extends Component {
 					if (data) {
 						message.success(constant.success);
 
-						// this.handleBack();
+						this.handleBack();
 					} else {
 						message.error(constant.failure);
 					}
