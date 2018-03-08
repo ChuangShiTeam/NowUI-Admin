@@ -255,6 +255,14 @@ a, area {
     background-position: center;
 }
 
+.preview-image {
+    width: 472px;
+    height: 472px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .item-mask {
     position: absolute;
     top: 5px;

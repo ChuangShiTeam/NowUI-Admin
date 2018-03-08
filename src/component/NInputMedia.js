@@ -13,27 +13,27 @@ class Image extends React.Component {
 		this.state = {
 			isPreview: false,
 			image: '',
-			value: []
+			list: []
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if ('value' in nextProps) {
 			this.setState({
-				value: nextProps.value
+				list: nextProps.value
 			});
 		}
 	}
 
 	componentDidMount() {
 		notification.on('notification_media_file_' + this.props.id + '_submit', this, function (data) {
-			let array = this.state.value;
+			let array = this.state.list;
 
 			for (let i = 0; i < data.length; i++) {
 				let isNotExit = true;
 
-				for (let k = 0; k < this.state.value.length; k++) {
-					if (data[i].filePath === this.state.value[k].filePath) {
+				for (let k = 0; k < this.state.list.length; k++) {
+					if (data[i].fileId === this.state.list[k].fileId) {
 						isNotExit = false;
 
 						break;
@@ -42,25 +42,26 @@ class Image extends React.Component {
 
 				if (isNotExit) {
 					if (array.length < this.props.returnLimit || this.props.returnLimit === 0) {
-						array.push(data[i]);
+						let item = {};
+
+						item.value = data[i].fileId;
+						item.label = data[i].filePath;
+
+						array.push(item);
 					}
 				}
 			}
 
-			/*this.setState({
-			 value: array
-			 });*/
-
 			const onChange = this.props.onChange;
 			if (onChange) {
-				let value = [];
+				let list = [];
 				for (let i = 0; i < array.length; i++) {
-					value.push({
-						fileId: array[i].fileId,
-						filePath: array[i].filePath
+					list.push({
+						value: array[i].value,
+						label: array[i].label
 					})
 				}
-				onChange(value);
+				onChange(list);
 			}
 		});
 	}
@@ -75,34 +76,34 @@ class Image extends React.Component {
 		});
 	}
 
-	handlePreview(fileId) {
-		let filePath = '';
-		for (let i = 0; i < this.state.value.length; i++) {
-			if (this.state.value[i].fileId === fileId) {
-				filePath = this.state.value[i].filePath;
+	handlePreview(value) {
+		let label = '';
+		for (let i = 0; i < this.state.list.length; i++) {
+			if (this.state.list[i].value === value) {
+				label = this.state.list[i].label;
 			}
 		}
 
 		this.setState({
-			image: constant.imageHost + filePath,
-			is_preview: true
+			image: constant.imageHost + label,
+			isPreview: true
 		});
 	}
 
-	handleDelete(fileId) {
+	handleDelete(value) {
 		let index = -1;
-		let value = this.state.value;
+		let list = this.state.list;
 
-		for (let i = 0; i < value.length; i++) {
-			if (value[i].fileId === fileId) {
+		for (let i = 0; i < list.length; i++) {
+			if (list[i].value === value) {
 				index = i;
 			}
 		}
 
-		value.splice(index, 1);
+		list.splice(index, 1);
 
 		this.setState({
-			value: value
+			list: list
 		});
 	}
 
@@ -110,39 +111,39 @@ class Image extends React.Component {
 		notification.emit('notification_file_list_model_' + this.props.id + '_show', {});
 	}
 
-	handleMouseOver(fileId) {
-		let value = [];
+	handleMouseOver(value) {
+		let list = [];
 
-		for (let i = 0; i < this.state.value.length; i++) {
-			let item = this.state.value[i];
+		for (let i = 0; i < this.state.list.length; i++) {
+			let item = this.state.list[i];
 
-			value.push({
-				fileId: item.fileId,
-				filePath: item.filePath,
-				status: item.fileId === fileId
+			list.push({
+				value: item.value,
+				label: item.label,
+				status: item.value === value
 			});
 		}
 
 		this.setState({
-			value: value
+			list: list
 		});
 	}
 
-	handleMouseOut(fileId) {
-		let value = [];
+	handleMouseOut(value) {
+		let list = [];
 
-		for (let i = 0; i < this.state.value.length; i++) {
-			let item = this.state.value[i];
+		for (let i = 0; i < this.state.list.length; i++) {
+			let item = this.state.list[i];
 
-			value.push({
-				fileId: item.fileId,
-				filePath: item.filePath,
+			list.push({
+				value: item.value,
+				label: item.label,
 				status: false
 			});
 		}
 
 		this.setState({
-			value: value
+			list: list
 		});
 	}
 
@@ -150,7 +151,7 @@ class Image extends React.Component {
 		this.setState({
 			isPreview: false,
 			image: '',
-			value: []
+			list: []
 		});
 	}
 
@@ -158,28 +159,28 @@ class Image extends React.Component {
 		return (
 			<div>
 				{
-					this.state.value.map(function (item, index) {
+					this.state.list.map(function (item, index) {
 						const mask = item.status ? "item-mask item-mask-active" : "item-mask";
 						return (
 							<div key={index} className="item">
 								<div className="item-image"
-									 style={{backgroundImage: 'url(' + constant.imageHost + item.filePath + ')'}}></div>
-								<div onMouseOver={this.handleMouseOver.bind(this, item.fileId)}
+									 style={{backgroundImage: 'url(' + constant.imageHost + item.label + ')'}}></div>
+								<div onMouseOver={this.handleMouseOver.bind(this, item.value)}
 									 onMouseOut={this.handleMouseOut.bind(this)}>
 									<div className={mask}></div>
 									<i className="anticon anticon-eye-o item-preview-icon"
 									   style={{display: item.status ? 'inline' : 'none'}}
-									   onClick={this.handlePreview.bind(this, item.fileId)}/>
+									   onClick={this.handlePreview.bind(this, item.value)}/>
 									<i className="anticon anticon-delete item-remove-icon"
 									   style={{display: item.status ? 'inline' : 'none'}}
-									   onClick={this.handleDelete.bind(this, item.fileId)}/>
+									   onClick={this.handleDelete.bind(this, item.value)}/>
 								</div>
 							</div>
 						)
 					}.bind(this))
 				}
 				{
-					this.state.value.length < this.props.returnLimit ?
+					this.state.list.length < this.props.returnLimit ?
 						<div className="button" onClick={this.handleAdd.bind(this)}>
 							<i className="anticon anticon-plus button-icon"/>
 							<div className="ant-upload-text button-text">添加</div>
@@ -197,7 +198,7 @@ class Image extends React.Component {
 						''
 				}
 				<Modal visible={this.state.isPreview} footer={null} onCancel={this.handleCancel.bind(this)}>
-					<div className="item-image" style={{backgroundImage: 'url(' + this.state.image + ')'}}></div>
+					<div className="item-image preview-image" style={{backgroundImage: 'url(' + this.state.image + ')'}}></div>
 				</Modal>
 			</div>
 		);
@@ -227,10 +228,18 @@ class NInputMedia extends Component {
 		this.state = {}
 	}
 
+	handleValidator(rule, value, callback) {
+		if (this.props.getFieldValue(this.props.id).length > 0) {
+			callback();
+			return;
+		}
+
+		callback('请选择' + this.props.label);
+	}
+
 	render() {
-		const FormItem = Form.Item;
 		return (
-			<FormItem
+			<Form.Item
 				label={this.props.label}
 				labelCol={{xs: {span: 24}, sm: {span: 4}, md: {span: 4}, lg: {span: 4}, xl: {span: 4}}}
 				wrapperCol={{xs: {span: 24}, sm: {span: 17}, md: {span: 17}, lg: {span: 18}, xl: {span: 18}}}
@@ -240,6 +249,7 @@ class NInputMedia extends Component {
 					rules: [{
 						required: this.props.required,
 						message: this.props.message === '' ? (this.props.label === '' ? this.props.placeholder : '请输入' + this.props.label) : '',
+						validator: this.handleValidator.bind(this),
 						type: 'array'
 					}],
 					initialValue: []
@@ -255,7 +265,7 @@ class NInputMedia extends Component {
 					returnLimit={this.props.returnLimit}
 					aspect={this.props.aspect}
 					ref="file"/>
-			</FormItem>
+			</Form.Item>
 		);
 	}
 }
@@ -264,18 +274,18 @@ NInputMedia.propTypes = {
 	id: PropTypes.string.isRequired,
 	type: PropTypes.string,
 	returnLimit: PropTypes.number,
-	returnValueName: PropTypes.string,
-	returnLabelName: PropTypes.string,
 	aspect: PropTypes.number,
 	supportUploadTypes: PropTypes.arrayOf(PropTypes.oneOf(['image', 'cropImage', 'video'])),
 	label: PropTypes.string,
-	getFieldDecorator: PropTypes.func.isRequired
+	getFieldDecorator: PropTypes.func.isRequired,
+	getFieldValue: PropTypes.func.isRequired,
+	setFieldsValue: PropTypes.func.isRequired
 };
 
 NInputMedia.defaultProps = {
 	type: '',
 	returnLimit: 0,
-	label: '22'
+	label: ''
 };
 
 export default NInputMedia;

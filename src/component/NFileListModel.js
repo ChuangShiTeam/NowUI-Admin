@@ -361,7 +361,7 @@ class NFileListModel extends Component {
 					</div>
 				</Spin>
 				<Modal visible={this.state.isPreview} footer={null} onCancel={this.handleCancelPreview.bind(this)}>
-					<div className="item-image" style={{backgroundImage: 'url(' + this.state.image + ')'}}></div>
+					<div className="item-image preview-image" style={{backgroundImage: 'url(' + this.state.image + ')'}}></div>
 				</Modal>
 				<NImageCrop id={this.props.id} aspect={this.props.aspect}/>
 			</Modal>

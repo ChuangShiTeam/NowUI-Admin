@@ -9,6 +9,7 @@ import NInputTextArea from '../component/NInputTextArea';
 import NInputNumber from '../component/NInputNumber';
 import NSwitch from '../component/NSwitch';
 import NSelect from '../component/NSelect';
+import NTreeSelect from '../component/NTreeSelect';
 import NInputHtml from '../component/NInputHtml';
 import NInputMedia from '../component/NInputMedia';
 import NInputDate from '../component/NInputDate';
@@ -72,19 +73,23 @@ class NDetail extends Component {
 				let values = {};
 
 				for (let i = 0; i < this.props.columnList.length; i++) {
-					if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit === 1) {
-						let mediaData = [];
-						if (data[this.props.columnList[i].id] !== null) {
-							mediaData.push({
-								fileId: data[this.props.columnList[i].id],
-								filePath: data[this.props.columnList[i].mediaPathKey]
-							});
-						}
-						values[this.props.columnList[i].id] = mediaData;
+					if (this.props.columnList[i].type === 'TREESELECT') {
+						values[this.props.columnList[i].id] = {
+							value: data[this.props.columnList[i].select.returnValueName],
+							label: data[this.props.columnList[i].select.returnLabelName]
+						};
+					} else if (this.props.columnList[i].type === 'MEDIA') {
+						values[this.props.columnList[i].id] = [{
+							value: data[this.props.columnList[i].returnValueName],
+							label: data[this.props.columnList[i].returnLabelName]
+						}];
 					} else {
 						values[this.props.columnList[i].id] = data[this.props.columnList[i].id];
 					}
 				}
+
+				console.log(values)
+
 				this.props.form.setFieldsValue(values);
 
 				let states = {systemVersion: data.systemVersion};
@@ -115,24 +120,43 @@ class NDetail extends Component {
 				return;
 			}
 
-			// console.log(values);
-			// return;
+			for (let i = 0; i < this.props.columnList.length; i++) {
+				if (this.props.columnList[i].type === 'TREESELECT') {
+					for (let value in values) {
+						if (value === this.props.columnList[i].id) {
+							let item = Object.assign({}, values[value]);
+							item[this.props.columnList[i].select.returnValueName] = item.value;
+							item[this.props.columnList[i].select.returnLabelName] = item.label;
+							delete item.value;
+							delete item.label;
+
+							values = Object.assign({}, values, item);
+							delete values[value];
+						}
+					}
+				} else if (this.props.columnList[i].type === 'MEDIA') {
+					for (let value in values) {
+						if (value === this.props.columnList[i].id) {
+							if (this.props.columnList[i].returnLimit === 1) {
+								let item = Object.assign({}, values[value][0]);
+								item[this.props.columnList[i].returnValueName] = item.value;
+								item[this.props.columnList[i].returnLabelName] = item.label;
+								delete item.value;
+								delete item.label;
+
+								values = Object.assign({}, values, item);
+								delete values[value];
+							} else {
+
+							}
+						}
+					}
+				}
+			}
 
 			this.setState({
 				isLoad: true
 			});
-
-			for (let i = 0; i < this.props.columnList.length; i++) {
-				if (this.props.columnList[i].type === 'MEDIA' && this.props.columnList[i].returnLimit === 1) {
-					let mediaData = values[this.props.columnList[i].id];
-					if (mediaData && mediaData.length > 0) {
-						values[this.props.columnList[i].id] = mediaData[0].fileId;
-						values[this.props.columnList[i].mediaPathKey] = mediaData[0].filePath;
-					} else {
-						delete values[this.props.columnList[i].id];
-					}
-				}
-			}
 
 			if (this.state.isEdit) {
 				values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
@@ -152,7 +176,7 @@ class NDetail extends Component {
 					if (data) {
 						message.success(constant.success);
 
-						this.handleBack();
+						// this.handleBack();
 					} else {
 						message.error(constant.failure);
 					}
@@ -316,30 +340,34 @@ class NDetail extends Component {
 								return (
 									<Row key={column.id}>
 										<NCol>
-											{
-												column.type === 'VARCHAR' ?
-													<NInputText id={column.id}
-																type={column.inputType}
-																label={column.name}
-																required={column.required}
-																getFieldDecorator={getFieldDecorator}
-																getFieldValue={getFieldValue}
-																setFieldsValue={setFieldsValue}
-																onPressEnter={this.handleSubmit.bind(this)}
-													/>
-													:
-													column.type === 'LONG_VARCHAR' ?
-														<NInputTextArea id={column.id}
+											{(function () {
+												switch (column.type) {
+													case 'VARCHAR':
+														return (
+															<NInputText id={column.id}
+																		type={column.inputType}
 																		label={column.name}
-																		rows={column.rows}
 																		required={column.required}
 																		getFieldDecorator={getFieldDecorator}
 																		getFieldValue={getFieldValue}
 																		setFieldsValue={setFieldsValue}
 																		onPressEnter={this.handleSubmit.bind(this)}
-														/>
-														:
-														column.type === 'NUMBER' ?
+															/>
+														);
+													case 'LONG_VARCHAR':
+														return (
+															<NInputTextArea id={column.id}
+																			label={column.name}
+																			rows={column.rows}
+																			required={column.required}
+																			getFieldDecorator={getFieldDecorator}
+																			getFieldValue={getFieldValue}
+																			setFieldsValue={setFieldsValue}
+																			onPressEnter={this.handleSubmit.bind(this)}
+															/>
+														)
+													case 'NUMBER':
+														return (
 															<NInputNumber id={column.id}
 																		  label={column.name}
 																		  min={column.min}
@@ -353,69 +381,102 @@ class NDetail extends Component {
 																		  setFieldsValue={setFieldsValue}
 																		  onPressEnter={this.handleSubmit.bind(this)}
 															/>
-															:
-															column.type === 'BOOLEAN' ?
-																<NSwitch id={column.id}
+														)
+													case 'BOOLEAN':
+														return (
+															<NSwitch id={column.id}
+																	 label={column.name}
+																	 checkedChildren={column.checkedChildren}
+																	 unCheckedChildren={column.unCheckedChildren}
+																	 getFieldDecorator={getFieldDecorator}
+																	 getFieldValue={getFieldValue}
+																	 setFieldsValue={setFieldsValue}
+															/>
+														)
+													case 'SELECT':
+														return (
+															<NSelect id={column.id}
+																	 label={column.name}
+																	 staticOptionList={column.select.staticOptionList}
+																	 remoteOptionConfig={column.select.remoteOptionConfig}
+																	 storeKey={column.select.storeKey}
+																	 storeName={this.props.storeName}
+																	 store={this.props.store}
+																	 dispatch={this.props.dispatch}
+																	 allowClear={column.select.allowClear}
+																	 showSearch={column.select.showSearch}
+																	 initialValue={column.select.initialValue}
+																	 getFieldDecorator={getFieldDecorator}
+																	 getFieldValue={getFieldValue}
+																	 setFieldsValue={setFieldsValue}
+															/>
+														)
+													case 'TREESELECT':
+														return (
+															<NTreeSelect id={column.id}
 																		 label={column.name}
-																		 checkedChildren={column.checkedChildren}
-																		 unCheckedChildren={column.unCheckedChildren}
+																		 required={column.required}
+																		 multiple={column.select.multiple}
+																		 treeCheckable={column.select.treeCheckable}
+																		 treeDefaultExpandAll={column.select.treeDefaultExpandAll}
+																		 dispatch={this.props.dispatch}
+																		 store={this.props.store}
+																		 storeKey={column.select.storeKey}
+																		 storeName={column.select.storeName}
+																		 remoteOptionConfig={column.select.remoteOptionConfig}
+																		 returnValueName={column.select.returnValueName}
+																		 returnLabelName={column.select.returnLabelName}
+																		 returnObject={{
+																			 articleCategoryIsPrimary: false
+																		 }}
 																		 getFieldDecorator={getFieldDecorator}
 																		 getFieldValue={getFieldValue}
 																		 setFieldsValue={setFieldsValue}
-																/>
-																:
-																column.type === 'SELECT' ?
-																	<NSelect id={column.id}
-																			 label={column.name}
-																			 staticOptionList={column.select.staticOptionList}
-																			 remoteOptionConfig={column.select.remoteOptionConfig}
-																			 storeKey={column.select.storeKey}
-																			 storeName={this.props.id}
-																			 store={this.props.store}
-																			 dispatch={this.props.dispatch}
-																			 allowClear={column.select.allowClear}
-																			 showSearch={column.select.showSearch}
-																			 initialValue={column.select.initialValue}
-																			 getFieldDecorator={getFieldDecorator}
-																			 getFieldValue={getFieldValue}
-																			 setFieldsValue={setFieldsValue}
-																	/>
-																	:
-																	column.type === 'HTML' ?
-																		<NInputHtml id={column.id}
-																					label={column.name}
-																					getFieldDecorator={getFieldDecorator}
-																					getFieldValue={getFieldValue}
-																					setFieldsValue={setFieldsValue}
-																		/>
-																		:
-																		column.type === 'DatePicker' ?
-																			<NInputDate id={column.id}
-																						required={column.required}
-																						label={column.name}
-																						type={column.type}
-																						showTime={column.showTime}
-																						initialValue={column.initialValue}
-																						format={column.format}
-																						getFieldDecorator={getFieldDecorator}
-																						getFieldValue={getFieldValue}
-																						setFieldsValue={setFieldsValue}
-																			/>
-																			:
-																			column.type === 'MEDIA' ?
-																				<NInputMedia id={column.id}
-																							 label={column.name}
-																							 type={column.type}
-																							 aspect={column.aspect}
-																							 returnLimit={column.returnLimit}
-																							 supportUploadTypes={column.supportUploadTypes}
-																							 getFieldDecorator={getFieldDecorator}
-																							 getFieldValue={getFieldValue}
-																							 setFieldsValue={setFieldsValue}
-																				/>
-																				:
-																				null
-											}
+															/>
+														)
+													case 'HTML':
+														return (
+															<NInputHtml id={column.id}
+																		label={column.name}
+																		getFieldDecorator={getFieldDecorator}
+																		getFieldValue={getFieldValue}
+																		setFieldsValue={setFieldsValue}
+															/>
+														)
+													case 'DATEPICKER':
+														return (
+															<NInputDate id={column.id}
+																		required={column.required}
+																		label={column.name}
+																		type={column.type}
+																		showTime={column.showTime}
+																		initialValue={column.initialValue}
+																		format={column.format}
+																		getFieldDecorator={getFieldDecorator}
+																		getFieldValue={getFieldValue}
+																		setFieldsValue={setFieldsValue}
+															/>
+														)
+													case 'MEDIA':
+														return (
+															<NInputMedia id={column.id}
+																		 label={column.name}
+																		 type={column.type}
+																		 required={column.required}
+																		 aspect={column.aspect}
+																		 returnLimit={column.returnLimit}
+																		 returnValueName={column.returnValueName}
+																		 returnLabelName={column.returnLabelName}
+																		 supportUploadTypes={column.supportUploadTypes}
+																		 getFieldDecorator={getFieldDecorator}
+																		 getFieldValue={getFieldValue}
+																		 setFieldsValue={setFieldsValue}
+															/>
+														)
+													default:
+														return '';
+												}
+											}).bind(this)()}
 										</NCol>
 									</Row>
 								)
@@ -461,10 +522,18 @@ NDetail.propTypes = {
 	store: PropTypes.object.isRequired,
 	breadcrumbList: PropTypes.array.isRequired,
 	buttonList: PropTypes.array.isRequired,
-	columnList: PropTypes.array.isRequired
+	columnList: PropTypes.array.isRequired,
+	filterList: PropTypes.array.isRequired
 };
 
-NDetail.defaultProps = {};
+NDetail.defaultProps = {
+	filterList: [{
+		produc: {
+			value: 'productNameId',
+			label: 'productName'
+		}
+	}]
+};
 
 NDetail = Form.create()(NDetail);
 

@@ -3,7 +3,8 @@ const initialState = {
     total: 0,
     pageIndex: 1,
     pageSize: 10,
-    list: []
+    list: [],
+	productCategoryList: []
 };
 
 function product(state = initialState, action) {

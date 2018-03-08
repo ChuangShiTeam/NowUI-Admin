@@ -9,7 +9,7 @@ class Children extends React.Component {
 		super(props);
 
 		this.state = {
-			value: [],
+			list: [],
 			isLoad: false
 		};
 	}
@@ -17,68 +17,9 @@ class Children extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if ('value' in nextProps) {
 			if (typeof (nextProps.value) !== 'undefined') {
-				let value = nextProps.value;
-
-				if (this.state.isLoad) {
-					return;
-				}
-
 				this.setState({
-					isLoad: true
+					list: nextProps.value
 				});
-
-				if (this.props.multiple) {
-					let array = [];
-					let array2 = [];
-
-					for (let i = 0; i < value.length; i++) {
-						let item = {};
-
-						if (typeof (value[i].value) === 'undefined') {
-							item['value'] = value[i][this.props.returnValueName];
-						}
-
-						if (typeof (value[i].label) === 'undefined') {
-							item['label'] = value[i][this.props.returnLabelName];
-						}
-
-						array.push(item);
-
-						array2.push(Object.assign(this.props.returnObject, value[i]));
-					}
-
-					this.setState({
-						value: array
-					});
-
-					const onChange = this.props.onChange;
-					if (onChange) {
-						onChange(array2);
-					}
-				} else {
-					let item = {};
-
-					if (typeof (value['value']) === 'undefined') {
-						item['value'] = value[this.props.returnValueName];
-					} else {
-						item['value'] = value.value;
-					}
-
-					if (typeof (value['label']) === 'undefined') {
-						item['label'] = value[this.props.returnLabelName];
-					} else {
-						item['value'] = value.label;
-					}
-
-					this.setState({
-						value: item
-					});
-
-					const onChange = this.props.onChange;
-					if (onChange) {
-						onChange(Object.assign(this.props.returnObject, value));
-					}
-				}
 			}
 		}
 	}
@@ -91,55 +32,35 @@ class Children extends React.Component {
 
 	}
 
-	handleChange(value) {
-		if (typeof (value) === 'undefined') {
+	handleChange(list) {
+		if (typeof (list) === 'undefined') {
 			return;
 		}
 
 		const onChange = this.props.onChange;
 		if (onChange) {
-			if (this.props.multiple) {
+			if (this.props.multiple && this.props.treeCheckable) {
 				let array = [];
 
-				for (let i = 0; i < value.length; i++) {
-					let item = this.props.returnObject;
-
-					if (this.props.returnValueName !== '') {
-						item[this.props.returnValueName] = value[i].value;
-					}
-
-					if (this.props.returnLabelName !== '') {
-						item[this.props.returnLabelName] = value[i].label;
-					}
+				for (let i = 0; i < list.length; i++) {
+					let item = Object.assign({}, this.props.returnObject, list[i]);
 
 					array.push(item);
 				}
 
 				onChange(array);
 			} else {
-				let item = this.props.returnObject;
-
-				if (this.props.returnValueName !== '') {
-					item[this.props.returnValueName] = value.value;
-				}
-
-				if (this.props.returnLabelName !== '') {
-					item[this.props.returnLabelName] = value.label;
-				}
+				let item = Object.assign({}, this.props.returnObject, list);
 
 				onChange(item);
 			}
 		}
-
-		this.setState({
-			value: value
-		});
 	}
 
 	render() {
 		return (
 			<TreeSelect
-				value={this.state.value}
+				value={this.state.list}
 				allowClear={this.props.allowClear}
 				showSearch={this.props.showSearch}
 				size={this.props.size}
@@ -174,8 +95,6 @@ Children.propTypes = {
 	multiple: PropTypes.bool,
 	initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 	treeData: PropTypes.array,
-	returnValueName: PropTypes.string,
-	returnLabelName: PropTypes.string,
 	returnObject: PropTypes.object
 };
 
@@ -193,7 +112,6 @@ Children.defaultProps = {
 	treeCheckable: false,
 	initialValue: null,
 	returnValueName: '',
-	returnLabelName: '',
 	returnObject: {}
 };
 
@@ -354,8 +272,8 @@ NTreeSelect.propTypes = {
 	multiple: PropTypes.bool,
 	// initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 	initialValue: PropTypes.array,
-	returnValueName: PropTypes.string,
-	returnLabelName: PropTypes.string,
+	returnValueName: PropTypes.string.isRequired,
+	returnLabelName: PropTypes.string.isRequired,
 	returnObject: PropTypes.object
 };
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router';
-import {Row, Col, Breadcrumb, Button, Dropdown, Menu, Icon} from 'antd';
+import {Row, Col, Breadcrumb, Button} from 'antd';
 
 class NHeader extends Component {
     constructor(props) {
