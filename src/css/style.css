@@ -204,6 +204,11 @@ a, area {
 .ant-layout {
     background: #F0F2F5 !important;
 }
+/*.ant-layout-content {*/
+    /*background: #001529;*/
+/*}*/
+
+
 
 .ql-toolbar.ql-snow {
     border-top-left-radius: 4px;

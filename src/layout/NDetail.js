@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Row, Form, Col, Button, Modal, message} from 'antd';
+import moment from 'moment';
 
 import NHeader from '../component/NHeader';
 import NCol from '../component/NCol';
@@ -126,6 +127,10 @@ class NDetail extends Component {
                     } else {
                         delete values[this.props.columnList[i].id];
                     }
+                } else if (this.props.columnList[i].type === 'DatePicker') {
+                    let date = values[this.props.columnList[i].id];
+                    values[this.props.columnList[i].id] = moment(date).format(this.props.columnList[i].format);
+                    console.log('日期值', values[this.props.columnList[i].id]);
                 }
             }
 

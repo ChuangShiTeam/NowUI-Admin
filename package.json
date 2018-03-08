@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.6.2",
-    "react-app-rewired": "^1.3.5"
+    "react-app-rewired": "^1.4.1"
   },
   "scripts": {
     "macStart": "PORT=3002 PUBLIC_URL=./ react-app-rewired start",
