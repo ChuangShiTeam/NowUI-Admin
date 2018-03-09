@@ -11,7 +11,8 @@ export default connect(function (state) {
         title: '文章信息',
         primaryKey: 'articleId',
         store: state.article,
-        listUrl: '/article/admin/v1/list',
+		listUrl: '/article/admin/v1/list',
+		synchronizeUrl: '/article/admin/v1/synchronize',
         breadcrumbList: [{
             name: '文章管理',
             url: ''
@@ -22,11 +23,15 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/article/add'
+		}, {
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/article/add'
+		}, {
+			name: '同步',
+			icon: 'loading-3-quarters',
+			type: 'ADD'
         }],
         searchList: [{
             id: 'articleTitle',

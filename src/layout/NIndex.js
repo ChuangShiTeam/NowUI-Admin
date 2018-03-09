@@ -9,6 +9,7 @@ import NSelect from '../component/NSelect';
 
 import constant from '../common/constant';
 import http from '../common/http';
+import {message} from "antd/lib/index";
 
 class NIndex extends Component {
 	constructor(props) {
@@ -175,6 +176,37 @@ class NIndex extends Component {
 		});
 	}
 
+	handleSynchronize() {
+		this.setState({
+			isLoad: true
+		});
+
+		let values = {};
+		values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+
+		http.request({
+			url: this.props.synchronizeUrl,
+			data: values,
+			success: function (data) {
+				if (data) {
+					message.success(constant.success);
+
+
+					this.setState({
+						isLoad: false
+					}, function () {
+						this.handleLoad()
+					}.bind(this));
+				} else {
+					message.error(constant.failure);
+				}
+			}.bind(this),
+			complete: function () {
+
+			}
+		});
+	}
+
 	render() {
 		const {getFieldDecorator, getFieldValue, setFieldsValue} = this.props.form;
 
@@ -192,6 +224,9 @@ class NIndex extends Component {
 					break;
 				case 'SEARCH':
 					button.click = this.handleSearch.bind(this);
+					break;
+				case 'SYNCHRONIZE':
+					button.click = this.handleSynchronize.bind(this);
 					break;
 				default:
 					button.click = this.props.buttonList[i].click;
@@ -360,6 +395,7 @@ NIndex.propTypes = {
 	primaryKey: PropTypes.string.isRequired,
 	store: PropTypes.object.isRequired,
 	listUrl: PropTypes.string.isRequired,
+	synchronizeUrl: PropTypes.string,
 	breadcrumbList: PropTypes.array.isRequired,
 	buttonList: PropTypes.array.isRequired,
 	searchList: PropTypes.array.isRequired,
