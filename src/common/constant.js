@@ -1,4 +1,5 @@
 export default {
+	active: 'dev',
     host: 'http://localhost:8080',
     // host: 'http://118.31.229.16:80',
     imageHost: 'http://118.31.229.16:80',

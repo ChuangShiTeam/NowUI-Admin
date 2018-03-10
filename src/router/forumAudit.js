@@ -5,25 +5,25 @@ export default {
         path: '/forum/audit/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/forumAudit/Index').default);
-            }, 'forumAudit.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/forumAudit/Index').default);
+			}, 'forumAudit.index');
         }
     }, {
         path: '/forum/audit/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/forumAudit/Detail').default);
-            }, 'forumAudit.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/forumAudit/Detail').default);
+			}, 'forumAudit.add');
         }
     }, {
         path: '/forum/audit/edit/:forumAuditId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/forumAudit/Detail').default);
-            }, 'forumAudit.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/forumAudit/Detail').default);
+			}, 'forumAudit.edit.forumAuditId');
         }
     }]
 }

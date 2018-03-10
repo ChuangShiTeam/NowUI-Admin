@@ -5,17 +5,17 @@ export default {
         path: '/admin/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/admin/Index').default);
-            }, 'admin.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/admin/Index').default);
+			}, 'admin.index');
         }
     }, {
         path: '/admin/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/admin/Detail').default);
-            }, 'admin.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/admin/Detail').default);
+			}, 'admin.add');
         }
     }, {
         path: '/admin/edit/:adminId',
@@ -23,7 +23,7 @@ export default {
         getComponent(location, cb) {
             require.ensure([], (require) => {
                 cb(null, require('../view/admin/Detail').default);
-            }, 'admin.detail');
+            }, 'admin.edit.adminId');
         }
     }]
 }

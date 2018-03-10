@@ -5,25 +5,25 @@ export default {
         path: '/member/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/member/Index').default);
-            }, 'member.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/member/Index').default);
+			}, 'member.index');
         }
     }, {
         path: '/member/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/member/Detail').default);
-            }, 'member.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/member/Detail').default);
+			}, 'member.add');
         }
     }, {
         path: '/member/edit/:memberId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/member/Detail').default);
-            }, 'member.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/member/Detail').default);
+			}, 'member.edit.memberId');
         }
     }]
 }

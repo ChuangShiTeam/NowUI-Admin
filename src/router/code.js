@@ -15,7 +15,7 @@ export default {
 		getComponent(location, cb) {
 			require.ensure([], (require) => {
 				cb(null, require('../view/code/Detail').default);
-			}, 'code.detail');
+			}, 'code.detail.tableSchema.tableName');
 		}
 	}]
 }

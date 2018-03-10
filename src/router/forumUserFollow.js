@@ -5,25 +5,25 @@ export default {
         path: '/forum/user/follow/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/forumUserFollow/Index').default);
-            }, 'forumUserFollow.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/forumUserFollow/Index').default);
+			}, 'forumUserFollow.index');
         }
     }, {
         path: '/forum/user/follow/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/forumUserFollow/Detail').default);
-            }, 'forumUserFollow.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/forumUserFollow/Detail').default);
+			}, 'forumUserFollow.add');
         }
     }, {
         path: '/forum/user/follow/edit/:forumUserFollowId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/forumUserFollow/Detail').default);
-            }, 'forumUserFollow.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/forumUserFollow/Detail').default);
+			}, 'forumUserFollow.edit.forumUserFollowId');
         }
     }]
 }

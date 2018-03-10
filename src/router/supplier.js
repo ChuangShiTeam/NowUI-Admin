@@ -5,25 +5,25 @@ export default {
         path: '/supplier/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/supplier/Index').default);
-            }, 'supplier.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/supplier/Index').default);
+			}, 'supplier.index');
         }
     }, {
         path: '/supplier/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/supplier/Detail').default);
-            }, 'supplier.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/supplier/Detail').default);
+			}, 'supplier.add');
         }
     }, {
         path: '/supplier/edit/:supplierId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/supplier/Detail').default);
-            }, 'supplier.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/supplier/Detail').default);
+			}, 'supplier.edit.supplierId');
         }
     }]
 }

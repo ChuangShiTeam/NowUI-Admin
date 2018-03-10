@@ -9,68 +9,81 @@ import Login from './view/Login';
 import Main from './view/Main';
 
 import constant from './common/constant';
+import entry from './common/entry';
 import util from './common/util';
 
 import 'ant-design-pro/dist/ant-design-pro.css';
 import './css/style.css';
-
-for (var i = 0; i < document.styleSheets.length; i++) {
-    var rule = document.styleSheets[i].cssRules;
-    for (var j = 0; j < rule.length; j++) {
-        if (rule[j].selectorText === '.ant-modal-body') {
-            // rule[j].style.height = document.documentElement.clientHeight - 290 + 'px';
-            break;
-        }
-    }
-}
 
 document.getElementById("loading").remove();
 
 util.setTitle(constant.name + '总控后台');
 
 const reducers = {};
-const storeContext = require.context('./store', false, /\.js$/);
-const storeKeys = storeContext.keys().filter(item => item !== './index.js');
-for (let i = 0; i < storeKeys.length; i++) {
-    reducers[storeContext(storeKeys[i]).default.name] = storeContext(storeKeys[i]).default;
+if (constant.active === 'dev') {
+	for (let i = 0; i < entry.webEntry.length; i++) {
+		const context = entry.webEntry[i].store;
+		const keys = context.keys();
+		for (let j = 0; j < keys.length; j++) {
+			reducers[context(keys[j]).default.name] = context(keys[j]).default;
+		}
+	}
+} else {
+	// const storeContext = require.context('./store', false, /\.js$/);
+	// const storeKeys = storeContext.keys();
+	// for (let i = 0; i < storeKeys.length; i++) {
+	// 	reducers[storeContext(storeKeys[i]).default.name] = storeContext(storeKeys[i]).default;
+	// }
 }
+
 
 const childRoutes = [];
-const routerContext = require.context('./router', false, /\.js$/);
-const routerKeys = routerContext.keys().filter(item => item !== './index.js');
-for (let i = 0; i < routerKeys.length; i++) {
-    childRoutes.push(routerContext(routerKeys[i]).default);
+if (constant.active === 'dev') {
+	for (var i = 0; i < entry.webEntry.length; i++) {
+		const context = entry.webEntry[i].router;
+		const keys = context.keys();
+		for (let j = 0; j < keys.length; j++) {
+			childRoutes.push(context(keys[j]).default);
+		}
+	}
+} else {
+	// const routerContext = require.context('./router', false, /\.js$/);
+	// const routerKeys = routerContext.keys();
+	// for (let i = 0; i < routerKeys.length; i++) {
+	// 	childRoutes.push(routerContext(routerKeys[i]).default);
+	// }
 }
 
+
 const stores = createStore(
-    combineReducers(Object.assign(reducers, {
-        routing: routerReducer
-    }))
+	combineReducers(Object.assign(reducers, {
+		routing: routerReducer
+	}))
 );
 
 const routes = {
-    path: '/',
-    indexRoute: {
-        onEnter: function (next, replace, callback) {
-            replace(null, constant.index);
-            callback();
-        }
-    },
-    childRoutes: [{
-        component: Main,
-        childRoutes: childRoutes
-    }, {
-        path: '/login',
-        component: Login
-    }]
+	path: '/',
+	indexRoute: {
+		onEnter: function (next, replace, callback) {
+			replace(null, constant.index);
+			callback();
+		}
+	},
+	childRoutes: [{
+		component: Main,
+		childRoutes: childRoutes
+	}, {
+		path: '/login',
+		component: Login
+	}]
 };
 
 const Routers = () =>
-    <Provider store={stores}>
-        <Router history={browserHistory} routes={routes}/>
-    </Provider>
+	<Provider store={stores}>
+		<Router history={browserHistory} routes={routes}/>
+	</Provider>
 
 ReactDOM.render(
-    <Routers/>,
-    document.getElementById('root')
+	<Routers/>,
+	document.getElementById('root')
 );

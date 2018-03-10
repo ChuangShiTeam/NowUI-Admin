@@ -5,33 +5,33 @@ export default {
         path: '/menu/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/menu/Index').default);
-            }, 'menu.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/menu/Index').default);
+			}, 'menu.index');
         }
     }, {
         path: '/menu/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/menu/Detail').default);
-            }, 'menu.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/menu/Detail').default);
+			}, 'menu.add');
         }
+	}, {
+		path: '/menu/add/:menuParentId',
+		onEnter: util.handleEnter,
+		getComponent(location, cb) {
+			require.ensure([], (require) => {
+				cb(null, require('../view/menu/Detail').default);
+			}, 'menu.add.menuParentId');
+		}
     }, {
         path: '/menu/edit/:menuId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/menu/Detail').default);
-            }, 'menu.detail');
-        }
-    }, {
-        path: '/menu/add/:menuParentId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/menu/Detail').default);
-            }, 'menu.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/menu/Detail').default);
+			}, 'menu.edit.menuId');
         }
     }]
 }

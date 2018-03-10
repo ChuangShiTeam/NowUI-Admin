@@ -5,25 +5,25 @@ export default {
         path: '/patient/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/patient/Index').default);
-            }, 'patient.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/patient/Index').default);
+			}, 'patient.index');
         }
     }, {
         path: '/patient/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/patient/Detail').default);
-            }, 'patient.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/patient/Detail').default);
+			}, 'patient.add');
         }
     }, {
         path: '/patient/edit/:patientId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/patient/Detail').default);
-            }, 'patient.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/patient/Detail').default);
+			}, 'patient.edit.patientId');
         }
     }]
 }

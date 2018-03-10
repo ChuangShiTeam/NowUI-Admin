@@ -5,25 +5,25 @@ export default {
         path: '/topic/comment/user/unlike/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/topicCommentUserUnlike/Index').default);
-            }, 'topicCommentUserUnlike.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/topicCommentUserUnlike/Index').default);
+			}, 'topicCommentUserUnlike.index');
         }
     }, {
         path: '/topic/comment/user/unlike/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/topicCommentUserUnlike/Detail').default);
-            }, 'topicCommentUserUnlike.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/topicCommentUserUnlike/Detail').default);
+			}, 'topicCommentUserUnlike.add');
         }
     }, {
         path: '/topic/comment/user/unlike/edit/:commentUserUnlikeId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/topicCommentUserUnlike/Detail').default);
-            }, 'topicCommentUserUnlike.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/topicCommentUserUnlike/Detail').default);
+			}, 'topicCommentUserUnlike.edit.commentUserUnlikeId');
         }
     }]
 }

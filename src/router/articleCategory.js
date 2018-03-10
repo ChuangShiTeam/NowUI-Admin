@@ -15,7 +15,7 @@ export default {
 		getComponent(location, cb) {
 			require.ensure([], (require) => {
 				cb(null, require('../view/articleCategory/Detail').default);
-			}, 'articleCategory.detail');
+			}, 'articleCategory.add');
 		}
 	}, {
 		path: '/article/category/add/:articleCategoryParentId',
@@ -23,7 +23,7 @@ export default {
 		getComponent(location, cb) {
 			require.ensure([], (require) => {
 				cb(null, require('../view/articleCategory/Detail').default);
-			}, 'articleCategory.detail');
+			}, 'articleCategory.add.articleCategoryParentId');
 		}
 	}, {
 		path: '/article/category/edit/:articleCategoryId',
@@ -31,7 +31,7 @@ export default {
 		getComponent(location, cb) {
 			require.ensure([], (require) => {
 				cb(null, require('../view/articleCategory/Detail').default);
-			}, 'articleCategory.detail');
+			}, 'articleCategory.edit.articleCategoryId');
 		}
 	}]
 }

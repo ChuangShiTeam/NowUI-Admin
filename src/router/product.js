@@ -5,25 +5,25 @@ export default {
         path: '/product/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/product/Index').default);
-            }, 'product.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/product/Index').default);
+			}, 'product.index');
         }
     }, {
         path: '/product/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/product/Detail').default);
-            }, 'product.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/product/Detail').default);
+			}, 'product.add');
         }
     }, {
         path: '/product/edit/:productId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/product/Detail').default);
-            }, 'product.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/product/Detail').default);
+			}, 'product.edit.productId');
         }
     }]
 }

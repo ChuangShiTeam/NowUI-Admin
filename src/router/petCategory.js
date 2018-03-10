@@ -5,33 +5,33 @@ export default {
         path: '/pet/category/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/petCategory/Index').default);
-            }, 'petCategory.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/petCategory/Index').default);
+			}, 'petCategory.index');
         }
     }, {
         path: '/pet/category/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/petCategory/Detail').default);
-            }, 'petCategory.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/petCategory/Detail').default);
+			}, 'petCategory.add');
         }
     }, {
         path: '/pet/category/add/:petCategoryParentId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/petCategory/Detail').default);
-            }, 'petCategory.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/petCategory/Detail').default);
+			}, 'petCategory.add.petCategoryParentId');
         }
     }, {
         path: '/pet/category/edit/:petCategoryId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/petCategory/Detail').default);
-            }, 'petCategory.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/petCategory/Detail').default);
+			}, 'petCategory.edit.petCategoryId');
         }
     }]
 }

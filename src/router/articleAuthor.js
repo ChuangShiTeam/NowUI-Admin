@@ -5,25 +5,25 @@ export default {
         path: '/article/author/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/articleAuthor/Index').default);
-            }, 'articleAuthor.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/articleAuthor/Index').default);
+			}, 'articleAuthor.index');
         }
     }, {
         path: '/article/author/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/articleAuthor/Detail').default);
-            }, 'articleAuthor.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/articleAuthor/Detail').default);
+			}, 'articleAuthor.add');
         }
     }, {
         path: '/article/author/edit/:articleAuthorId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/articleAuthor/Detail').default);
-            }, 'articleAuthor.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/articleAuthor/Detail').default);
+			}, 'articleAuthor.edit.articleAuthorId');
         }
     }]
 }

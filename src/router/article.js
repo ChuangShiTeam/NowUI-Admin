@@ -15,7 +15,7 @@ export default {
 		getComponent(location, cb) {
 			require.ensure([], (require) => {
 				cb(null, require('../view/article/Detail').default);
-			}, 'article.detail');
+			}, 'article.add');
 		}
 	}, {
 		path: '/article/edit/:articleId',
@@ -23,7 +23,7 @@ export default {
 		getComponent(location, cb) {
 			require.ensure([], (require) => {
 				cb(null, require('../view/article/Detail').default);
-			}, 'article.detail');
+			}, 'article.edit.articleId');
 		}
 	}]
 }

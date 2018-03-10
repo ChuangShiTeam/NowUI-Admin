@@ -5,25 +5,25 @@ export default {
         path: '/app/config/category/index',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/appConfigCategory/Index').default);
-            }, 'appConfigCategory.index');
+			require.ensure([], (require) => {
+				cb(null, require('../view/appConfigCategory/Index').default);
+			}, 'appConfigCategory.index');
         }
     }, {
         path: '/app/config/category/add',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/appConfigCategory/Detail').default);
-            }, 'appConfigCategory.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/appConfigCategory/Detail').default);
+			}, 'appConfigCategory.add');
         }
     }, {
         path: '/app/config/category/edit/:configCategoryId',
         onEnter: util.handleEnter,
         getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/appConfigCategory/Detail').default);
-            }, 'appConfigCategory.detail');
+			require.ensure([], (require) => {
+				cb(null, require('../view/appConfigCategory/Detail').default);
+			}, 'appConfigCategory.edit.configCategoryId');
         }
     }]
 }
