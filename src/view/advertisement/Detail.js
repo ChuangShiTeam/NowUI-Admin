@@ -47,11 +47,12 @@ export default connect(function (state) {
             type: 'VARCHAR',
             required: true
         }, {
-            id: 'advertisementImageFileId',
-            mediaPathKey: 'advertisementImageFilePath',
+            id: 'advertisementImage',
             name: '广告图片',
             type: 'MEDIA',
             returnLimit: 1,
+            returnValueName: 'advertisementImageFileId',
+            returnLabelName: 'advertisementImageFilePath',
             supportUploadTypes: ['image']
         }, {
             id: 'advertisementContent',
