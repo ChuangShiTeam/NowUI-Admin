@@ -27,6 +27,11 @@ export default connect(function (state) {
             icon: 'plus-circle',
             type: 'ADD',
             addUrl: '/toolbar/add'
+        }, {
+            name: '同步',
+            icon: 'sync',
+            type: 'SYNCHRONIZE',
+            syncUrl: '/toolbar/admin/v1/synchronize'
         }],
         searchList: [{
             id: 'toolbarName',
@@ -40,28 +45,28 @@ export default connect(function (state) {
         }, {
             id: 'toolbarUrl',
             name: '工具栏链接',
-            type: 'VARCHAR',
+            type: 'VARCHAR'
         }, {
-            id: 'toolbarActiveImage',
+            id: 'toolbarActiveImageFilePath',
             name: '工具栏激活图片',
             render: function (text, record, index, self) {
                 return (
-                    text && text.filePath ?
+                    text ?
                         <span>
-                          <img alt="example" style={{width: 30}} src={constant.imageHost + text.filePath} />
+                          <img alt="example" style={{width: 30}} src={constant.imageHost + text} />
                         </span>
                         :
                         null
                 )
             }
         }, {
-            id: 'toolbarImage',
+            id: 'toolbarImageFilePath',
             name: '工具栏图片',
             render: function (text, record, index, self) {
                 return (
-                    text && text.filePath ?
+                    text ?
                         <span>
-                          <img alt="example" style={{width: 30}} src={constant.imageHost + text.filePath} />
+                          <img alt="example" style={{width: 30}} src={constant.imageHost + text} />
                         </span>
                         :
                         null

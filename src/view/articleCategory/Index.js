@@ -26,6 +26,11 @@ export default connect(function (state) {
             icon: 'plus-circle',
             type: 'ADD',
             addUrl: '/article/category/add'
+        }, {
+            name: '同步',
+            icon: 'sync',
+            type: 'SYNCHRONIZE',
+            synchronizeUrl: '/user/admin/v1/synchronize'
         }],
         searchList: [{
             id: 'articleCategoryName',

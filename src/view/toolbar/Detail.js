@@ -46,13 +46,17 @@ export default connect(function (state) {
             name: '工具栏图片',
             type: 'MEDIA',
             returnLimit: 1,
-            supportUploadTypes: ['image'],
+            returnValueName: 'toolbarImageFileId',
+            returnLabelName: 'toolbarImageFilePath',
+            supportUploadTypes: ['image']
         }, {
             id: 'toolbarActiveImage',
             name: '工具栏激活图片',
             type: 'MEDIA',
             returnLimit: 1,
-            supportUploadTypes: ['image'],
+            returnValueName: 'toolbarActiveImageFileId',
+            returnLabelName: 'toolbarActiveImageFilePath',
+            supportUploadTypes: ['image']
         }, {
             id: 'toolbarSort',
             name: '排序',

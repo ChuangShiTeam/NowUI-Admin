@@ -12,7 +12,6 @@ export default connect(function (state) {
         primaryKey: 'articleId',
         store: state.article,
 		listUrl: '/article/admin/v1/list',
-		synchronizeUrl: '/article/admin/v1/synchronize',
         breadcrumbList: [{
             name: '文章管理',
             url: ''
@@ -30,8 +29,9 @@ export default connect(function (state) {
 			addUrl: '/article/add'
 		}, {
 			name: '同步',
-			icon: 'loading-3-quarters',
-			type: 'ADD'
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+            synchronizeUrl: '/article/admin/v1/synchronize'
         }],
         searchList: [{
             id: 'articleTitle',

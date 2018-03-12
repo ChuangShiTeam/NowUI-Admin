@@ -176,35 +176,35 @@ class NIndex extends Component {
 		});
 	}
 
-	handleSynchronize() {
-		// this.setState({
-		// 	isLoad: true
-		// });
-		//
-		// let values = {};
-		// values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
-		//
-		// http.request({
-		// 	url: this.props.synchronizeUrl,
-		// 	data: values,
-		// 	success: function (data) {
-		// 		if (data) {
-		// 			message.success(constant.success);
-		//
-		//
-		// 			this.setState({
-		// 				isLoad: false
-		// 			}, function () {
-		// 				this.handleLoad()
-		// 			}.bind(this));
-		// 		} else {
-		// 			message.error(constant.failure);
-		// 		}
-		// 	}.bind(this),
-		// 	complete: function () {
-		//
-		// 	}
-		// });
+	handleSynchronize(synchronizeUrl) {
+		this.setState({
+			isLoad: true
+		});
+
+		let values = {};
+		values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+
+		http.request({
+			url: synchronizeUrl,
+			data: values,
+			success: function (data) {
+				if (data) {
+					message.success(constant.success);
+
+
+					this.setState({
+						isLoad: false
+					}, function () {
+						this.handleLoad()
+					}.bind(this));
+				} else {
+					message.error(constant.failure);
+				}
+			}.bind(this),
+			complete: function () {
+
+			}
+		});
 	}
 
 	render() {
@@ -226,7 +226,7 @@ class NIndex extends Component {
 					button.click = this.handleSearch.bind(this);
 					break;
 				case 'SYNCHRONIZE':
-					button.click = this.handleSynchronize.bind(this);
+					button.click = this.handleSynchronize.bind(this, this.props.buttonList[i].synchronizeUrl);
 					break;
 				default:
 					button.click = this.props.buttonList[i].click;
