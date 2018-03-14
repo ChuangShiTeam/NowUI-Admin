@@ -21,6 +21,7 @@ export default connect(function (state) {
             isLoad: true,
             isPrimary: true
         }],
+		secondButtonList: [],
         searchList: [{
             id: 'tableSchema',
             name: '数据表结构',

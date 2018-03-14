@@ -26,10 +26,6 @@ export default connect(function (state) {
 			name: '删除',
 			icon: 'delete',
 			type: 'DELETE'
-		}, {
-			name: '删除',
-			icon: 'delete',
-			type: 'DELETE'
 		}],
         columnList: [{
 			id: 'productName',

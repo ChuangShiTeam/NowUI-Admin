@@ -29,8 +29,8 @@ export default connect(function (state) {
 		}, {
 			name: '同步',
 			icon: 'loading-3-quarters',
-			type: 'ADD',
-			addUrl: '/product/add'
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/product/admin/v1/synchronize'
 		}],
         searchList: [{
             id: 'productName',

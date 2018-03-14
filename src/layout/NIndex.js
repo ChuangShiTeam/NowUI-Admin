@@ -284,14 +284,14 @@ class NIndex extends Component {
 			};
 
 			switch (this.props.secondButtonList[i].type) {
-				case 'BACK':
-					button.click = this.handleBack.bind(this);
+				case 'ADD':
+					button.click = this.handleAdd.bind(this, this.props.secondButtonList[i].addUrl);
 					break;
-				case 'DELETE':
-					button.click = this.handleDelete.bind(this);
+				case 'SEARCH':
+					button.click = this.handleSearch.bind(this);
 					break;
-				case 'REPLACE':
-					button.click = this.handleReplace.bind(this);
+				case 'SYNCHRONIZE':
+					button.click = this.handleSynchronize.bind(this, this.props.secondButtonList[i].synchronizeUrl);
 					break;
 				default:
 					button.click = this.props.secondButtonList[i].click;
