@@ -277,28 +277,30 @@ class NIndex extends Component {
 		};
 
 		let secondButtonList = [];
-		for (let i = 0; i < this.props.secondButtonList.length; i++) {
-			let button = {
-				name: this.props.secondButtonList[i].name,
-				icon: this.props.secondButtonList[i].icon
-			};
+		if (this.props.secondButtonList && this.props.secondButtonList.length > 0) {
+			for (let i = 0; i < this.props.secondButtonList.length; i++) {
+				let button = {
+					name: this.props.secondButtonList[i].name,
+					icon: this.props.secondButtonList[i].icon
+				};
 
-			switch (this.props.secondButtonList[i].type) {
-				case 'BACK':
-					button.click = this.handleBack.bind(this);
-					break;
-				case 'DELETE':
-					button.click = this.handleDelete.bind(this);
-					break;
-				case 'REPLACE':
-					button.click = this.handleReplace.bind(this);
-					break;
-				default:
-					button.click = this.props.secondButtonList[i].click;
-					break;
+				switch (this.props.secondButtonList[i].type) {
+					case 'BACK':
+						button.click = this.handleBack.bind(this);
+						break;
+					case 'DELETE':
+						button.click = this.handleDelete.bind(this);
+						break;
+					case 'REPLACE':
+						button.click = this.handleReplace.bind(this);
+						break;
+					default:
+						button.click = this.props.secondButtonList[i].click;
+						break;
+				}
+
+				secondButtonList.push(button);
 			}
-
-			secondButtonList.push(button);
 		}
 
 		return (
