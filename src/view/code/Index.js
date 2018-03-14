@@ -9,7 +9,7 @@ export default connect(function (state) {
         title: '数据库表信息',
         primaryKey: 'tableName',
         store: state.code,
-        listUrl: '/code/admin/table/list',
+        listUrl: '/code/admin/table/v1/list',
         breadcrumbList: [{
             name: '代码生成管理',
             url: ''
@@ -23,16 +23,16 @@ export default connect(function (state) {
         }],
         searchList: [{
             id: 'tableSchema',
-            name: '数据库',
+            name: '数据表结构',
             type: 'VARCHAR'
         }, {
             id: 'tableName',
-            name: '数据表',
+            name: '数据库名称',
             type: 'VARCHAR'
         }],
         columnList: [{
             id: 'tableName',
-            name: '表名称',
+            name: '数据库名称',
             editUrl: '/code/view/:tableSchema/:tableName'
         }, {
             id: 'tableComment',

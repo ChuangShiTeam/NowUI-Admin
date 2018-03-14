@@ -44,14 +44,10 @@ export default {
 	// 	store: require.context('../store', false, /articleUserPurchase.js/),
 	// 	router: require.context('../router', false, /articleUserPurchase.js/)
 	// },
-	// {
-	// 	store: require.context('../store', false, /code.js/),
-	// 	router: require.context('../router', false, /code.js/)
-	// },
-	// {
-	// 	store: require.context('../store', false, /code.js/),
-	// 	router: require.context('../router', false, /code.js/)
-	// },
+	{
+		store: require.context('../store', false, /code.js/),
+		router: require.context('../router', false, /code.js/)
+	},
 	{
 		store: require.context('../store', false, /dashboard.js/),
 		router: require.context('../router', false, /dashboard.js/)
@@ -112,10 +108,10 @@ export default {
 	// 	store: require.context('../store', false, /petCategory.js/),
 	// 	router: require.context('../router', false, /petCategory.js/)
 	// },
-	// {
-	// 	store: require.context('../store', false, /product.js/),
-	// 	router: require.context('../router', false, /product.js/)
-	// },
+	{
+		store: require.context('../store', false, /product.js/),
+		router: require.context('../router', false, /product.js/)
+	},
 	// {
 	// 	store: require.context('../store', false, /purchaseOrder.js/),
 	// 	router: require.context('../router', false, /purchaseOrder.js/)

@@ -276,10 +276,39 @@ class NIndex extends Component {
 			onChange: this.handleChangeIndex.bind(this)
 		};
 
+		let secondButtonList = [];
+		for (let i = 0; i < this.props.secondButtonList.length; i++) {
+			let button = {
+				name: this.props.secondButtonList[i].name,
+				icon: this.props.secondButtonList[i].icon
+			};
+
+			switch (this.props.secondButtonList[i].type) {
+				case 'BACK':
+					button.click = this.handleBack.bind(this);
+					break;
+				case 'DELETE':
+					button.click = this.handleDelete.bind(this);
+					break;
+				case 'REPLACE':
+					button.click = this.handleReplace.bind(this);
+					break;
+				default:
+					button.click = this.props.secondButtonList[i].click;
+					break;
+			}
+
+			secondButtonList.push(button);
+		}
+
 		return (
 			<div>
-				<NHeader name={this.props.title} isEdit={false} breadcrumbList={this.props.breadcrumbList}
-						 buttonList={buttonList} secondButtonList={[]}/>
+				<NHeader name={this.props.title}
+						 isList={true}
+						 isEdit={false}
+						 breadcrumbList={this.props.breadcrumbList}
+						 buttonList={buttonList}
+						 secondButtonList={secondButtonList}/>
 				<div className="page-search">
 					<Form>
 						<Row>
@@ -398,6 +427,7 @@ NIndex.propTypes = {
 	synchronizeUrl: PropTypes.string,
 	breadcrumbList: PropTypes.array.isRequired,
 	buttonList: PropTypes.array.isRequired,
+	secondButtonList: PropTypes.array.isRequired,
 	searchList: PropTypes.array.isRequired,
 	columnList: PropTypes.array.isRequired
 };

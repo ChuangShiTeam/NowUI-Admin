@@ -20,12 +20,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/product/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/product/add'
+		}, {
+			name: '同步',
+			icon: 'loading-3-quarters',
+			type: 'ADD',
+			addUrl: '/product/add'
+		}],
         searchList: [{
             id: 'productName',
             name: '商品名称',

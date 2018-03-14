@@ -21,12 +21,16 @@ export default connect(function (state) {
 			icon: 'left-circle',
 			type: 'BACK',
 			isPrimary: false
+        }],
+		secondButtonList: [{
+			name: '删除',
+			icon: 'delete',
+			type: 'DELETE'
 		}, {
 			name: '删除',
 			icon: 'delete',
-			type: 'DELETE',
-			isPrimary: false
-        }],
+			type: 'DELETE'
+		}],
         columnList: [{
 			id: 'productName',
 			name: '商品名称',
@@ -54,8 +58,8 @@ export default connect(function (state) {
 			name: '商品图片',
 			type: 'MEDIA',
 			returnLimit: 1,
-			returnValueName: 'productImageId',
-			returnLabelName: 'productImagePath',
+			returnValueName: 'productImageFileId',
+			returnLabelName: 'productImageFilePath',
 			supportUploadTypes: ['image'],
         }]
     }

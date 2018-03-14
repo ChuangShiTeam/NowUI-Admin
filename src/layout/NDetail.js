@@ -94,7 +94,7 @@ class NDetail extends Component {
 					}
 				}
 
-				console.log(values)
+				// console.log(values)
 
 				this.props.form.setFieldsValue(values);
 
@@ -326,35 +326,39 @@ class NDetail extends Component {
 			buttonList.push(button);
 		}
 
-		// let secondButtonList = [];
-		// for (let i = 0; i < this.props.secondButtonList.length; i++) {
-		//     let button = {
-		//         name: this.props.secondButtonList[i].name,
-		//         icon: this.props.secondButtonList[i].icon
-		//     };
-		//
-		//     switch (this.props.secondButtonList[i].type) {
-		// 	case 'BACK':
-		// 		button.click = this.handleBack.bind(this);
-		// 		break;
-		//         case 'DELETE':
-		//             button.click = this.handleDelete.bind(this);
-		//             break;
-		//         case 'REPLACE':
-		//             button.click = this.handleReplace.bind(this);
-		//             break;
-		//         default:
-		//             button.click = this.props.secondButtonList[i].click;
-		//             break;
-		//     }
-		//
-		//     secondButtonList.push(button);
-		// }
+		let secondButtonList = [];
+		for (let i = 0; i < this.props.secondButtonList.length; i++) {
+		    let button = {
+		        name: this.props.secondButtonList[i].name,
+		        icon: this.props.secondButtonList[i].icon
+		    };
+
+		    switch (this.props.secondButtonList[i].type) {
+			case 'BACK':
+				button.click = this.handleBack.bind(this);
+				break;
+		        case 'DELETE':
+		            button.click = this.handleDelete.bind(this);
+		            break;
+		        case 'REPLACE':
+		            button.click = this.handleReplace.bind(this);
+		            break;
+		        default:
+		            button.click = this.props.secondButtonList[i].click;
+		            break;
+		    }
+
+		    secondButtonList.push(button);
+		}
 
 		return (
 			<div>
-				<NHeader name={this.props.title} isEdit={this.state.isEdit} breadcrumbList={this.props.breadcrumbList}
-						 buttonList={buttonList}/>
+				<NHeader name={this.props.title}
+						 isList={false}
+						 isEdit={this.state.isEdit}
+						 breadcrumbList={this.props.breadcrumbList}
+						 buttonList={buttonList}
+						 secondButtonList={secondButtonList}/>
 				<div className="page-content">
 					<Form>
 						{
@@ -554,6 +558,7 @@ NDetail.propTypes = {
 	store: PropTypes.object.isRequired,
 	breadcrumbList: PropTypes.array.isRequired,
 	buttonList: PropTypes.array.isRequired,
+	secondButtonList: PropTypes.array.isRequired,
 	columnList: PropTypes.array.isRequired,
 	filterList: PropTypes.array.isRequired
 };
