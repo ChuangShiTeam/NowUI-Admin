@@ -6,8 +6,8 @@ import NIndex from '../../layout/NIndex';
 export default connect(function (state) {
     return {
         id: 'articleCategory',
-        type: 'TREE_TABLE',
-        title: '文章分类信息',
+        type: 'TABLE',
+        title: '文章分类',
         primaryKey: 'articleCategoryId',
         store: state.articleCategory,
         listUrl: '/article/category/admin/v1/list',
@@ -21,44 +21,36 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
+        }],
+		secondButtonList: [{
             name: '新增',
             icon: 'plus-circle',
             type: 'ADD',
             addUrl: '/article/category/add'
-        }, {
-            name: '同步',
-            icon: 'sync',
-            type: 'SYNCHRONIZE',
-            synchronizeUrl: '/user/admin/v1/synchronize'
-        }],
+		}, {
+			name: '同步',
+			icon: 'loading-3-quarters',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/article/category/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'articleCategoryName',
-            name: '名称',
-            type: 'VARCHAR'
-        }, {
+            name: '分类名称',
+            type: 'VARCHAR',
+            }, {
             id: 'articleCategoryCode',
-            name: '编码',
-            type: 'VARCHAR'
+            name: '分类编码',
+            type: 'VARCHAR',
         }],
         columnList: [{
             id: 'articleCategoryName',
-            name: '名称',
-            editUrl: '/article/category/edit/:articleCategoryId'
+            name: '分类名称'
         }, {
             id: 'articleCategoryCode',
-            name: '编码'
+            name: '分类编码'
         }, {
-            id: 'articleCategorySort',
-            name: '排序'
-        }, {
-            id: 'articleCategoryId',
-            name: '操作',
-            render: function(text, record, index, self) {
-                return (<span>
-                    <a onClick={self.handleAdd.bind(self, '/article/category/add/' + record.articleCategoryId)}>添加</a>
-                </span>)
-            }
+            id: 'articleCategoryImageId',
+            name: '多媒体文件编号'
         }]
     }
 })(NIndex);

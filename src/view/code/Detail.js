@@ -144,7 +144,9 @@ class Detail extends Component {
 		});
 	}
 
-	handleChangeInputType(index, inputType) {
+	handleChangeInputType(value) {
+		let index = value.split(',')[0];
+		let inputType = value.split(',')[1];
 		let columnList = this.state.columnList;
 		columnList[index].inputType = inputType;
 		this.setState({
@@ -306,17 +308,17 @@ class Detail extends Component {
 				record.isCanDetail ?
 					<Select defaultValue={record.inputType}
 							style={{width: 160}}
-							onChange={this.handleChangeInputType.bind(this, index, record.inputType)}
+							onChange={this.handleChangeInputType.bind(this)}
 							placeholder="请选择输入框类型">
-						<Select.Option value="VARCHAR">VARCHAR</Select.Option>
-						<Select.Option value="LONG_VARCHAR">LONG_VARCHAR</Select.Option>
-						<Select.Option value="NUMBER">NUMBER</Select.Option>
-						<Select.Option value="BOOLEAN">BOOLEAN</Select.Option>
-						<Select.Option value="SELECT">SELECT</Select.Option>
-						<Select.Option value="TREESELECT">TREESELECT</Select.Option>
-						<Select.Option value="HTML">HTML</Select.Option>
-						<Select.Option value="DATEPICKER">DATEPICKER</Select.Option>
-						<Select.Option value="MEDIA">MEDIA</Select.Option>
+						<Select.Option value={index + ",VARCHAR"}>VARCHAR</Select.Option>
+						<Select.Option value={index + ",LONG_VARCHAR"}>LONG_VARCHAR</Select.Option>
+						<Select.Option value={index + ",NUMBER"}>NUMBER</Select.Option>
+						<Select.Option value={index + ",BOOLEAN"}>BOOLEAN</Select.Option>
+						<Select.Option value={index + ",SELECT"}>SELECT</Select.Option>
+						<Select.Option value={index + ",TREESELECT"}>TREESELECT</Select.Option>
+						<Select.Option value={index + ",HTML"}>HTML</Select.Option>
+						<Select.Option value={index + ",DATEPICKER"}>DATEPICKER</Select.Option>
+						<Select.Option value={index + ",MEDIA"}>MEDIA</Select.Option>
 					</Select>
 					:
 					''
