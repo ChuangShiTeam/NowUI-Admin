@@ -141,6 +141,7 @@ class Index extends Component {
                         <SubMenu key="sub7" title={<span><Icon type="camera-o" /><span>医院管理</span></span>}>
                             <Menu.Item key="7.1"><Link to={'/doctor/index'}>医生信息</Link></Menu.Item>
                             <Menu.Item key="7.2"><Link to={'/patient/index'}>患者信息</Link></Menu.Item>
+                            <Menu.Item key="7.3"><Link to={'/course/index'}>课程管理</Link></Menu.Item>
                         </SubMenu>
 
                         <SubMenu key="sub8" title={<span><Icon type="camera-o" /><span>代码管理</span></span>}>

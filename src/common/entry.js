@@ -112,6 +112,10 @@ export default {
 		store: require.context('../store', false, /product.js/),
 		router: require.context('../router', false, /product.js/)
 	},
+	{
+		store: require.context('../store', false, /course.js/),
+		router: require.context('../router', false, /course.js/)
+	},
 	// {
 	// 	store: require.context('../store', false, /purchaseOrder.js/),
 	// 	router: require.context('../router', false, /purchaseOrder.js/)
