@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import {Switch, Route, Redirect, NavLink} from 'react-router-dom';
 import {Layout, Menu, Icon, Spin} from 'antd';
 
 import constant from '../common/constant';
@@ -187,13 +187,17 @@ class Index extends Component {
 					</Header>
 					<Content>
 						<Spin spinning={this.state.isLoad}>
-							{
-								routerList.map(function (router) {
-									return (
-										router
-									)
-								})
-							}
+
+							<Switch>
+								{
+									routerList.map(function (router) {
+										return (
+											router
+										)
+									})
+								}
+								<Redirect to="/dashboard/index"/>
+							</Switch>
 						</Spin>
 					</Content>
 				</Layout>

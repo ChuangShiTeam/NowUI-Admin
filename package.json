@@ -20,12 +20,12 @@
     "reqwest": "^2.0.5"
   },
   "devDependencies": {
-    "babel-plugin-import": "^1.6.7",
+    "babel-plugin-import": "^1.6.2",
     "react-app-rewired": "^1.5.0"
   },
   "scripts": {
-    "macStart": "PORT=3002 PUBLIC_URL=./ react-app-rewired start",
-    "start": "set PORT=3002 && set PUBLIC_URL=./ && react-app-rewired start",
+    "macStart": "PORT=3000 PUBLIC_URL=./ react-app-rewired start",
+    "start": "set PORT=3000 && set PUBLIC_URL=./ && react-app-rewired start",
     "macBuild": "PUBLIC_URL=./ react-app-rewired build",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom"
