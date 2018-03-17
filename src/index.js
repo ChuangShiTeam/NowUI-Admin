@@ -36,7 +36,7 @@ const App = () =>
 	<Provider store={stores}>
 		<BrowserRouter>
 			<Switch>
-				<Route path="/login" component={Login}></Route>
+				<Route path="/login" exact component={Login}></Route>
 				<Route path="/" component={Main}></Route>
 			</Switch>
 		</BrowserRouter>

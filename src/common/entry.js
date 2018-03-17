@@ -12,7 +12,7 @@ export default {
 		// require('../router/articlePrice').default,
 		// require('../router/articleUserPurchase').default,
 		// require('../router/code').default,
-		// require('../router/dashboard').default,
+		require('../router/dashboard').default,
 		// require('../router/forum').default,
 		// require('../router/forumAudit').default,
 		// require('../router/forumCategory').default,

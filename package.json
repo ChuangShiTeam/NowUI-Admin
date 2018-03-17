@@ -26,7 +26,6 @@
   "scripts": {
     "macStart": "PORT=3000 PUBLIC_URL=./ react-app-rewired start",
     "start": "set PORT=3000 && set PUBLIC_URL=./ && react-app-rewired start",
-    "macBuild": "PUBLIC_URL=./ react-app-rewired build",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom"
   }

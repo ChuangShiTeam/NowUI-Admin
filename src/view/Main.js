@@ -1,20 +1,25 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Switch, Route, Redirect, NavLink} from 'react-router-dom';
+import {Switch, Redirect, NavLink} from 'react-router-dom';
 import {Layout, Menu, Icon, Spin} from 'antd';
 
 import constant from '../common/constant';
+import entry from '../common/entry';
 
 let routerList = [];
 
-const routerContext = require.context('../router', false, /\.js$/);
-const routerKeys = routerContext.keys();
-for (let i = 0; i < routerKeys.length; i++) {
-	let array = routerContext(routerKeys[i]).default;
-	for (let j = 0; j < array.length; j++) {
-		routerList.push(array[j]);
-	}
+for (let i = 0; i < entry.webEntry.length; i++) {
+	routerList.push(entry.webEntry[i]);
 }
+
+// const routerContext = require.context('../router', false, /\.js$/);
+// const routerKeys = routerContext.keys();
+// for (let i = 0; i < routerKeys.length; i++) {
+// 	let array = routerContext(routerKeys[i]).default;
+// 	for (let j = 0; j < array.length; j++) {
+// 		routerList.push(array[j]);
+// 	}
+// }
 
 class Index extends Component {
 	constructor(props) {
