@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/forum/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forum/Index').default);
-			}, 'forum.index');
-        }
-    }, {
-        path: '/forum/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forum/Detail').default);
-			}, 'forum.add');
-        }
-    }, {
-        path: '/forum/edit/:forumId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forum/Detail').default);
-			}, 'forum.edit.forumId');
-        }
-    }]
-}
+import ForumIndex from '../view/forum/Index';
+import ForumDetail from '../view/forum/Detail';
+
+export default [
+	<Route key="ForumIndex" path="/forum/index" component={ForumIndex}/>,
+	<Route key="ForumAdd" path="/forum/add" component={ForumDetail}/>,
+	<Route key="ForumEditForumId" path="/forum/edit/:forumId" component={ForumDetail}/>
+]

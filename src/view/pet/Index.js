@@ -20,12 +20,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/pet/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/pet/add'
+		}, {
+			name: '同步',
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/pet/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'petCategoryId',
             name: '宠物分类编号',

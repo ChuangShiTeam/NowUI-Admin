@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/member/default/avatar/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/memberDefaultAvatar/Index').default);
-			}, 'memberDefaultAvatar.index');
-        }
-    }, {
-        path: '/member/default/avatar/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/memberDefaultAvatar/Detail').default);
-			}, 'memberDefaultAvatar.add');
-        }
-    }, {
-        path: '/member/default/avatar/edit/:memberDefaultAvatarId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/memberDefaultAvatar/Detail').default);
-			}, 'memberDefaultAvatar.edit.memberDefaultAvatarId');
-        }
-    }]
-}
+import MemberDefaultAvatarIndex from '../view/memberDefaultAvatar/Index';
+import MemberDefaultAvatarDetail from '../view/memberDefaultAvatar/Detail';
+
+export default [
+	<Route key="MemberDefaultAvatarIndex" path="/member/default/avatar/index" component={MemberDefaultAvatarIndex}/>,
+	<Route key="MemberDefaultAvatarAdd" path="/member/default/avatar/add" component={MemberDefaultAvatarDetail}/>,
+	<Route key="MemberDefaultAvatarEditMemberDefaultAvatarId" path="/member/default/avatar/edit/:memberDefaultAvatarId" component={MemberDefaultAvatarDetail}/>
+]

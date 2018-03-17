@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/product/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/product/Index').default);
-			}, 'product.index');
-        }
-    }, {
-        path: '/product/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/product/Detail').default);
-			}, 'product.add');
-        }
-    }, {
-        path: '/product/edit/:productId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/product/Detail').default);
-			}, 'product.edit.productId');
-        }
-    }]
-}
+import ProductIndex from '../view/product/Index';
+import ProductDetail from '../view/product/Detail';
+
+export default [
+	<Route key="ProductIndex" path="/product/index" component={ProductIndex}/>,
+	<Route key="ProductAdd" path="/product/add" component={ProductDetail}/>,
+	<Route key="ProductEditProductId" path="/product/edit/:productId" component={ProductDetail}/>
+]

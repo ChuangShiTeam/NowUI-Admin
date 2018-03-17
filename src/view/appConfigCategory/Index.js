@@ -20,12 +20,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/app/config/category/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/app/config/category/add'
+		}, {
+			name: '同步',
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/app/config/category/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'configCategoryName',
             name: '名称',

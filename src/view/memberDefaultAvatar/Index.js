@@ -22,12 +22,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/member/default/avatar/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			pathname: '/member/default/avatar/add'
+		}, {
+			name: '同步',
+			icon: 'loading-3-quarters',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/member/default/avatar/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'userAvatarFileId',
             name: '头像文件编号',

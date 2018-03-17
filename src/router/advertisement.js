@@ -1,32 +1,11 @@
-/**
- * Created by shawn on 17/12/10.
- */
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-	childRoutes: [{
-		path: '/advertisement/index',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/advertisement/Index').default);
-			}, 'advertisement.index');
-		}
-	}, {
-		path: '/advertisement/add',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/advertisement/Detail').default);
-			}, 'advertisement.add');
-		}
-	}, {
-		path: '/advertisement/edit/:advertisementId',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/advertisement/Detail').default);
-			}, 'advertisement.edit.advertisementId');
-		}
-	}]
-}
+import AdvertisementIndex from '../view/advertisement/Index';
+import AdvertisementDetail from '../view/advertisement/Detail';
+
+export default [
+	<Route key="AdvertisementIndex" path="/advertisement/index" component={AdvertisementIndex}/>,
+	<Route key="AdvertisementAdd" path="/advertisement/add" component={AdvertisementDetail}/>,
+	<Route key="AdvertisementEditAdvertisementId" path="/advertisement/edit/:advertisementId" component={AdvertisementDetail}/>
+]

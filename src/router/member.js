@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/member/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/member/Index').default);
-			}, 'member.index');
-        }
-    }, {
-        path: '/member/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/member/Detail').default);
-			}, 'member.add');
-        }
-    }, {
-        path: '/member/edit/:memberId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/member/Detail').default);
-			}, 'member.edit.memberId');
-        }
-    }]
-}
+import MemberIndex from '../view/member/Index';
+import MemberDetail from '../view/member/Detail';
+
+export default [
+	<Route key="MemberIndex" path="/member/index" component={MemberIndex}/>,
+	<Route key="MemberAdd" path="/member/add" component={MemberDetail}/>,
+	<Route key="MemberEditMemberId" path="/member/edit/:memberId" component={MemberDetail}/>
+]

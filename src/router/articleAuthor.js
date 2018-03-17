@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/article/author/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/articleAuthor/Index').default);
-			}, 'articleAuthor.index');
-        }
-    }, {
-        path: '/article/author/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/articleAuthor/Detail').default);
-			}, 'articleAuthor.add');
-        }
-    }, {
-        path: '/article/author/edit/:articleAuthorId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/articleAuthor/Detail').default);
-			}, 'articleAuthor.edit.articleAuthorId');
-        }
-    }]
-}
+import ArticleAuthorIndex from '../view/articleAuthor/Index';
+import ArticleAuthorDetail from '../view/articleAuthor/Detail';
+
+export default [
+	<Route key="ArticleAuthorIndex" path="/article/author/index" component={ArticleAuthorIndex}/>,
+	<Route key="ArticleAuthorAdd" path="/article/author/add" component={ArticleAuthorDetail}/>,
+	<Route key="ArticleAuthorEditArticleAuthorId" path="/article/author/edit/:articleAuthorId" component={ArticleAuthorDetail}/>
+]

@@ -22,17 +22,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/navigation/add'
-        }, {
-            name: '同步',
-            icon: 'sync',
-            type: 'SYNCHRONIZE',
-            synchronizeUrl: '/navigation/admin/v1/synchronize'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/navigation/add'
+		}, {
+			name: '同步',
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/navigation/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'navigationName',
             name: '导航栏名称',

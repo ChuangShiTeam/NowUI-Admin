@@ -198,6 +198,10 @@ class NIndex extends Component {
 						this.handleLoad()
 					}.bind(this));
 				} else {
+					this.setState({
+						isLoad: false
+					});
+
 					message.error(constant.failure);
 				}
 			}.bind(this),

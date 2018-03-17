@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/pet/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/pet/Index').default);
-			}, 'pet.index');
-        }
-    }, {
-        path: '/pet/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/pet/Detail').default);
-			}, 'pet.add');
-        }
-    }, {
-        path: '/pet/edit/:petId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/pet/Detail').default);
-			}, 'pet.edit.petId');
-        }
-    }]
-}
+import PetIndex from '../view/pet/Index';
+import PetDetail from '../view/pet/Detail';
+
+export default [
+	<Route key="PetIndex" path="/pet/index" component={PetIndex}/>,
+	<Route key="PetAdd" path="/pet/add" component={PetDetail}/>,
+	<Route key="PetEditPetId" path="/pet/edit/:petId" component={PetDetail}/>
+]

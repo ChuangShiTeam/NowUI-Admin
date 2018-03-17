@@ -20,12 +20,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/topic/comment/user/like/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/topic/comment/user/like/add'
+		}, {
+			name: '同步',
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/topic/comment/user/like/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'commentId',
             name: '被点赞的评论编号',

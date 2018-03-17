@@ -27,12 +27,18 @@ export default connect(function (state) {
             icon: 'plus-circle',
             type: 'ADD',
             addUrl: '/toolbar/add'
-        }, {
-            name: '同步',
-            icon: 'sync',
-            type: 'SYNCHRONIZE',
-            syncUrl: '/toolbar/admin/v1/synchronize'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/toolbar/add'
+		}, {
+			name: '同步',
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/toolbar/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'toolbarName',
             name: '工具栏名称',

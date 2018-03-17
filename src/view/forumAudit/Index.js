@@ -20,12 +20,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/forumAudit/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/forum/audit/add'
+		}, {
+			name: '同步',
+			icon: 'loading-3-quarters',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/forum/audit/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'forumAuditStatus',
             name: '审核状态',

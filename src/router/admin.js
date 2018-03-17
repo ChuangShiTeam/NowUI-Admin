@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/admin/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/admin/Index').default);
-			}, 'admin.index');
-        }
-    }, {
-        path: '/admin/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/admin/Detail').default);
-			}, 'admin.add');
-        }
-    }, {
-        path: '/admin/edit/:adminId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/admin/Detail').default);
-            }, 'admin.edit.adminId');
-        }
-    }]
-}
+import AdminIndex from '../view/admin/Index';
+import AdminDetail from '../view/admin/Detail';
+
+export default [
+	<Route key="AdminIndex" path="/admin/index" component={AdminIndex}/>,
+	<Route key="AdminAdd" path="/admin/add" component={AdminDetail}/>,
+	<Route key="AdminEditAdminId" path="/admin/edit/:adminId" component={AdminDetail}/>
+]

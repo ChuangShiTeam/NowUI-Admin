@@ -1,4 +1,3 @@
-import React from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
@@ -21,12 +20,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/article/author/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/article/author/add'
+		}, {
+			name: '同步',
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/article/author/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'articleAuthorName',
             name: '作者姓名',

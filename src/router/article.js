@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-	childRoutes: [{
-		path: '/article/index',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/article/Index').default);
-			}, 'article.index');
-		}
-	}, {
-		path: '/article/add',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/article/Detail').default);
-			}, 'article.add');
-		}
-	}, {
-		path: '/article/edit/:articleId',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/article/Detail').default);
-			}, 'article.edit.articleId');
-		}
-	}]
-}
+import ArticleIndex from '../view/article/Index';
+import ArticleDetail from '../view/article/Detail';
+
+export default [
+	<Route key="ArticleIndex" path="/article/index" component={ArticleIndex}/>,
+	<Route key="ArticleAdd" path="/article/add" component={ArticleDetail}/>,
+	<Route key="ArticleEditArticleId" path="/article/edit/:articleId" component={ArticleDetail}/>
+]

@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/article/category/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/articleCategory/Index').default);
-            }, 'articleCategory.index');
-        }
-    }, {
-        path: '/article/category/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/articleCategory/Detail').default);
-            }, 'articleCategory.add');
-        }
-    }, {
-        path: '/article/category/edit/:articleCategoryId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/articleCategory/Detail').default);
-            }, 'articleCategory.edit.articleCategoryId');
-        }
-    }]
-}
+import ArticleCategoryIndex from '../view/articleCategory/Index';
+import ArticleCategoryDetail from '../view/articleCategory/Detail';
+
+export default [
+	<Route key="ArticleCategoryIndex" path="/article/category/index" component={ArticleCategoryIndex}/>,
+	<Route key="ArticleCategoryAdd" path="/article/category/add" component={ArticleCategoryDetail}/>,
+	<Route key="ArticleCategoryEditArticleCategoryId" path="/article/category/edit/:articleCategoryId" component={ArticleCategoryDetail}/>
+]

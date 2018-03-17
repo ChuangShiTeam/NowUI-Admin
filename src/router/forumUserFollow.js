@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/forum/user/follow/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumUserFollow/Index').default);
-			}, 'forumUserFollow.index');
-        }
-    }, {
-        path: '/forum/user/follow/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumUserFollow/Detail').default);
-			}, 'forumUserFollow.add');
-        }
-    }, {
-        path: '/forum/user/follow/edit/:forumUserFollowId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumUserFollow/Detail').default);
-			}, 'forumUserFollow.edit.forumUserFollowId');
-        }
-    }]
-}
+import ForumUserFollowIndex from '../view/forumUserFollow/Index';
+import ForumUserFollowDetail from '../view/forumUserFollow/Detail';
+
+export default [
+	<Route key="ForumUserFollowIndex" path="/forumUser/follow/index" component={ForumUserFollowIndex}/>,
+	<Route key="ForumUserFollowAdd" path="/forumUser/follow/add" component={ForumUserFollowDetail}/>,
+	<Route key="ForumUserFollowEditForumUserFollowId" path="/forumUser/follow/edit/:forumUserFollowId" component={ForumUserFollowDetail}/>
+]

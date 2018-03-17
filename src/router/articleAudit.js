@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/article/audit/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/articleAudit/Index').default);
-			}, 'articleAudit.index');
-        }
-    }, {
-        path: '/article/audit/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/articleAudit/Detail').default);
-			}, 'articleAudit.add');
-        }
-    }, {
-        path: '/article/audit/edit/:articleAuditId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/articleAudit/Detail').default);
-			}, 'articleAudit.edit.articleAuditId');
-        }
-    }]
-}
+import ArticleAuditIndex from '../view/articleAudit/Index';
+import ArticleAuditDetail from '../view/articleAudit/Detail';
+
+export default [
+	<Route key="ArticleAuditIndex" path="/article/audit/index" component={ArticleAuditIndex}/>,
+	<Route key="ArticleAuditAdd" path="/article/audit/add" component={ArticleAuditDetail}/>,
+	<Route key="ArticleAuditEditArticleAuditId" path="/article/audit/edit/:articleAuditId" component={ArticleAuditDetail}/>
+]

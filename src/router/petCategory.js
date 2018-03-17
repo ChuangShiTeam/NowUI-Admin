@@ -1,37 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/pet/category/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/petCategory/Index').default);
-			}, 'petCategory.index');
-        }
-    }, {
-        path: '/pet/category/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/petCategory/Detail').default);
-			}, 'petCategory.add');
-        }
-    }, {
-        path: '/pet/category/add/:petCategoryParentId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/petCategory/Detail').default);
-			}, 'petCategory.add.petCategoryParentId');
-        }
-    }, {
-        path: '/pet/category/edit/:petCategoryId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/petCategory/Detail').default);
-			}, 'petCategory.edit.petCategoryId');
-        }
-    }]
-}
+import PetCategoryIndex from '../view/petCategory/Index';
+import PetCategoryDetail from '../view/petCategory/Detail';
+
+export default [
+	<Route key="PetCategoryIndex" path="/pet/category/index" component={PetCategoryIndex}/>,
+	<Route key="PetCategoryAdd" path="/pet/category/add" component={PetCategoryDetail}/>,
+	<Route key="PetCategoryEditPetCategoryId" path="/pet/category/edit/:petCategoryId" component={PetCategoryDetail}/>
+]

@@ -32,9 +32,6 @@ export default connect(function (state) {
             name: '应用配置分类',
             type: 'SELECT',
             select: {
-                allowClear: true,
-                showSearch: true,
-                storeKey: 'configCategoryList',
                 remoteOptionConfig: {
                     key: 'configCategoryId',
                     value: 'configCategoryName',

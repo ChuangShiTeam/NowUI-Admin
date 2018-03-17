@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/forum/audit/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumAudit/Index').default);
-			}, 'forumAudit.index');
-        }
-    }, {
-        path: '/forum/audit/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumAudit/Detail').default);
-			}, 'forumAudit.add');
-        }
-    }, {
-        path: '/forum/audit/edit/:forumAuditId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumAudit/Detail').default);
-			}, 'forumAudit.edit.forumAuditId');
-        }
-    }]
-}
+import ForumAuditIndex from '../view/forumAudit/Index';
+import ForumAuditDetail from '../view/forumAudit/Detail';
+
+export default [
+	<Route key="ForumAuditIndex" path="/forumAudit/index" component={ForumAuditIndex}/>,
+	<Route key="ForumAuditAdd" path="/forumAudit/add" component={ForumAuditDetail}/>,
+	<Route key="ForumAuditEditForumAuditId" path="/forumAudit/edit/:forumAuditId" component={ForumAuditDetail}/>
+]

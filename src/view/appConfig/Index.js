@@ -21,20 +21,23 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/app/config/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/app/config/add'
+		}, {
+			name: '同步',
+			icon: 'sync',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/app/config/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'configCategoryId',
             name: '应用配置分类',
             type: 'SELECT',
             select: {
-                allowClear: true,
-                showSearch: true,
-                storeKey: 'configCategoryList',
                 remoteOptionConfig: {
                     key: 'configCategoryId',
                     value: 'configCategoryName',

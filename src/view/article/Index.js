@@ -22,7 +22,8 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-		}, {
+        }],
+		secondButtonList: [{
 			name: '新增',
 			icon: 'plus-circle',
 			type: 'ADD',
@@ -31,8 +32,8 @@ export default connect(function (state) {
 			name: '同步',
 			icon: 'sync',
 			type: 'SYNCHRONIZE',
-            synchronizeUrl: '/article/admin/v1/synchronize'
-        }],
+			synchronizeUrl: '/article/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'articleTitle',
             name: '标题',

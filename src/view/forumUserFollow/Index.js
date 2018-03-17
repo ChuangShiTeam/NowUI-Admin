@@ -20,12 +20,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/forumUserFollow/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/forum/user/follow/add'
+		}, {
+			name: '同步',
+			icon: 'loading-3-quarters',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/forum/user/follow/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'userId',
             name: '用户Id',

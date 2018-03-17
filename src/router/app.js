@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/app/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/app/Index').default);
-			}, 'app.index');
-        }
-    }, {
-        path: '/app/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/app/Detail').default);
-			}, 'app.add');
-        }
-    }, {
-        path: '/app/edit/:appId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/app/Detail').default);
-			}, 'app.edit.appId');
-        }
-    }]
-}
+import AppIndex from '../view/app/Index';
+import AppDetail from '../view/app/Detail';
+
+export default [
+	<Route key="AppIndex" path="/app/index" component={AppIndex}/>,
+	<Route key="AppAdd" path="/app/add" component={AppDetail}/>,
+	<Route key="AppEditAppId" path="/app/edit/:appId" component={AppDetail}/>
+]

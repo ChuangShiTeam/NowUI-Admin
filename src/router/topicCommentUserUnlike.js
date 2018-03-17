@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/topic/comment/user/unlike/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/topicCommentUserUnlike/Index').default);
-			}, 'topicCommentUserUnlike.index');
-        }
-    }, {
-        path: '/topic/comment/user/unlike/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/topicCommentUserUnlike/Detail').default);
-			}, 'topicCommentUserUnlike.add');
-        }
-    }, {
-        path: '/topic/comment/user/unlike/edit/:commentUserUnlikeId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/topicCommentUserUnlike/Detail').default);
-			}, 'topicCommentUserUnlike.edit.commentUserUnlikeId');
-        }
-    }]
-}
+import TopicCommentUserUnlikeIndex from '../view/topicCommentUserUnlike/Index';
+import TopicCommentUserUnlikeDetail from '../view/topicCommentUserUnlike/Detail';
+
+export default [
+	<Route key="TopicCommentUserUnlikeIndex" path="/topic/comment/user/unlike/index" component={TopicCommentUserUnlikeIndex}/>,
+	<Route key="TopicCommentUserUnlikeAdd" path="/topic/comment/user/unlike/add" component={TopicCommentUserUnlikeDetail}/>,
+	<Route key="TopicCommentUserUnlikeEditTopicCommentUserUnlikeId" path="/topic/comment/user/unlike/edit/:topicCommentUserUnlikeId" component={TopicCommentUserUnlikeDetail}/>
+]

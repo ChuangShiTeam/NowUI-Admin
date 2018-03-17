@@ -1,13 +1,8 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/dashboard/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/dashboard/Index').default);
-			}, 'dashboard.index');
-        }
-    }]
-}
+import DashboardIndex from '../view/dashboard/Index';
+
+export default [
+	<Route key="DashboardIndex" path="/dashboard/index" component={DashboardIndex}/>,
+]

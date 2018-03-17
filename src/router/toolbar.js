@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/toolbar/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/toolbar/Index').default);
-			}, 'toolbar.index');
-        }
-    }, {
-        path: '/toolbar/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/toolbar/Detail').default);
-			}, 'toolbar.add');
-        }
-    }, {
-        path: '/toolbar/edit/:toolbarId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/toolbar/Detail').default);
-			}, 'toolbar.edit.toolbarId');
-        }
-    }]
-}
+import ToolbarIndex from '../view/toolbar/Index';
+import ToolbarDetail from '../view/toolbar/Detail';
+
+export default [
+	<Route key="ToolbarIndex" path="/toolbar/index" component={ToolbarIndex}/>,
+	<Route key="ToolbarAdd" path="/toolbar/add" component={ToolbarDetail}/>,
+	<Route key="ToolbarEditToolbarId" path="/toolbar/edit/:toolbarId" component={ToolbarDetail}/>
+]

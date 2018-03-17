@@ -22,12 +22,18 @@ export default connect(function (state) {
             type: 'SEARCH',
             isLoad: true,
             isPrimary: true
-        }, {
-            name: '新增',
-            icon: 'plus-circle',
-            type: 'ADD',
-            addUrl: '/admin/add'
         }],
+		secondButtonList: [{
+			name: '新增',
+			icon: 'plus-circle',
+			type: 'ADD',
+			addUrl: '/admin/add'
+		}, {
+			name: '同步',
+			icon: 'loading-3-quarters',
+			type: 'SYNCHRONIZE',
+			synchronizeUrl: '/admin/admin/v1/synchronize'
+		}],
         searchList: [{
             id: 'userAccount',
             name: '账号',

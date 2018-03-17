@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/member/delivery/address/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/memberDeliveryAddress/Index').default);
-			}, 'memberDeliveryAddress.index');
-        }
-    }, {
-        path: '/member/delivery/address/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/memberDeliveryAddress/Detail').default);
-			}, 'memberDeliveryAddress.add');
-        }
-    }, {
-        path: '/member/delivery/address/edit/:memberDeliveryAddressId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/memberDeliveryAddress/Detail').default);
-			}, 'memberDeliveryAddress.edit.memberDeliveryAddressId');
-        }
-    }]
-}
+import MemberDeliveryAddressIndex from '../view/memberDeliveryAddress/Index';
+import NemberDeliveryAddressDetail from '../view/memberDeliveryAddress/Detail';
+
+export default [
+	<Route key="MemberDeliveryAddressIndex" path="/member/delivery/address/index" component={MemberDeliveryAddressIndex}/>,
+	<Route key="NemberDeliveryAddressAdd" path="/member/delivery/address/add" component={NemberDeliveryAddressDetail}/>,
+	<Route key="NemberDeliveryAddressEditNemberDeliveryAddressId" path="/member/delivery/address/edit/:memberDeliveryAddressId" component={NemberDeliveryAddressDetail}/>
+]

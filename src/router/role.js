@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/role/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/role/Index').default);
-			}, 'role.index');
-        }
-    }, {
-        path: '/role/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/role/Detail').default);
-			}, 'role.add');
-        }
-    }, {
-        path: '/role/edit/:roleId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/role/Detail').default);
-			}, 'role.edit.roleId');
-        }
-    }]
-}
+import RoleIndex from '../view/role/Index';
+import RoleDetail from '../view/role/Detail';
+
+export default [
+	<Route key="RoleIndex" path="/role/index" component={RoleIndex}/>,
+	<Route key="RoleAdd" path="/role/add" component={RoleDetail}/>,
+	<Route key="RoleEditRoleId" path="/role/edit/:roleId" component={RoleDetail}/>
+]

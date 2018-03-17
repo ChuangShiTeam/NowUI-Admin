@@ -1,4 +1,3 @@
-import React from 'react';
 import {connect} from 'react-redux';
 
 import NDetail from '../../layout/NDetail';
@@ -31,12 +30,15 @@ export default connect(function (state) {
 		columnList: [{
 			id: 'articleCategoryParentId',
 			name: '父级编号',
-			type: 'VARCHAR',
-			required: true
-		}, {
-			id: 'articleCategoryParentPath',
-			name: '父级路径',
-			type: 'VARCHAR',
+			type: 'SELECT',
+			select: {
+				remoteOptionConfig: {
+					key: 'articleCategoryId',
+					value: 'articleCategoryName',
+					url: '/article/category/admin/v1/tree',
+					params: {}
+				}
+			},
 			required: true
 		}, {
 			id: 'articleCategoryName',

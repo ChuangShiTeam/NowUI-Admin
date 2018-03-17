@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/app/config/category/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/appConfigCategory/Index').default);
-			}, 'appConfigCategory.index');
-        }
-    }, {
-        path: '/app/config/category/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/appConfigCategory/Detail').default);
-			}, 'appConfigCategory.add');
-        }
-    }, {
-        path: '/app/config/category/edit/:configCategoryId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/appConfigCategory/Detail').default);
-			}, 'appConfigCategory.edit.configCategoryId');
-        }
-    }]
-}
+import AppConfigCategoryIndex from '../view/appConfigCategory/Index';
+import AppConfigCategoryDetail from '../view/appConfigCategory/Detail';
+
+export default [
+	<Route key="AppConfigCategoryIndex" path="/app/config/category/index" component={AppConfigCategoryIndex}/>,
+	<Route key="AppConfigCategoryAdd" path="/app/config/category/add" component={AppConfigCategoryDetail}/>,
+	<Route key="AppConfigCategoryEditAppConfigCategoryId" path="/app/config/category/edit/:appConfigCategoryId" component={AppConfigCategoryDetail}/>
+]

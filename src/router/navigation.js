@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/navigation/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/navigation/Index').default);
-			}, 'navigation.index');
-        }
-    }, {
-        path: '/navigation/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/navigation/Detail').default);
-			}, 'navigation.add');
-        }
-    }, {
-        path: '/navigation/edit/:navigationId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/navigation/Detail').default);
-			}, 'navigation.edit.navigationId');
-        }
-    }]
-}
+import NavigationIndex from '../view/navigation/Index';
+import NavigationDetail from '../view/navigation/Detail';
+
+export default [
+	<Route key="NavigationIndex" path="/navigation/index" component={NavigationIndex}/>,
+	<Route key="NavigationAdd" path="/navigation/add" component={NavigationDetail}/>,
+	<Route key="NavigationEditNavigationId" path="/navigation/edit/:navigationId" component={NavigationDetail}/>
+]

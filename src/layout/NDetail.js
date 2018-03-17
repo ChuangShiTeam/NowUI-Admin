@@ -35,7 +35,7 @@ class NDetail extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.route.path.indexOf('/edit') > -1) {
+		if (this.props.match.path.indexOf('/edit') > -1) {
 			this.setState({
 				isEdit: true
 			});
@@ -425,10 +425,6 @@ class NDetail extends Component {
 																	 label={column.name}
 																	 staticOptionList={column.select.staticOptionList}
 																	 remoteOptionConfig={column.select.remoteOptionConfig}
-																	 storeKey={column.select.storeKey}
-																	 storeName={this.props.storeName}
-																	 store={this.props.store}
-																	 dispatch={this.props.dispatch}
 																	 allowClear={column.select.allowClear}
 																	 showSearch={column.select.showSearch}
 																	 initialValue={column.select.initialValue}
@@ -445,16 +441,10 @@ class NDetail extends Component {
 																		 multiple={column.select.multiple}
 																		 treeCheckable={column.select.treeCheckable}
 																		 treeDefaultExpandAll={column.select.treeDefaultExpandAll}
-																		 dispatch={this.props.dispatch}
-																		 store={this.props.store}
-																		 storeKey={column.select.storeKey}
-																		 storeName={column.select.storeName}
 																		 remoteOptionConfig={column.select.remoteOptionConfig}
 																		 returnValueName={column.select.returnValueName}
 																		 returnLabelName={column.select.returnLabelName}
-																		 returnObject={{
-																			 articleCategoryIsPrimary: false
-																		 }}
+																		 returnObject={column.select.returnObject}
 																		 getFieldDecorator={getFieldDecorator}
 																		 getFieldValue={getFieldValue}
 																		 setFieldsValue={setFieldsValue}

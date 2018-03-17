@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/forum/user/unfollow/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumUserUnfollow/Index').default);
-			}, 'forumUserUnfollow.index');
-        }
-    }, {
-        path: '/forum/user/unfollow/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumUserUnfollow/Detail').default);
-			}, 'forumUserUnfollow.add');
-        }
-    }, {
-        path: '/forum/user/unfollow/edit/:forumUserUnfollowMapId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/forumUserUnfollow/Detail').default);
-			}, 'forumUserUnfollow.edit.forumUserUnfollowMapId');
-        }
-    }]
-}
+import ForumUserUnfollowIndex from '../view/forumUserUnfollow/Index';
+import ForumUserUnfollowDetail from '../view/forumUserUnfollow/Detail';
+
+export default [
+	<Route key="ForumUserUnfollowIndex" path="/forumUser/unfollow/index" component={ForumUserUnfollowIndex}/>,
+	<Route key="ForumUserUnfollowAdd" path="/forumUser/unfollow/add" component={ForumUserUnfollowDetail}/>,
+	<Route key="ForumUserUnfollowEditForumUserUnfollowId" path="/forumUser/unfollow/edit/:forumUserUnfollowId" component={ForumUserUnfollowDetail}/>
+]

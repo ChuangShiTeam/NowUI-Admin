@@ -7,17 +7,15 @@ class NSelect extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {}
+		this.state = {
+			optionList: []
+		}
 	}
 
 	componentDidMount() {
-		if (this.props.storeKey && this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length === 0) {
-			let {url, params, key, value} = this.props.remoteOptionConfig;
-			if (url) {
-				this.handleLoadOptionList(url, params, key, value);
-			}
+		let {url, params, key, value} = this.props.remoteOptionConfig;
 
-		}
+		this.handleLoadOptionList(url, params, key, value);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -40,12 +38,10 @@ class NSelect extends Component {
 							value: option[value]
 						}
 					});
-					let storeData = {};
-					storeData[this.props.storeKey] = optionList;
-					this.props.dispatch({
-						type: this.props.storeName,
-						data: storeData
-					});
+
+					this.setState({
+						optionList: optionList
+					})
 				}
 			}.bind(this),
 			error: function () {
@@ -102,17 +98,14 @@ class NSelect extends Component {
 									)
 								})
 								:
-								null
+								''
 						}
 						{
-							this.props.storeKey && this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length > 0 ?
-								this.props.store[this.props.storeKey].map(function (option) {
-									return (
-										<Option key={option.key} value={option.key}>{option.value}</Option>
-									)
-								})
-								:
-								null
+							this.state.optionList.map(function (option) {
+								return (
+									<Option key={option.key} value={option.key}>{option.value}</Option>
+								)
+							})
 						}
 					</Select>
 				)}
@@ -134,9 +127,6 @@ NSelect.propTypes = {
 	multiLine: PropTypes.bool,
 	staticOptionList: PropTypes.array,
 	remoteOptionConfig: PropTypes.object,
-	storeName: PropTypes.string,
-	storeKey: PropTypes.string,
-	store: PropTypes.object,
 	dispatch: PropTypes.func,
 	allowClear: PropTypes.bool,
 	mode: PropTypes.oneOf(['multiple', 'tags', 'combobox']),
@@ -153,9 +143,8 @@ NSelect.defaultProps = {
 	multiLine: false,
 	staticOptionList: [],
 	remoteOptionConfig: {},
-	storeKey: '',
-	allowClear: false,
-	showSearch: false,
+	allowClear: true,
+	showSearch: true,
 	initialValue: []
 
 };

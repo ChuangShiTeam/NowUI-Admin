@@ -4,131 +4,19 @@ import {Form, TreeSelect} from 'antd';
 
 import http from '../common/http';
 
-class Children extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			list: [],
-			isLoad: false
-		};
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if ('value' in nextProps) {
-			if (typeof (nextProps.value) !== 'undefined') {
-				this.setState({
-					list: nextProps.value
-				});
-			}
-		}
-	}
-
-	componentDidMount() {
-
-	}
-
-	componentWillUnmount() {
-
-	}
-
-	handleChange(list) {
-		if (typeof (list) === 'undefined') {
-			return;
-		}
-
-		const onChange = this.props.onChange;
-		if (onChange) {
-			if (this.props.multiple && this.props.treeCheckable) {
-				let array = [];
-
-				for (let i = 0; i < list.length; i++) {
-					let item = Object.assign({}, this.props.returnObject, list[i]);
-
-					array.push(item);
-				}
-
-				onChange(array);
-			} else {
-				let item = Object.assign({}, this.props.returnObject, list);
-
-				onChange(item);
-			}
-		}
-	}
-
-	render() {
-		return (
-			<TreeSelect
-				value={this.state.list}
-				allowClear={this.props.allowClear}
-				showSearch={this.props.showSearch}
-				size={this.props.size}
-				multiple={this.props.multiple}
-				treeCheckable={this.props.treeCheckable}
-				filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-				treeNodeFilterProp={'title'}
-				showCheckedStrategy={this.props.showCheckedStrategy}
-				dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
-				treeData={this.props.treeData}
-				placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
-				treeDefaultExpandAll={this.props.treeDefaultExpandAll}
-				labelInValue={true}
-				onChange={this.handleChange.bind(this)}
-			/>
-		);
-	}
-}
-
-Children.propTypes = {
-	label: PropTypes.string,
-	placeholder: PropTypes.string,
-	required: PropTypes.bool,
-	message: PropTypes.string,
-	size: PropTypes.string,
-	multiLine: PropTypes.bool,
-	allowClear: PropTypes.bool,
-	showCheckedStrategy: PropTypes.oneOf([TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD]),
-	showSearch: PropTypes.bool,
-	treeDefaultExpandAll: PropTypes.bool,
-	treeCheckable: PropTypes.bool,
-	multiple: PropTypes.bool,
-	initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-	treeData: PropTypes.array,
-	returnObject: PropTypes.object
-};
-
-Children.defaultProps = {
-	label: '',
-	placeholder: '',
-	required: false,
-	message: '',
-	size: 'default',
-	multiLine: false,
-	allowClear: false,
-	showSearch: false,
-	treeDefaultExpandAll: false,
-	multiple: false,
-	treeCheckable: false,
-	initialValue: null,
-	returnValueName: '',
-	returnObject: {}
-};
-
 class NTreeSelect extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {}
+		this.state = {
+			treeDataList: []
+		}
 	}
 
 	componentDidMount() {
-		if (this.props.store[this.props.storeKey] && this.props.store[this.props.storeKey].length === 0) {
-			let {url, params, key, value} = this.props.remoteOptionConfig;
-			if (url) {
-				this.handleLoadTreeDataList(url, params, key, value);
-			}
-
+		let {url, params, key, value} = this.props.remoteOptionConfig;
+		if (url) {
+			this.handleLoadTreeDataList(url, params, key, value);
 		}
 
 		const onChange = this.props.onChange;
@@ -161,18 +49,18 @@ class NTreeSelect extends Component {
 			data: params,
 			success: function (data) {
 				if (data) {
-					let storeData = {};
-					storeData[this.props.storeKey] = this.handleTreeDataList(data, key, value);
-					this.props.dispatch({
-						type: this.props.storeName,
-						data: storeData
-					});
+					let treeDataList = this.handleTreeDataList(data, key, value);
+
+					this.setState({
+						treeDataList: treeDataList
+					})
 				}
 			}.bind(this),
 			error: function () {
 
 			},
 			complete: function () {
+
 			}
 		});
 	}
@@ -224,7 +112,8 @@ class NTreeSelect extends Component {
 					}],
 					initialValue: this.props.initialValue
 				})(
-					<Children
+					<TreeSelect
+						value={this.state.list}
 						allowClear={this.props.allowClear}
 						showSearch={this.props.showSearch}
 						size={this.props.size}
@@ -234,13 +123,11 @@ class NTreeSelect extends Component {
 						treeNodeFilterProp={'title'}
 						showCheckedStrategy={this.props.showCheckedStrategy}
 						dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
-						treeData={this.props.store[this.props.storeKey]}
+						treeData={this.state.treeDataList}
 						placeholder={this.props.placeholder === '' ? ('请选择' + this.props.label) : this.props.placeholder}
 						treeDefaultExpandAll={this.props.treeDefaultExpandAll}
 						labelInValue={true}
-						returnValueName={this.props.returnValueName}
-						returnLabelName={this.props.returnLabelName}
-						returnObject={this.props.returnObject}
+						onChange={this.handleChange.bind(this)}
 					/>
 				)}
 			</FormItem>
@@ -260,9 +147,6 @@ NTreeSelect.propTypes = {
 	size: PropTypes.string,
 	multiLine: PropTypes.bool,
 	remoteOptionConfig: PropTypes.object.isRequired,
-	storeName: PropTypes.string.isRequired,
-	storeKey: PropTypes.string.isRequired,
-	store: PropTypes.object.isRequired,
 	dispatch: PropTypes.func.isRequired,
 	allowClear: PropTypes.bool,
 	showCheckedStrategy: PropTypes.oneOf([TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD]),

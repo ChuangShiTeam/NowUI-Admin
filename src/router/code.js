@@ -1,21 +1,10 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-	childRoutes: [{
-		path: '/code/index',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/code/Index').default);
-			}, 'code.index');
-		}
-	}, {
-		path: '/code/view/:tableSchema/:tableName',
-		onEnter: util.handleEnter,
-		getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/code/Detail').default);
-			}, 'code.detail.tableSchema.tableName');
-		}
-	}]
-}
+import CodeIndex from '../view/code/Index';
+import CodeDetail from '../view/code/Detail';
+
+export default [
+	<Route key="CodeIndex" path="/code/index" component={CodeIndex}/>,
+	<Route key="CodeEditTableSchemaTableName" path="/code/view/:tableSchema/:tableName" component={CodeDetail}/>
+]

@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/topic/comment/user/like/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/topicCommentUserLike/Index').default);
-			}, 'topicCommentUserLike.index');
-        }
-    }, {
-        path: '/topic/comment/user/like/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/topicCommentUserLike/Detail').default);
-			}, 'topicCommentUserLike.add');
-        }
-    }, {
-        path: '/topic/comment/user/like/edit/:commentUserLikeId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-			require.ensure([], (require) => {
-				cb(null, require('../view/topicCommentUserLike/Detail').default);
-			}, 'topicCommentUserLike.edit.commentUserLikeId');
-        }
-    }]
-}
+import TopicCommentUserLikeIndex from '../view/topicCommentUserLike/Index';
+import TopicCommentUserLikeDetail from '../view/topicCommentUserLike/Detail';
+
+export default [
+	<Route key="TopicCommentUserLikeIndex" path="/view/topic/commentu/user/like/index" component={TopicCommentUserLikeIndex}/>,
+	<Route key="TopicCommentUserLikeAdd" path="/view/topic/commentu/user/like/add" component={TopicCommentUserLikeDetail}/>,
+	<Route key="TopicCommentUserLikeEditTopicCommentUserLikeId" path="/view/topic/commentu/user/like/edit/:topicCommentUserLikeId" component={TopicCommentUserLikeDetail}/>
+]
