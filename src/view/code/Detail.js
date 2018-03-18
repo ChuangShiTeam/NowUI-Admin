@@ -43,8 +43,8 @@ class Detail extends Component {
 		http.request({
 			url: '/code/admin/table/field/v1/list',
 			data: {
-				tableSchema: this.props.params['tableSchema'],
-				tableName: this.props.params['tableName']
+				tableSchema: this.props.match.params['tableSchema'],
+				tableName: this.props.match.params['tableName']
 			},
 			success: function (data) {
 				for (let i = 0; i < data.length; i++) {
@@ -197,7 +197,7 @@ class Detail extends Component {
 				isLoad: true
 			});
 
-			values.tableName = this.props.params['tableName'];
+			values.tableName = this.props.match.params['tableName'];
 			values.columnList = JSON.stringify(this.state.columnList);
 
 			http.request({

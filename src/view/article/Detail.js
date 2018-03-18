@@ -56,7 +56,7 @@ class Detail extends Component {
 		});
 
 		let values = {};
-		values.articleId = this.props.params.articleId;
+		values.articleId = this.props.match.params.articleId;
 
 		http.request({
 			url: '/article/admin/v1/find',
@@ -157,7 +157,7 @@ class Detail extends Component {
 			}
 
 			if (this.state.isEdit) {
-				values.articleId = this.props.params.articleId;
+				values.articleId = this.props.match.params.articleId;
 			}
 			values.systemVersion = this.state.systemVersion;
 
@@ -188,7 +188,7 @@ class Detail extends Component {
 		});
 
 		let values = {};
-		values.articleId = this.props.params.articleId;
+		values.articleId = this.props.match.params.articleId;
 
 		http.request({
 			url: '/article/admin/v1/synchronize',
@@ -230,7 +230,7 @@ class Detail extends Component {
 				});
 
 				let values = {};
-				values.articleId = this.props.params.articleId;
+				values.articleId = this.props.match.params.articleId;
 				values.systemVersion = this.state.systemVersion;
 
 				http.request({

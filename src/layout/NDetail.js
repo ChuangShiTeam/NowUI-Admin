@@ -42,8 +42,8 @@ class NDetail extends Component {
 
 			this.handleLoad();
 		}
-		if (this.props.params) {
-			this.setState(this.props.params);
+		if (this.props.match.params) {
+			this.setState(this.props.match.params);
 		}
 	}
 
@@ -65,7 +65,7 @@ class NDetail extends Component {
 		});
 
 		let values = {};
-		values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+		values[this.props.primaryKey] = this.props.match.params[this.props.primaryKey];
 
 		http.request({
 			url: this.props.baseUrl + '/find',
@@ -181,7 +181,7 @@ class NDetail extends Component {
 			});
 
 			if (this.state.isEdit) {
-				values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+				values[this.props.primaryKey] = this.props.match.params[this.props.primaryKey];
 			}
 			values.systemVersion = this.state.systemVersion;
 
@@ -229,7 +229,7 @@ class NDetail extends Component {
 				});
 
 				let values = {};
-				values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+				values[this.props.primaryKey] = this.props.match.params[this.props.primaryKey];
 				values.systemVersion = this.state.systemVersion;
 
 				http.request({
@@ -264,7 +264,7 @@ class NDetail extends Component {
 		});
 
 		let values = {};
-		values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+		values[this.props.primaryKey] = this.props.match.params[this.props.primaryKey];
 
 		http.request({
 			url: this.props.baseUrl + '/synchronize',

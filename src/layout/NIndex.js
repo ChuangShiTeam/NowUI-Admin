@@ -182,7 +182,7 @@ class NIndex extends Component {
 		});
 
 		let values = {};
-		values[this.props.primaryKey] = this.props.params[this.props.primaryKey];
+		values[this.props.primaryKey] = this.props.match.params[this.props.primaryKey];
 
 		http.request({
 			url: synchronizeUrl,
