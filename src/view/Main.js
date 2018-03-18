@@ -155,10 +155,13 @@ class Index extends Component {
 							<Menu.Item key="6.1"><NavLink to={'/pet/category/index'}>宠物分类信息</NavLink></Menu.Item>
 							<Menu.Item key="6.2"><NavLink to={'/pet/index'}>宠物信息</NavLink></Menu.Item>
 						</SubMenu>
-						{/*<SubMenu key="sub7" title={<span><Icon type="camera-o" /><span>医院管理</span></span>}>*/}
-						{/*<Menu.Item key="7.1"><NavLink to={'/doctor/index'}>医生信息</NavLink></Menu.Item>*/}
-						{/*<Menu.Item key="7.2"><NavLink to={'/patient/index'}>患者信息</NavLink></Menu.Item>*/}
-						{/*</SubMenu>*/}
+						<SubMenu key="sub7" title={<span><Icon type="camera-o" /><span>医院管理</span></span>}>
+							<Menu.Item key="7.1"><NavLink to={'/doctor/index'}>医生信息</NavLink></Menu.Item>
+							<Menu.Item key="7.2"><NavLink to={'/patient/index'}>患者信息</NavLink></Menu.Item>
+							<Menu.Item key="7.3"><NavLink to={'/course/index'}>课程信息</NavLink></Menu.Item>
+							<Menu.Item key="7.4"><NavLink to={'/course/order/index'}>课程订单</NavLink></Menu.Item>
+							<Menu.Item key="7.5"><NavLink to={'/course/video/index'}>课程视频</NavLink></Menu.Item>
+						</SubMenu>
 
 						<SubMenu key="sub8" title={<span><Icon type="camera-o"/><span>代码管理</span></span>}>
 							<Menu.Item key="8.1"><NavLink to={'/code/index'}>数据库表信息</NavLink></Menu.Item>

@@ -1,6 +1,8 @@
+import React from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
+import constant from "../../common/constant";
 
 export default connect(function (state) {
     return {
@@ -36,17 +38,13 @@ export default connect(function (state) {
             id: 'courseAuthorUserId',
             name: '课程作者的userId',
             type: 'VARCHAR',
-            }, {
+        }, {
             id: 'courseAuthorDoctorId',
             name: '课程作者的医生Id',
             type: 'VARCHAR',
-            }, {
+        }, {
             id: 'courseTitle',
             name: '课程标题',
-            type: 'VARCHAR',
-            }, {
-            id: 'courseIntroduce',
-            name: '课程介绍',
             type: 'VARCHAR',
         }],
         columnList: [{
@@ -55,6 +53,10 @@ export default connect(function (state) {
         }, {
             id: 'courseAuthorDoctorId',
             name: '课程作者的医生Id'
+        }, {
+            id: 'courseTitle',
+            name: '课程标题',
+            editUrl: '/course/edit/:courseId'
         }, {
             id: 'courseIntroduce',
             name: '课程介绍'
@@ -65,8 +67,18 @@ export default connect(function (state) {
             id: 'courseCoverContent',
             name: '课程栏目封面推荐词'
         }, {
-            id: 'courseCoverImageFileId',
-            name: '课程封面图片'
+            id: 'courseCoverImageFilePath',
+            name: '课程封面图片',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 50}} src={constant.imageHost + text} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }]
     }
 })(NIndex);

@@ -1,16 +1,15 @@
 const initialState = {
-    courseAuthorUserId: '',
-    courseAuthorDoctorId: '',
-    courseTitle: '',
+    courseId: '',
+    courseCountType: '',
     total: 0,
     list: [],
     pageIndex: 1,
     pageSize: 10
 };
 
-function course(state = initialState, action) {
+function courseCount(state = initialState, action) {
     switch (action.type) {
-        case 'course':
+        case 'courseCount':
             return Object.assign({}, state, action.data);
 
         default :
@@ -18,4 +17,4 @@ function course(state = initialState, action) {
     }
 }
 
-export default course;
+export default courseCount;

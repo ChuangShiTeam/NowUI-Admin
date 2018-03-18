@@ -35,5 +35,8 @@ export default {
 		// require('../router/topicCommentUserLike').default,
 		// require('../router/topicCommentUserUnlike').default,
 		// require('../router/topicForum').default,
+        require('../router/course').default,
+        require('../router/courseOrder').default,
+        require('../router/courseVideo').default,
 	]
 };

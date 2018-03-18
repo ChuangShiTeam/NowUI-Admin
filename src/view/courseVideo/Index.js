@@ -1,6 +1,8 @@
+import React from 'react';
 import {connect} from 'react-redux';
 
 import NIndex from '../../layout/NIndex';
+import constant from "../../common/constant";
 
 export default connect(function (state) {
     return {
@@ -36,11 +38,11 @@ export default connect(function (state) {
             id: 'courseId',
             name: '课程编号',
             type: 'VARCHAR',
-            }, {
+        }, {
             id: 'courseVideoTitle',
             name: '课程视频标题',
             type: 'VARCHAR',
-            }, {
+        }, {
             id: 'courseVideoIntroduce',
             name: '课程视频简介',
             type: 'VARCHAR',
@@ -50,7 +52,8 @@ export default connect(function (state) {
             name: '课程编号'
         }, {
             id: 'courseVideoTitle',
-            name: '课程视频标题'
+            name: '课程视频标题',
+            editUrl: '/course/video/edit/:courseVideoId'
         }, {
             id: 'courseVideoIntroduce',
             name: '课程视频简介'
@@ -58,8 +61,18 @@ export default connect(function (state) {
             id: 'courseVideoFileId',
             name: '课程视频文件编号'
         }, {
-            id: 'courseVideoCoverFileId',
-            name: '课程视频封面截图文件编号'
+            id: 'courseVideoCoverFilePath',
+            name: '课程视频封面截图文件编号',
+            render: function (text, record, index, self) {
+                return (
+                    text ?
+                        <span>
+                          <img alt="example" style={{width: 50}} src={constant.imageHost + text} />
+                        </span>
+                        :
+                        null
+                )
+            }
         }, {
             id: 'courseVideoSort',
             name: '课程视频排序'
