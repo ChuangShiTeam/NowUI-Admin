@@ -37,7 +37,7 @@ export default connect(function (state) {
 			name: '分类名称',
 			type: 'VARCHAR',
 		}, {
-			id: 'articleCategoryCode',
+			id: 'articleCategoryKey',
 			name: '分类编码',
 			type: 'VARCHAR',
 		}],
@@ -46,7 +46,7 @@ export default connect(function (state) {
 			name: '分类名称',
 			editUrl: '/article/category/edit/:articleCategoryId'
 		}, {
-			id: 'articleCategoryCode',
+			id: 'articleCategoryKey',
 			name: '分类编码'
 		}, {
 			id: 'articleCategoryImageId',

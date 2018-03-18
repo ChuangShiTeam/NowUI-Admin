@@ -46,7 +46,7 @@ export default connect(function (state) {
 			type: 'VARCHAR',
 			required: true
 		}, {
-			id: 'articleCategoryCode',
+			id: 'articleCategoryKey',
 			name: '分类编码',
 			type: 'VARCHAR',
 			required: true
