@@ -56,7 +56,7 @@ export default connect(function (state) {
 			max: 99999,
             required: true
         }, {
-            id: 'courseVideoCoverFilePath',
+            id: 'courseVideoCoverFileId',
             mediaPathKey: 'courseVideoCoverFilePath',
             name: '课程视频封面截图',
             type: 'MEDIA',
