@@ -1,29 +1,11 @@
-import util from '../common/util';
+import React from 'react'
+import {Route} from 'react-router-dom';
 
-export default {
-    childRoutes: [{
-        path: '/course/index',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/course/Index').default);
-            }, 'course.index');
-        }
-    }, {
-        path: '/course/add',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/course/Detail').default);
-            }, 'course.add');
-        }
-    }, {
-        path: '/course/edit/:courseId',
-        onEnter: util.handleEnter,
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../view/course/Detail').default);
-            }, 'course.edit.courseId');
-        }
-    }]
-}
+import CourseIndex from '../view/course/Index';
+import CourseDetail from '../view/course/Detail';
+
+export default [
+	<Route key="CourseIndex" path="/course/index" component={CourseIndex}/>,
+	<Route key="CourseAdd" path="/course/add" component={CourseDetail}/>,
+	<Route key="CourseEditCourseId" path="/course/edit/:courseId" component={CourseDetail}/>
+]

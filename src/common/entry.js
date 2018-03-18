@@ -11,7 +11,7 @@ export default {
 		// require('../router/articleCategory').default,
 		// require('../router/articlePrice').default,
 		// require('../router/articleUserPurchase').default,
-		// require('../router/code').default,
+		require('../router/code').default,
 		require('../router/dashboard').default,
 		// require('../router/forum').default,
 		// require('../router/forumAudit').default,
@@ -35,5 +35,8 @@ export default {
 		// require('../router/topicCommentUserLike').default,
 		// require('../router/topicCommentUserUnlike').default,
 		// require('../router/topicForum').default,
+        require('../router/course').default,
+        require('../router/courseOrder').default,
+        require('../router/courseVideo').default,
 	]
 };
